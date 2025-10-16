@@ -12,5 +12,14 @@ app.secret_key = os.getenv('SECRET_KEY', uuid.uuid4().hex)
 app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 
 
+# TODO(はるか): ログイン・サインアップ用の関数定義
+
+
+# TODO(うっちーさん): チャンネル用の関数定義
+
+
+# TODO(rootさん): メッセージ用の関数定義
+
+
 if __name__ == "__main__":
     app.run()
