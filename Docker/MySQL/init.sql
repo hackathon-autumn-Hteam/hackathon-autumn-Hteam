@@ -35,7 +35,7 @@ CREATE TABLE messages (
     FOREIGN KEY (cid) REFERENCES channels(id) ON DELETE CASCADE
 );
 
--- TODO 都道府県テーブルの定義(はるか)
+# TODO(はるか): 都道府県テーブルの定義
 
 
--- TODO 都道府県の初期データを定義(はるか)
+# TODO(はるか): 都道府県の初期データを定義
