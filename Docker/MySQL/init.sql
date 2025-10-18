@@ -26,10 +26,10 @@ CREATE TABLE channels (
 
 # TODO(rootさん): メッセージテーブルの定義
 CREATE TABLE messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(255) PRIMARY KEY,
     uid VARCHAR(255) NOT NULL,
     cid INT NOT NULL,
-    message TEXT,
+    message TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
     FOREIGN KEY (cid) REFERENCES channels(id) ON DELETE CASCADE
