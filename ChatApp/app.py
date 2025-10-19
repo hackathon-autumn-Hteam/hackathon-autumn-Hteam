@@ -12,7 +12,6 @@ app.secret_key = os.getenv('SECRET_KEY', uuid.uuid4().hex)
 app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 
 
-# TODO(はるか): ログイン・サインアップ用の関数定義
 @app.route("/", methods=["GET"])
 def index():
     """ルートページのリダイレクト処理
@@ -33,26 +32,31 @@ def index():
     return redirect(url_for("channels_view"))
 
 
+# TODO(はるか): signup_view関数の実装
 @app.route("/signup", methods=["GET"])
 def signup_view():
     pass
 
 
+# TODO(はるか): signup関数の実装
 @app.route("/signup", methods=["POST"])
 def signup():
     pass
 
 
+# TODO(はるか): login_view関数の実装
 @app.route("/login", methods=["GET"])
 def login_view():
     pass
 
 
+# TODO(はるか): login関数の実装
 @app.route("/login", methods=["POST"])
 def login():
     pass
 
 
+# TODO(はるか): logout関数の実装
 @app.route("/logout", methods=["GET"])
 def logout():
     pass
