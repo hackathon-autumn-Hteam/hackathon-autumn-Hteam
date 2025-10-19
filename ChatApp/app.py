@@ -29,6 +29,7 @@ def index():
     user_id = session.get("user_id")
     if user_id is None:
         return redirect(url_for("login_view"))
+
     return redirect(url_for("channels_view"))
 
 
