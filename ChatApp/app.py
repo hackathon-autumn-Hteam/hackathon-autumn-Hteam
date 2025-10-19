@@ -13,6 +13,34 @@ app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 
 
 # TODO(はるか): ログイン・サインアップ用の関数定義
+@app.route("/", methods=["GET"])
+def index():
+    pass
+
+
+@app.route("/signup", methods=["GET"])
+def signup_view():
+    pass
+
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    pass
+
+
+@app.route("/login", methods=["GET"])
+def login_view():
+    pass
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    pass
+
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    pass
 
 
 # TODO(うっちーさん): チャンネル用の関数定義
