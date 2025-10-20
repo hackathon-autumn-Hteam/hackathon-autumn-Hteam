@@ -2,7 +2,9 @@ from flask import Flask, request, session, redirect, url_for, render_template, f
 from datetime import timedelta
 import os
 import uuid
+import hashlib
 
+from models import User
 
 # 定数定義
 SESSION_DAYS = 30
@@ -16,12 +18,10 @@ app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 def index():
     """ルートページのリダイレクト処理
 
-    ユーザーのログイン状態に応じて遷移先を切り替える。
-    - 未ログインの場合はログインページ(login_view)へリダイレクト。
-    - ログイン済みの場合はチャンネル一覧ページ(channels_view)へリダイレクト。
-
     Returns:
         flask.Response: リダイレクト先のHTTPレスポンス。
+            - 未ログイン: ログインページ(login_view)へリダイレクト。
+            - ログイン済み: チャンネル一覧ページ(channels_view)へリダイレクト。
     """
     # NOTE: sessionからuser_idを取得します。
     #       user_idがNoneの場合は、未ログインです。
@@ -43,10 +43,42 @@ def signup_view():
     return render_template("auth/signup.html")  # TODO(はるか): フロント側との調整(auth/signup.html)
 
 
-# TODO(はるか): signup関数の実装
 @app.route("/signup", methods=["POST"])
 def signup():
-    pass
+    """サインアップ処理
+
+    Returns:
+        flask.Response: リダイレクト先のHTTPレスポンス。
+            - 入力不備や登録エラー時: サインアップページ(signup_view)へのリダイレクト。
+            - 登録成功時: チャンネル一覧ページ(channels_view)へのリダイレクト。
+    """
+    user_name = request.form.get("user_name")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    # TODO(はるか): フロント側との調整(パスワードの確認フォームを用意するか)
+    password_confirmation = request.form.get("password_confirmation")
+    prefecture_id = request.form.get("prefecture_id")
+
+    if user_name == "":
+        flash("名前を入力してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+    elif email == "":
+        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+    elif password != password_confirmation:
+        flash("パスワードが一致しません。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+    elif prefecture_id == "":
+        flash("都道府県を選択してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+    else:
+        user_id = uuid.uuid4()
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        registered_user = User.find_by_email(email)
+
+        if registered_user is not None:
+            flash("既に使用されているメールアドレスです。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        else:
+            User.create(user_id, user_name, email, password, prefecture_id)
+            session["user_id"] = user_id
+            return redirect(url_for("channels_view"))
+    return redirect(url_for("signup_view"))
 
 
 # TODO(はるか): login_view関数の実装
