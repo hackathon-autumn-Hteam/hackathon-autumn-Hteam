@@ -52,6 +52,7 @@ def signup():
             - 入力不備や登録エラー時: サインアップページ(signup_view)へのリダイレクト。
             - 登録成功時: チャンネル一覧ページ(channels_view)へのリダイレクト。
     """
+    # 入力値の取得
     user_name = request.form.get("user_name")
     email = request.form.get("email")
     password = request.form.get("password")
@@ -59,26 +60,36 @@ def signup():
     password_confirmation = request.form.get("password_confirmation")
     prefecture_id = request.form.get("prefecture_id")
 
+    # 入力チェック
     if user_name == "":
         flash("名前を入力してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
-    elif email == "":
-        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
-    elif password != password_confirmation:
-        flash("パスワードが一致しません。")  # TODO(はるか): フロント側との調整(メッセージの内容)
-    elif prefecture_id == "":
-        flash("都道府県を選択してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
-    else:
-        user_id = uuid.uuid4()
-        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        registered_user = User.find_by_email(email)
+        return redirect(url_for("signup_view"))
 
-        if registered_user is not None:
-            flash("既に使用されているメールアドレスです。")  # TODO(はるか): フロント側との調整(メッセージの内容)
-        else:
-            User.create(user_id, user_name, email, password, prefecture_id)
-            session["user_id"] = user_id
-            return redirect(url_for("channels_view"))
-    return redirect(url_for("signup_view"))
+    if email == "":
+        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("signup_view"))
+
+    if password != password_confirmation:
+        flash("パスワードが一致しません。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("signup_view"))
+
+    if prefecture_id == "":
+        flash("都道府県を選択してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("signup_view"))
+
+    # DBからユーザーを取得
+    registered_user = User.find_by_email(email)
+    if registered_user:
+        flash("既に使用されているメールアドレスです。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("signup_view"))
+
+    # ユーザー登録
+    user_id = uuid.uuid4()
+    password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    User.create(user_id, user_name, email, password, prefecture_id)
+    session["user_id"] = user_id
+    return redirect(url_for("channels_view"))
 
 
 @app.route("/login", methods=["GET"])
@@ -92,13 +103,47 @@ def login_view():
     return render_template("auth/login.html")
 
 
-# TODO(はるか): login関数の実装
 @app.route("/login", methods=["POST"])
 def login():
-    pass
+    """ログイン処理
 
+    Returns:
+        flask.Response: リダイレクト先のHTTPレスポンス。
+            - 入力不備や認証失敗時: ログインページ(login_view)へのリダイレクト。
+            - 登録成功時: チャンネル一覧ページ(channels_view)へのリダイレクト。
+    """
+    # 入力値の取得
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    # 入力チェック
+    if email == "":
+        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("login_view"))
+
+    if password == "":
+        flash("パスワードを入力してください。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("login_view"))
+
+    # DBからユーザーを取得
+    user = User.find_by_email(email)
+    if user is None:
+        flash("メールアドレスまたはパスワードが間違っています。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("login_view"))
+
+    # パスワード照合
+    hash_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+    if user.password != hash_password:
+        flash("メールアドレスまたはパスワードが間違っています。")  # TODO(はるか): フロント側との調整(メッセージの内容)
+        return redirect(url_for("login_view"))
+
+    # 認証成功
+    session["user_id"] = user.user_id
+    return redirect(url_for("channels_view"))
 
 # TODO(はるか): logout関数の実装
+
+
 @app.route("/logout", methods=["GET"])
 def logout():
     pass
