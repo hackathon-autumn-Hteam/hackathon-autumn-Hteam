@@ -86,8 +86,9 @@ def signup():
     # ユーザー登録
     user_id = uuid.uuid4()
     password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-
     User.create(user_id, user_name, email, password, prefecture_id)
+
+    # ログイン済みとしてユーザーIDをセッションに保持
     session["user_id"] = user_id
     return redirect(url_for("channels_view"))
 
@@ -110,7 +111,7 @@ def login():
     Returns:
         flask.Response: リダイレクト先のHTTPレスポンス。
             - 入力不備や認証失敗時: ログインページ(login_view)へのリダイレクト。
-            - 登録成功時: チャンネル一覧ページ(channels_view)へのリダイレクト。
+            - 認証成功時: チャンネル一覧ページ(channels_view)へのリダイレクト。
     """
     # 入力値の取得
     email = request.form.get("email")
@@ -141,12 +142,17 @@ def login():
     session["user_id"] = user.user_id
     return redirect(url_for("channels_view"))
 
-# TODO(はるか): logout関数の実装
-
 
 @app.route("/logout", methods=["GET"])
 def logout():
-    pass
+    """ログアウト処理
+
+    Returns:
+        flask.Response: リダイレクト先のHTTPレスポンス。
+            ログインページ(login_view)へのリダイレクト。
+    """
+    session.clear()
+    return redirect(url_for("login_view"))
 
 
 # TODO(うっちーさん): チャンネル用の関数定義

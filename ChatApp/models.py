@@ -12,6 +12,10 @@ class User:
     def create(cls, user_id, user_name, email, password, prefecture_id):
         pass
 
+    @classmethod
+    def find_by_email(cls, email):
+        pass
+
 
 # TODO(うっちーさん): チャンネルクラスを定義
 
