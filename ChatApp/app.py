@@ -81,10 +81,15 @@ def signup():
     return redirect(url_for("signup_view"))
 
 
-# TODO(はるか): login_view関数の実装
 @app.route("/login", methods=["GET"])
 def login_view():
-    pass
+    """ログインページの表示
+
+    Returns:
+        flask.Response: ログインページを描画したHTTPレスポンス。
+    """
+    # TODO(はるか): フロント側との調整(auth/login.html)
+    return render_template("auth/login.html")
 
 
 # TODO(はるか): login関数の実装
