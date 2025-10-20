@@ -17,17 +17,18 @@ CREATE TABLE users (
 
 # TODO(うっちーさん): チャンネルテーブルの定義
 CREATE TABLE channels (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    uid VARCHAR(255) NOT NULL,
-    name VARCHAR(255) UNIQUE NOT NULL,
-    abstract VARCHAR(255),
-    FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE
+    channel_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    channel_name VARCHAR(255) UNIQUE NOT NULL,
+    description VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
 
 # TODO(rootさん): メッセージテーブルの定義
 CREATE TABLE messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    uid VARCHAR(255) NOT NULL,
+     INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
     cid INT NOT NULL,
     message TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
