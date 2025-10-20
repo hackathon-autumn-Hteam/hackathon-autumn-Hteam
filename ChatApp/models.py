@@ -7,6 +7,10 @@ db_pool = DB.init_db_pool()
 
 
 # TODO(はるか): ユーザークラスを定義
+class User:
+    @classmethod
+    def create(cls, user_id, user_name, email, password, prefecture_id):
+        pass
 
 
 # TODO(うっちーさん): チャンネルクラスを定義
@@ -16,3 +20,5 @@ db_pool = DB.init_db_pool()
 
 
 # TODO(はるか): 都道府県クラスを定義
+class Prefecture:
+    pass
