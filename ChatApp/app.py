@@ -40,7 +40,7 @@ def signup_view():
     Returns:
         flask.Response: サインアップページを描画したHTTPレスポンス。
     """
-    return render_template("auth/signup.html")  # TODO: フロント側との調整
+    return render_template("auth/signup.html")  # TODO(はるか): フロント側との調整(auth/signup.html)
 
 
 # TODO(はるか): signup関数の実装
