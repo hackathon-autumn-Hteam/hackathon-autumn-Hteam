@@ -26,13 +26,13 @@ CREATE TABLE channels (
 
 # TODO(rootさん): メッセージテーブルの定義
 CREATE TABLE messages (
-    id VARCHAR(255) PRIMARY KEY,
-    uid VARCHAR(255) NOT NULL,
-    cid INT NOT NULL,
-    message TEXT NOT NULL,
+    message_id VARCHAR(255) PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    channel_id INT NOT NULL,
+    message_txt TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
-    FOREIGN KEY (cid) REFERENCES channels(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (channel_id) REFERENCES channels(channel_id) ON DELETE CASCADE
 );
 
 # TODO(はるか): 都道府県テーブルの定義
