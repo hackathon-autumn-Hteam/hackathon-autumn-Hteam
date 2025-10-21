@@ -136,20 +136,34 @@ def delete_channel(channel_id):
 # TODO(rootさん): メッセージ用の関数定義
 # TODO:メッセージ一覧ページの表示
 @app.route('/channels/<channel_id>/messages', methods=['GET'])
-def messages_view():
+def messages_view(channel_id):
     # ユーザーがログインしているかを確認
-    user_id = session.get(user_id)
-    if user_id is None:
+    user_id = session.get(user_id) #sessionの情報はどこで定義されているのだろう？
+    if user_id is None: # ログインしていない場合はlogin_viewへ
         return redirect(url_for('login_view'))
     
-    # channel_idのチャンネル名を取得(DBから)
-    channel_name = Channel.find_by_cid(channel_id)
+    # channel_idのチャンネル名を取得(models.py)
+    channel_name = Channel.find_by_cid(channel_id) 
 
-    # channel_idのメッセージを全て取得(DBから)
+    # channel_idのチャンネル詳細を取得(models.py)
+    description = Channel.find_by_cid(channel_id) 
+
+    # 該当するchannel_idのuser_nameを全て取得(models.py)
+    user_name = Message.get_all(channel_id)
+
+    # 該当するchannel_idのprefecture_nameを全て取得(models.py)
+    preecture_name = Message.get_all(channel_id)
+    
+    # 該当するchannel_idのメッセージを全て取得(models.py)
     messages = Message.get_all(channel_id)
+    
+    # channel_idの投稿日時を全て取得(models.py)
+    created_at = Message.get_all(channel_id)
 
-    # user_id,チャンネル名,channel_idのmessage,メッセージページを返す
-    return render_template('messages.html', messages=messages, channel_name=channel_name, user_id=user_id)
+    # メッセージページ,チャンネル名,チャンネル詳細,ユーザーID,ユーザー名,都道府県名,メッセージ,投稿日時を返す
+    return render_template('messages.html', channel_name=channel_name, description=description,\
+                           user_id=user_id,user_name=user_name,preecture_name=preecture_name,\
+                            messages=messages,created_at=created_at)
 
 # TODO:メッセージの投稿
 @app.route('/channels/<channel_id>/messages', methods=['POST'])
