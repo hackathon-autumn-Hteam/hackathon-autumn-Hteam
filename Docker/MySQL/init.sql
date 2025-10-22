@@ -4,13 +4,13 @@ DROP USER 'testuser';
 
 CREATE USER 'testuser' IDENTIFIED BY 'testuser';
 CREATE DATABASE chatapp;
-USE chatapp
+USE chatapp;
 GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser';
 
 CREATE TABLE prefectures (
     prefecture_id INT AUTO_INCREMENT PRIMARY KEY,
     prefecture_name VARCHAR(255) NOT NULL
-)
+);
 
 CREATE TABLE users (
     user_id VARCHAR(255) PRIMARY KEY,
