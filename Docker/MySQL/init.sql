@@ -29,16 +29,15 @@ CREATE TABLE channels (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-# TODO(rootさん): メッセージテーブルの定義
--- CREATE TABLE messages (
---     message_id INT AUTO_INCREMENT PRIMARY KEY,
---     user_id VARCHAR(255) NOT NULL,
---     cid INT NOT NULL,
---     message TEXT,
---     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
---     FOREIGN KEY (cid) REFERENCES channels(id) ON DELETE CASCADE
--- );
+CREATE TABLE messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    channel_id INT NOT NULL,
+    message_txt TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (channel_id) REFERENCES channels(channel_id) ON DELETE CASCADE
+);
 
 INSERT INTO prefectures (prefecture_name)
 VALUES
