@@ -33,7 +33,7 @@ CREATE TABLE channels (
 
 # TODO(rootさん): メッセージテーブルの定義
 CREATE TABLE messages (
-    message_id VARCHAR(255) PRIMARY KEY,
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
     channel_id INT NOT NULL,
     message_txt TEXT NOT NULL,
