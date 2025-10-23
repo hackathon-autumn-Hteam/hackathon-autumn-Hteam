@@ -138,15 +138,15 @@ def delete_channel(channel_id):
 @app.route('/channels/<channel_id>/messages', methods=['GET'])
 def messages_view(channel_id):
     # ユーザーがログインしているかを確認
-    user_id = session.get(user_id) #sessionの情報はどこで定義されているのだろう？
+    user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
     if user_id is None: # ログインしていない場合はlogin_viewへ
         return redirect(url_for('login_view'))
     
     # channel_idのチャンネル名を取得(models.py)
-    channel_name = Channel.find_by_cid(channel_id) 
+    channel_name = Channel.find_by_chanenl_id(channel_id) 
 
     # channel_idのチャンネル詳細を取得(models.py)
-    description = Channel.find_by_cid(channel_id) 
+    description = Channel.find_by_chanenl_id(channel_id) 
 
     # 該当するchannel_idのuser_nameを全て取得(models.py)
     user_name = Message.get_all(channel_id)
