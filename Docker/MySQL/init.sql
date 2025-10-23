@@ -21,7 +21,6 @@ CREATE TABLE users (
     FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id) ON DELETE RESTRICT
 );
 
-# TODO(うっちーさん): チャンネルテーブルの定義
 CREATE TABLE channels (
     channel_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
@@ -30,8 +29,6 @@ CREATE TABLE channels (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-
-# TODO(rootさん): メッセージテーブルの定義
 CREATE TABLE messages (
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
