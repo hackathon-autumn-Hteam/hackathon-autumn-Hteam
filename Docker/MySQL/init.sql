@@ -4,13 +4,13 @@ DROP USER 'testuser';
 
 CREATE USER 'testuser' IDENTIFIED BY 'testuser';
 CREATE DATABASE chatapp;
-USE chatapp
+USE chatapp;
 GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser';
 
 CREATE TABLE prefectures (
     prefecture_id INT AUTO_INCREMENT PRIMARY KEY,
     prefecture_name VARCHAR(255) NOT NULL
-)
+);
 
 CREATE TABLE users (
     user_id VARCHAR(255) PRIMARY KEY,
@@ -21,7 +21,6 @@ CREATE TABLE users (
     FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id) ON DELETE RESTRICT
 );
 
-# TODO(うっちーさん): チャンネルテーブルの定義
 CREATE TABLE channels (
     channel_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
@@ -30,16 +29,14 @@ CREATE TABLE channels (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-
-# TODO(rootさん): メッセージテーブルの定義
 CREATE TABLE messages (
-    INT AUTO_INCREMENT PRIMARY KEY,
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
-    cid INT NOT NULL,
-    message TEXT,
+    channel_id INT NOT NULL,
+    message_txt TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
-    FOREIGN KEY (cid) REFERENCES channels(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (channel_id) REFERENCES channels(channel_id) ON DELETE CASCADE
 );
 
 INSERT INTO prefectures (prefecture_name)
