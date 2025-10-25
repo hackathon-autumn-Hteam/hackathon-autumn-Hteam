@@ -15,22 +15,30 @@
 <h1>Rare Garden</h1>
 
 <p>メールアドレス</p>
-<input type="text" id="email address" class="textbox" placeholder="メールアドレスを入力">
+<input type="text" id="email address" class="textbox" placeholder="メールアドレスを入力" required>
 
 <p>パスワード</p>
-<input type="password" id="password" class="textbox" placeholder="パスワードを入力">
+<input type="password" id="password" class="textbox" placeholder="パスワードを入力" required>
 <br>
 <input type="checkbox" id="showpassword" onchange="showOrHide()" class="margin">
 <span>パスワードを表示する</span>
 <br>
 
-<input type="button" value="ログイン" class="button margin" onclick="login()">
-
-<input type="button" value="登録はこちら" class="button margin" onclick="login()">
-  
+<input type="button" value="ログイン" class="button margin" onclick="testCheck()">
+ 
+<button class="btn" onclick="location.href='https://　　　　　'" >登録はこちら</button>
 
 </div>
  
 </body>
-<script src="script.js"></script>
+<script>
+function testCheck() {
+  var test = document.getElementById("test").value; 
+ }
+
+ function js_alert() {
+            alert("登録完了しました!");
+        } 
+</script>
+
 </html>
