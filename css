@@ -2,6 +2,11 @@
 
 background-image: url("https://github.com/hackathon-autumn-Hteam/hackathon-autumn-Hteam/blob/feature/191/image.png");
 
+form input[type = "submit"]:hover {
+  background-color: 　　　　　;　#ff69b4;
+  border: 2px solid #　　　　;　 #ff69b4;　　
+}
+
 .box a{
   display:block;
   height:　　px;
