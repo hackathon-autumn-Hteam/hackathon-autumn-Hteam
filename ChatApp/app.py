@@ -73,7 +73,7 @@ def channels_view():
     if user_id is None:
         return redirect(url_for('login_view'))
     else:
-        channels = Channels.get_all()
+        channels = Channel.get_all()
         channels.reverse()                      #チャンネルの順番を新しい順にする DB側→ORDER BYで設定？
         return render_template('channels.html' , channels=channels,user_id=user_id)     #今後変動の可能性あり　変数としてchannels(全チャンネルの一覧)とuid（ログイン中のユーザID）をHTMLに渡す
 
@@ -137,33 +137,36 @@ def delete_channel(channel_id):
 # TODO:メッセージ一覧ページの表示
 @app.route('/channels/<channel_id>/messages', methods=['GET'])
 def messages_view(channel_id):
+    """メッセージ一覧表示
+
+    詳細説明
+    1.ログイン状態を確認
+    2.チャンネル情報を取得
+    3.メッセージ情報を取得
+
+    Args:
+        引数名 channel_id, 型 str : 選択したチャンネルのID
+
+    Returns:
+        messages.html : メッセージ一覧表示のページ
+        user_id 型 str : メッセージ一覧表示をリクエストしたユーザーのID
+        channel 型 dict : 選択したチャンネル情報(channel_id,channel_name,discription)
+        messages 型 list : 選択したチェンネルのメッセージ情報(message_id, user_id, user_name, prefecture_name, message_txt, created_at)
+
+    """
     # ユーザーがログインしているかを確認
     user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
     if user_id is None: # ログインしていない場合はlogin_viewへ
         return redirect(url_for('login_view'))
     
-    # channel_idのチャンネル名を取得(models.py)
-    channel_name = Channel.find_by_chanenl_id(channel_id) 
+    # 該当するchannel_idのチャンネル情報を取得(mchannel_id、channel_name、description)
+    channel = Channel.find_by_chanenl_id(channel_id) 
 
-    # channel_idのチャンネル詳細を取得(models.py)
-    description = Channel.find_by_chanenl_id(channel_id) 
-
-    # 該当するchannel_idのuser_nameを全て取得(models.py)
-    user_name = Message.get_all(channel_id)
-
-    # 該当するchannel_idのprefecture_nameを全て取得(models.py)
-    preecture_name = Message.get_all(channel_id)
-    
-    # 該当するchannel_idのメッセージを全て取得(models.py)
+    # 該当するchannel_idのmessages情報を全て取得(message_id, user_id, user_name, prefecture_name, message_txt, created_at)
     messages = Message.get_all(channel_id)
-    
-    # channel_idの投稿日時を全て取得(models.py)
-    created_at = Message.get_all(channel_id)
 
-    # メッセージページ,チャンネル名,チャンネル詳細,ユーザーID,ユーザー名,都道府県名,メッセージ,投稿日時を返す
-    return render_template('messages.html', channel_name=channel_name, description=description,\
-                           user_id=user_id,user_name=user_name,preecture_name=preecture_name,\
-                            messages=messages,created_at=created_at)
+    # メッセージページ,channel情報,ユーザーID,メッセージ情報を返す
+    return render_template('messages.html', user_id, channel=channel, messages=messages)
 
 # TODO:メッセージの投稿
 @app.route('/channels/<channel_id>/messages', methods=['POST'])

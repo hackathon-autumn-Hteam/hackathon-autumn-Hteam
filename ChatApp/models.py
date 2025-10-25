@@ -18,7 +18,7 @@ class User:
 class Channel:
     # Channelsテーブルから該当するチャンネルIDの全データ(チャンネル名, ユーザーID,チャンネル名, チャンネルの詳細)を抽出
     @classmethod
-    def find_by_cid(cls, channel_id):
+    def find_by_channel_id(cls, channel_id):
        conn = db_pool.get_conn()
        try:
            with conn.cursor() as cur:
