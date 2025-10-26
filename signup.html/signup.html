@@ -79,10 +79,36 @@
 <option value="okinawa">沖縄県</option>
 </select>
 </p>
+
+<button onclick="checkText()">登録する</button>
+
+</form>
+
+<script>
+function checkText() {
+const textbox = document.getElementById("myTextbox");
+const textValue = textbox.value;
   
-<p><input type="submit" onclick="return()" value="登録する">
-</p>
-   <p id="　　　　" style="color: red;"></p>
-  </form>
+ 
+if (textValue.trim() === "") {
+alert("未入力の項目があります。");
+} else {
+alert("登録が完了しました！");     //検証中🙀
+}
+}
+</script>
+
 </body>
+</html>  
+
+
+  
+
+  
+  
+<p><input type="submit" onclick="   ()" value="登録する">
+</p>
+
+
+
 
