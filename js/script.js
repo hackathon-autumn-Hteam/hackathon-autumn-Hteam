@@ -1,4 +1,22 @@
 
+//hamburger Menu
+
+$('#show').on('click', function(){
+  $(this).toggleClass('active');
+  $('#nav').toggleClass('active');
+  $('body').toggleClass('active');
+});
+
+$('.nav-menu li a').on('click', function () {
+    $('#show').removeClass('active');
+    $('#nav').removeClass('active');
+    $('body').removeClass('active');
+});
+
+//
+
+
+
 function showOrHide() 
     let showpass = document.getElementById("pass");
     let check = document.getElementById("showpassword");
@@ -99,4 +117,5 @@ logout: function() {
             location.href = id + pwd + ".html";
         }
         
+
  
