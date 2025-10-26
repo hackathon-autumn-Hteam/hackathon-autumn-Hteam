@@ -10,8 +10,11 @@
 </head>
 
 <body>
+<div class="container">
+<h　>新規登録</h　>
+  
+<form method="post" action="＃">
 
-<form action="#" method="post">
 
 <p>名前<br> 	
 <input type="text" name=”username">
@@ -25,8 +28,8 @@
 <input type="text" name="password">
 </p>
 
-<p>住所<br>
-<select name="住所">  
+<p>都道府県<br>
+<select name="都道府県">  
 <option value="hokkaido">北海道</option>
 <option value="aomori">青森県</option>
 <option value="iwate">岩手県</option>
@@ -76,9 +79,36 @@
 <option value="okinawa">沖縄県</option>
 </select>
 </p>
-  
-<p><input type="submit" value="登録する">
-</p>
-  
+
+<button onclick="checkText()">登録する</button>
+
 </form>
+
+<script>
+function checkText() {
+const textbox = document.getElementById("myTextbox");
+const textValue = textbox.value;
+  
+ 
+if (textValue.trim() === "") {
+alert("未入力の項目があります。");
+} else {
+alert("登録が完了しました！");     //検証中🙀
+}
+}
+</script>
+
 </body>
+</html>  
+
+
+  
+
+  
+  
+<p><input type="submit" onclick="   ()" value="登録する">
+</p>
+
+
+
+
