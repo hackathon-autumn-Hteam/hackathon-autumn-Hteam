@@ -167,7 +167,7 @@ def messages_view(channel_id):
     messages = Message.get_all(channel_id)
 
     # メッセージページ,ユーザーID, channel情報, メッセージ情報を返す
-    return render_template('messages.html', user_id, channel=channel, messages=messages)
+    return render_template('messages.html', user_id=user_id, channel=channel, messages=messages)
 
 # TODO:メッセージの投稿
 @app.route('/channels/<channel_id>/messages', methods=['POST'])

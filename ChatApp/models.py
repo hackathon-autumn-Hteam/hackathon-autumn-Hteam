@@ -15,22 +15,6 @@ class User:
 
 
 # TODO(うっちーさん): チャンネルクラスを定義
-class Channel:
-    # Channelsテーブルから該当するチャンネルIDの全データ(チャンネル名, ユーザーID,チャンネル名, チャンネルの詳細)を抽出
-    @classmethod
-    def find_by_channel_id(cls, channel_id):
-       conn = db_pool.get_conn() # データベース接続プールからコネクションを取得
-       try:
-           with conn.cursor() as cur: # カーソルオブジェクトを作成
-               sql = "SELECT * FROM channels WHERE id=%s;"
-               cur.execute(sql, (channel_id,)) # SQLを実行
-               channel = cur.fetchone() # 実行結果から１行取得
-               return channel
-       except pymysql.Error as e:
-           print(f'エラーが発生しています：{e}')
-           abort(500)
-       finally:
-           db_pool.release(conn)
 
 
 # TODO(rootさん): メッセージクラスを定義
@@ -46,7 +30,7 @@ class Message:
                    SELECT message_id,u.user_id, u.user_name, p.prefecture_name, message_txt, created_at 
                    FROM messages AS m 
                    INNER JOIN users AS u ON m.user_id = u.user_id
-                   JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id 
+                   INNER　JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id 
                    WHERE channel_id = %s 
                    ORDER BY id ASC;
                """
