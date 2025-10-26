@@ -19,12 +19,12 @@ class Channel:
     # Channelsテーブルから該当するチャンネルIDの全データ(チャンネル名, ユーザーID,チャンネル名, チャンネルの詳細)を抽出
     @classmethod
     def find_by_channel_id(cls, channel_id):
-       conn = db_pool.get_conn()
+       conn = db_pool.get_conn() # データベース接続プールからコネクションを取得
        try:
-           with conn.cursor() as cur:
+           with conn.cursor() as cur: # カーソルオブジェクトを作成
                sql = "SELECT * FROM channels WHERE id=%s;"
-               cur.execute(sql, (channel_id,))
-               channel = cur.fetchone()
+               cur.execute(sql, (channel_id,)) # SQLを実行
+               channel = cur.fetchone() # 実行結果から１行取得
                return channel
        except pymysql.Error as e:
            print(f'エラーが発生しています：{e}')
@@ -39,9 +39,9 @@ class Message:
     # 選択したチャンネルのメッセージID,ユーザーID,ユーザー名,都道府県名,メッセージ,投稿日時を抽出
     @classmethod
     def get_all(cls, channel_id):
-       conn = db_pool.get_conn()
+       conn = db_pool.get_conn() # データベース接続プールからコネクションを取得
        try:
-           with conn.cursor() as cur:
+           with conn.cursor() as cur: # カーソルオブジェクトを作成
                sql = """
                    SELECT message_id,u.user_id, u.user_name, p.prefecture_name, message_txt, created_at 
                    FROM messages AS m 
@@ -50,8 +50,8 @@ class Message:
                    WHERE channel_id = %s 
                    ORDER BY id ASC;
                """
-               cur.execute(sql, (channel_id,))
-               messages = cur.fetchall()
+               cur.execute(sql, (channel_id,)) # SQLを実行
+               messages = cur.fetchall() # 実行結果から全ての行を取得
                return messages
        except pymysql.Error as e:
            print(f'エラーが発生しています：{e}')

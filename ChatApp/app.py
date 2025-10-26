@@ -143,20 +143,21 @@ def messages_view(channel_id):
     1.ログイン状態を確認
     2.チャンネル情報を取得
     3.メッセージ情報を取得
+    4.メッセージページ、チャンネル情報、メッセージ情報を返す
 
     Args:
         引数名 channel_id, 型 str : 選択したチャンネルのID
 
     Returns:
         messages.html : メッセージ一覧表示のページ
-        user_id 型 str : メッセージ一覧表示をリクエストしたユーザーのID
-        channel 型 dict : 選択したチャンネル情報(channel_id,channel_name,discription)
-        messages 型 list : 選択したチェンネルのメッセージ情報(message_id, user_id, user_name, prefecture_name, message_txt, created_at)
+        user_id, 型 str : メッセージ一覧表示をリクエストしたユーザーのID
+        channel, 型 dict : 選択したチャンネル情報(channel_id,channel_name,discription)
+        messages, 型 list : 選択したチェンネルのメッセージ情報(message_id,user_id,user_name,prefecture_name,message_txt,created_at)
 
     """
     # ユーザーがログインしているかを確認
     user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
-    if user_id is None: # ログインしていない場合はlogin_viewへ
+    if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
         return redirect(url_for('login_view'))
     
     # 該当するchannel_idのチャンネル情報を取得(mchannel_id、channel_name、description)
@@ -165,12 +166,17 @@ def messages_view(channel_id):
     # 該当するchannel_idのmessages情報を全て取得(message_id, user_id, user_name, prefecture_name, message_txt, created_at)
     messages = Message.get_all(channel_id)
 
-    # メッセージページ,channel情報,ユーザーID,メッセージ情報を返す
+    # メッセージページ,ユーザーID, channel情報, メッセージ情報を返す
     return render_template('messages.html', user_id, channel=channel, messages=messages)
 
 # TODO:メッセージの投稿
 @app.route('/channels/<channel_id>/messages', methods=['POST'])
 def create_message():
+    # ログイン状態の確認
+    # メッセージの取得
+    # メッセージが空白でない場合は、セッセージをDBに追加
+    # メッセージが空白の場合は、メッセージが空白であることをモーダルで表示
+
     return 'send message'
 
 # TODO:メッセージの編集
