@@ -171,13 +171,22 @@ def messages_view(channel_id):
 
 # TODO:メッセージの投稿
 @app.route('/channels/<channel_id>/messages', methods=['POST'])
-def create_message():
+def create_message(channel_id):
     # ログイン状態の確認
+    user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
+    if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
+        return redirect(url_for('login_view'))
+    
     # メッセージの取得
-    # メッセージが空白でない場合は、セッセージをDBに追加
-    # メッセージが空白の場合は、メッセージが空白であることをモーダルで表示
+    message_txt = request.form.get('message_txt')
 
-    return 'send message'
+    if message_txt: # メッセージが空白でない場合は、セッセージをDBに追加
+        Message.create(user_id, channel_id, message_txt)
+    else: # メッセージが空白の場合は、メッセージが空白であることをモーダルで表示
+        flash('メッセージが空白です')
+
+    # 選択したチャンネルのメッセージページにリダイレクト
+    return redirect('/channels/{channel_id}/messages'.format(channel_id = channel_id))
 
 # TODO:メッセージの編集
 @app.route('/channels/<channel_id>/messages/<message_id>', methods=['PUT'])

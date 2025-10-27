@@ -140,11 +140,27 @@ class Message:
                messages = cur.fetchall() # 実行結果から全ての行を取得
                return messages
        except pymysql.Error as e:
-           print(f'エラーが発生しています：{e}')
+           print(f'Class.get_allでエラーが発生しています：{e}')
            abort(500)
        finally:
            db_pool.release(conn)
+
     # TODO: メッセージの作成
+    @classmethod
+    def create(cls, user_id, channel_id, message_txt):
+       conn = db_pool.get_conn() # データベース接続プールからコネクションを取得
+       try:
+           with conn.cursor() as cur: # カーソルオブジェクトを作成
+               # messagesテーブルにユーザーID,チャンネルID,メッセージ詳細を挿入
+               sql = "INSERT INTO messages(user_id, channel_id, message_txt) VALUES(%s, %s, %s)"
+               cur.execute(sql, (user_id, channel_id, message_txt,)) # SQLを実行
+               conn.commit()
+       except pymysql.Error as e:
+           print(f'Class.createでエラーが発生しています：{e}')
+           abort(500)
+       finally:
+           db_pool.release(conn)
+           
     # TODO: メッセージの変更
     # TODO: メッセージの削除(追加機能)
 
