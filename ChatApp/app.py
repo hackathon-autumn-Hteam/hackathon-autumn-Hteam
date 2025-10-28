@@ -241,8 +241,37 @@ def update_message(channel_id,message_id):
 
 # TODO:メッセージの削除(追加機能)
 @app.route('/channels/<channel_id>/messages/<message_id>', methods=['DELETE'])
-def delete_message():
-    return 'delete message'
+def delete_message(channel_id,message_id):
+    """メッセージの削除
+
+    詳細説明
+    1.ログイン状態を確認
+    2.削除するメッセージの情報を取得
+    3.編集権限の確認
+    4.該当するメッセージIDの行を削除
+
+    Args:
+        引数名 channel_id, 型 str : 選択したチャンネルID
+        引数名 message_id, 型 str : 編集するメッセージID
+
+    """
+
+    # ログイン状態の確認
+    user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
+    if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
+        return redirect(url_for('login_view'))
+
+    # massagesテーブルから該当するメッセージIDの行を抽出(message_id, user_id, channel_id, message_txt, created_at)
+    message = Channel.find_by_message_id(message_id)
+
+    if message['user_id'] != user_id: # メッセージの作成者かどうかを確認
+        flash('メッセージは作成者のみが削除できます')
+    else:  
+        if message_id:
+            Message.delete(message_id)
+
+    # 選択したチャンネルのメッセージページにリダイレクト
+    return redirect('/channels/{channel_id}/messages'.format(channel_id = channel_id))
 
 # TODO:メッセージにお花(いいね)を押す(追加機能)
 @app.route('/channels/<channel_id>/messages/<message_id>/flowers', methods=['POST'])

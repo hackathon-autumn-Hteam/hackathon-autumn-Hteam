@@ -193,6 +193,19 @@ class Message:
            db_pool.release(conn)
 
     # TODO: メッセージの削除(追加機能)
+    @classmethod
+    def delete(cls, message_id):
+       conn = db_pool.get_conn()
+       try:
+           with conn.cursor() as cur:
+               sql = "DELETE FROM messages WHERE message_id=%s;"
+               cur.execute(sql, (message_id))
+               conn.commit()
+       except pymysql.Error as e:
+           print(f'Message.deleteでエラーが発生しています：{e}')
+           abort(500)
+       finally:
+           db_pool.release(conn)
 
 
 # TODO(はるか): 都道府県クラスを定義
