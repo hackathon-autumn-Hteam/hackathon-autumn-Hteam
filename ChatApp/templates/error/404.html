@@ -1,1 +1,21 @@
-404
+
+{% extends 'error/base.html' %} {% block title %} error {% endblock %} {% block
+body %}
+<body class="error">
+<div class="error-wrapper">
+<div class="error-content">
+<div>
+<p class="error-num">4 0 4</p>
+</div>
+<div class="error-description error404or500">
+<p>ページが見つかりません</p>
+<a class="error-button pink" href="{{ url_for('loginpage) }}">戻る</a> //bottonでログイン画面へ戻る
+</div>
+</div>
+</div>
+<img     //背景挿入
+    src="”
+    class="error-gif"    
+  />
+</body>
+{% endblock %} {% block script %} {% endblock %}
