@@ -16,9 +16,7 @@ class User:
                 cur.execute(sql, (user_id, user_name, email, password, prefecture_id))
                 conn.commit()
         except pymysql.Error as e:
-            print(
-                f"ユーザーを登録できませんでした：{e}"
-            )  # TODO(はるか): フロント側との調節(メッセージの内容)
+            print(f"ユーザーを登録できませんでした：{e}")
             abort(500)
         finally:
             db_pool.release(conn)
@@ -33,7 +31,6 @@ class User:
                 user = cur.fetchone()
             return user
         except pymysql.Error as e:
-            # TODO(はるか): フロント側との調節(メッセージの内容)
             print(f"メールアドレスが{email}のユーザーを取得できませんでした：{e}")
             abort(500)
         finally:

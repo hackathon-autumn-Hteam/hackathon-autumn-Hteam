@@ -41,9 +41,7 @@ def signup_view():
     Returns:
         flask.Response: サインアップページを描画したHTTPレスポンス。
     """
-    return render_template(
-        "auth/signup.html"
-    )  # TODO(はるか): フロント側との調整(auth/signup.html)
+    return render_template("auth/signup.html")
 
 
 @app.route("/signup", methods=["POST"])
@@ -65,35 +63,25 @@ def signup():
 
     # 入力チェック
     if user_name == "":
-        flash(
-            "名前を入力してください。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        flash("名前を入力してください。")  # TODO(はるか): フロント側との調整
         return redirect(url_for("signup_view"))
 
     if email == "":
-        flash(
-            "メールアドレスを入力してください。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整
         return redirect(url_for("signup_view"))
 
     if password != password_confirmation:
-        flash(
-            "パスワードが一致しません。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        flash("パスワードが一致しません。")  # TODO(はるか): フロント側との調整
         return redirect(url_for("signup_view"))
 
     if prefecture_id == "":
-        flash(
-            "都道府県を選択してください。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        flash("都道府県を選択してください。")  # TODO(はるか): フロント側との調整
         return redirect(url_for("signup_view"))
 
     # DBからユーザーを取得
     registered_user = User.find_by_email(email)
     if registered_user:
-        flash(
-            "既に使用されているメールアドレスです。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        flash("ユーザーを登録できませんでした。")  # TODO(はるか): フロント側との調整
         return redirect(url_for("signup_view"))
 
     # ユーザー登録
@@ -113,7 +101,6 @@ def login_view():
     Returns:
         flask.Response: ログインページを描画したHTTPレスポンス。
     """
-    # TODO(はるか): フロント側との調整(auth/login.html)
     return render_template("auth/login.html")
 
 
@@ -132,15 +119,11 @@ def login():
 
     # 入力チェック
     if email == "":
-        flash(
-            "メールアドレスを入力してください。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整
         return redirect(url_for("login_view"))
 
     if password == "":
-        flash(
-            "パスワードを入力してください。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        flash("パスワードを入力してください。")  # TODO(はるか): フロント側との調整
         return redirect(url_for("login_view"))
 
     # DBからユーザーを取得
@@ -148,7 +131,7 @@ def login():
     if user is None:
         flash(
             "メールアドレスまたはパスワードが間違っています。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        )  # TODO(はるか): フロント側との調整
         return redirect(url_for("login_view"))
 
     # パスワード照合
@@ -156,7 +139,7 @@ def login():
     if user.password != hash_password:
         flash(
             "メールアドレスまたはパスワードが間違っています。"
-        )  # TODO(はるか): フロント側との調整(メッセージの内容)
+        )  # TODO(はるか): フロント側との調整
         return redirect(url_for("login_view"))
 
     # 認証成功
