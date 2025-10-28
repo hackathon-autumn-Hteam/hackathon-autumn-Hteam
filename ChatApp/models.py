@@ -144,6 +144,22 @@ class Message:
            abort(500)
        finally:
            db_pool.release(conn)
+    
+    # TODO: 該当するメッセージIDの情報取得(channel_id, user_id, channel_id, message_txt, created_at)
+    @classmethod
+    def find_by_message_id(cls, message_id):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM messages WHERE message_id=%s;"
+                cur.execute(sql, (message_id,))
+                message = cur.fetchone()
+                return message
+        except pymysql.Error as e:
+            print(f'Message.find_by_message_isでエラーが発生しました:{e}')
+            abort(500)
+        finally:
+            db_pool.release(conn)
 
     # TODO: メッセージの作成
     @classmethod
@@ -160,8 +176,22 @@ class Message:
            abort(500)
        finally:
            db_pool.release(conn)
-           
+
     # TODO: メッセージの変更
+    @classmethod
+    def update(cls, message_id, new_message_txt):
+       conn = db_pool.get_conn()
+       try:
+           with conn.cursor() as cur: # 該当するmessage_idのmessage_txtを更新
+               sql = "UPDATE messages SET message_txt=%s WHERE message_id=%s;"
+               cur.execute(sql, (new_message_txt, message_id)) # SQLを実行
+               conn.commit()
+       except pymysql.Error as e:
+           print(f'Message.updateでエラーが発生しています：{e}')
+           abort(500)
+       finally:
+           db_pool.release(conn)
+
     # TODO: メッセージの削除(追加機能)
 
 
