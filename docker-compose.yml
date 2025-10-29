@@ -36,7 +36,8 @@ services:
       retries: 3
       # ヘルスチェックが失敗しても無視する時間は30秒
       start_period: 30s
-
+    ports:
+      - "3306:3306"
   app:
     # コンテナ名をFlaskに設定
     container_name: Flask
