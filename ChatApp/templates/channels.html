@@ -1,0 +1,36 @@
+<!--手順1：extend 継承する親テンプレートを指定-->
+{% extends 'base.html' %}
+
+<!--手順2：ブラウザのタブ名の指定(URL設計参照) -->
+{% block title %}
+<title>channels</title>
+{% endblock %}
+
+<!--手順3（画面で見える部分を{% block body %}から{% endblock %}までの間に書く）-->
+{% block body %}
+<div class="main-container">
+  <!-- 左上の表示-->
+  <div class="channel-title">
+    <h1>Rare Garden</h1>
+  </div>
+  <!-- チャンネル作成のボタン　-->
+  <button class="favorite styled" type="button">チャンネル作成</button>
+  <!-- チャンネル一覧の見出し　-->
+  <h2>チャンネル一覧</h2>
+  <div id="channel-list">
+    <!-- channel-boxは要確認 -->
+    <ul class="channel-box"></ul>
+  </div>
+
+  <!-- モーダル読み込み -->
+  {% include 'modal/create-channel.html' %}
+</div>
+{% endblock %}
+
+<!-- JS読み込み -->
+{% block script%}
+<script
+  src="{{url_for('static',filename='js/channels/create-channel.js')}}"
+  type="module"
+></script>
+{% endblock %}
