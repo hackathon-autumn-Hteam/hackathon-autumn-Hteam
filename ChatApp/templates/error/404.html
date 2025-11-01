@@ -1,11 +1,7 @@
+{% extends "error/base.html" %}   //base.htmlを代入
+{% block title %} error {% endblock %} 
 
-    //{% extends 'error/base.html' %} {% block title %} error {% endblock %} {% blockbody %}
-
-    <head>
-<title>背景画像404</title>
-<link rel="stylesheet" href="error.css">
-</head>
-
+{% block content %}  //共通部分以外
 <body class="error">
 <div class="error-wrapper">
 <div class="error-content">
@@ -16,12 +12,12 @@
 <h３>Page is not found <h３>
 <p>申し訳ございません。<br>
 <p>お探しのページは見つかりませんでした</p>
-
-<a href="[https://example.com](https://example.com/)" class="button"> 戻る</a>
-
+<a href="https://github.com/hackathon-autumn-Hteam/hackathon-autumn-Hteam/blob/feature/191/ChatApp/templates/auth/login.html" class="button"> 戻る</a>
 </div>
 </div>
 </div>
-
 </body>
-{% endblock %} {% block script %} {% endblock %} //ここらへんは未完
+{% endblock content %} 
+
+{% block script %} 
+{% endblock script %}
