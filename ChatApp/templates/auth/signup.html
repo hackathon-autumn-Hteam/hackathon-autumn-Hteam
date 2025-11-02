@@ -4,21 +4,19 @@
 
 {% block content %}
 <body>
+<h1>Rare Garden</h1> 
 <div class="container">
 <h3>新規登録</h3>
   
 <form method="post" action="＃">
+<p>名前</p>
+<input type="text" name="username" required placeholder="名前を入力" />
   
-<p>名前<br> 	
-<input type="text" name=”username">
-</p>
-
-<p>メールアドレス<br>
-<input type="text" name="emailaddress">
-</p>
+<p>メールアドレス</p>
+<input type="email" name="email" required placeholder="メールアドレスを入力" /><br />
 
 <p>パスワード<br>
-<input type="text" name="password">
+<input type="password" name="password" required placeholder="パスワードを入力" />
 </p>
 
 <p>都道府県<br>
@@ -71,7 +69,7 @@
 <option value="kagoshima">鹿児島県</option>
 <option value="okinawa">沖縄県</option>
 </select>
-</p>
+</p>  
 <button onclick="checkText()">登録する</button>
 </form>
 {% endblock %}
