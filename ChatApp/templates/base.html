@@ -6,6 +6,10 @@
     {% block title %}
     <!-- ここにタイトルを記述 -->
     {% endblock %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='gen/bundled.css') }}"
+    />
   </head>
   <body>
     {% block body %}
