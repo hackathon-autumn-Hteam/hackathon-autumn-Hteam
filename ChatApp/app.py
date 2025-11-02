@@ -4,7 +4,7 @@ import os
 import uuid
 import hashlib
 
-from models import User, Channel, Message, Prefecture
+from models import User, Channel, Message
 
 
 # 定数定義
@@ -41,8 +41,7 @@ def signup_view():
     Returns:
         flask.Response: サインアップページを描画したHTTPレスポンス。
     """
-    prefectures = Prefecture.get_all()
-    return render_template("auth/signup.html", prefectures=prefectures)
+    return render_template("auth/signup.html")
 
 
 @app.route("/signup", methods=["POST"])
@@ -306,4 +305,4 @@ def send_flower():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=5000)  # port=5001を追記　消すこと！！！
+    app.run(host="0.0.0.0", debug=True, port=5001)  # port=5001を追記　消すこと！！！
