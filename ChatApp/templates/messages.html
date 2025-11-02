@@ -14,6 +14,7 @@
       <p>{{channel.channel_name}}</p>
       <p>{{channel.description}}</p>
     </div>
+
     <div id="channel-actions">
       <!-- チャンネルを作成したユーザーのみチャンネルの編集・削除ができる -->
       {% if user_id == channel.user_id %}
@@ -25,9 +26,10 @@
       </button>
       {% endif %}
 
-      <!-- チャンネルの編集・削除用のモーダルを取り込む -->
+      <!-- チャンネルの編集用のモーダルを取り込む -->
       {% include 'modal/update-channel.html' %}
-      <!-- prettier-ignore -->
+
+      <!-- チャンネルの削除用のモーダルを取り込む -->
       {% include'modal/delete-channel.html' %}
     </div>
   </div>
