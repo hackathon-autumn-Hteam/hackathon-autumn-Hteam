@@ -172,7 +172,7 @@ class Message:
                    INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
                    WHERE channel_id = %s
                    ORDER BY id ASC;
-               """
+                """
                 cur.execute(sql, (channel_id,)) # SQLを実行
                 messages = cur.fetchall() # 実行結果から全ての行を取得
                 return messages
