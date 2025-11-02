@@ -1,13 +1,14 @@
 
+{% extends "base.html" %}
+{% block title %} signup {% endblock %}
 
-
+{% block content %}
 <body>
 <div class="container">
-<h　>新規登録</h　>
+<h3>新規登録</h3>
   
 <form method="post" action="＃">
-
-
+  
 <p>名前<br> 	
 <input type="text" name=”username">
 </p>
@@ -71,10 +72,11 @@
 <option value="okinawa">沖縄県</option>
 </select>
 </p>
-
-  
 <button onclick="checkText()">登録する</button>
 </form>
-  
+{% endblock %}
+
+{% block script %} 
+{% endblock script %}  
 </body>
 </html>  
