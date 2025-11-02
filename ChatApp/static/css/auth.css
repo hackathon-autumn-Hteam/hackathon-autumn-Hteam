@@ -1,20 +1,55 @@
 
-background-image: url("https://github.com/hackathon-autumn-Hteam/hackathon-autumn-Hteam/blob/feature/191/ChatApp/static/img/image.png");
-
-form input[type = "submit"]:hover {
-  background-color: 　　　　　;　#ff69b4;
-  border: 2px solid #　　　　;　 #ff69b4;　　
+.background-image:{
 }
 
-.box a{
-  display:block;
-  height:　　px;
-  margin:　　　;
-  line-height:　　px;
-  background:white;
-  color:#    ;
-  border-radius:   px; 　　　　※角丸
-  text-decoration:none;
-  text-align:center;
+h1{
+text-align:center;  
+}
+h3{
+font-size:20px;
+text-align:center;
+margin:px;
+}
 
+.container{  
+text-align:center; 
+background-color:#B9D8C2;
+opacity: ;
+font-size:15px;
+width: 280px;
+height:360px;
+opacity:0.8;
+border-radius:30px;
+margin: 0 auto;
+  
+}
+
+form input[type = "submit"] {
+background-color:#FFB3C1;
+font-size:10px; 
+opacity:0.7;
+height:28px;
+width:88px;  
+border-radius:30px;
+border: none;
+}
+
+button{
+background-color:#FFB3C1;
+font-size:10px; 
+opacity:0.7;
+height:28px;
+width:88px;  
+border-radius:30px;
+border: none;
+}
+
+form input[type = "submit"]:hover {
+background-color:#FFB3C1;
+opacity:1;
+}
+
+button:hover {
+background-color:#FFB3C1;
+opacity:1;
 }
