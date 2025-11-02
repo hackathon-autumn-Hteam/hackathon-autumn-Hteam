@@ -205,7 +205,7 @@ class Message:
        try:
            with conn.cursor() as cur: # カーソルオブジェクトを作成
                # messagesテーブルにユーザーID,チャンネルID,メッセージ詳細を挿入
-               sql = "INSERT INTO messages(user_id, channel_id, message_text) VALUES(%s, %s, %s)"
+               sql = "INSERT INTO messages(user_id, channel_id, message_text) VALUES(%s, %s, %s);"
                cur.execute(sql, (user_id, channel_id, message_text,)) # SQLを実行
                conn.commit()
        except pymysql.Error as e:
