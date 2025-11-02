@@ -169,7 +169,7 @@ class Message:
                    SELECT message_id,u.user_id, u.user_name, p.prefecture_name, message_txt, created_at
                    FROM messages AS m
                    INNER JOIN users AS u ON m.user_id = u.user_id
-                   INNER　JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
+                   INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
                    WHERE channel_id = %s
                    ORDER BY id ASC;
                """
@@ -177,7 +177,7 @@ class Message:
                 messages = cur.fetchall() # 実行結果から全ての行を取得
                 return messages
         except pymysql.Error as e:
-           print(f'Class.get_allでエラーが発生しています：{e}')
+           print(f"Class.get_allでエラーが発生しています：{e}")
            abort(500)
         finally:
            db_pool.release(conn)
@@ -193,7 +193,7 @@ class Message:
                 message = cur.fetchone()
                 return message
         except pymysql.Error as e:
-            print(f'Message.find_by_message_isでエラーが発生しました:{e}')
+            print(f"Message.find_by_message_isでエラーが発生しました:{e}")
             abort(500)
         finally:
             db_pool.release(conn)
@@ -209,7 +209,7 @@ class Message:
                cur.execute(sql, (user_id, channel_id, message_txt,)) # SQLを実行
                conn.commit()
        except pymysql.Error as e:
-           print(f'Class.createでエラーが発生しています：{e}')
+           print(f"Class.createでエラーが発生しています：{e}")
            abort(500)
        finally:
            db_pool.release(conn)
@@ -224,7 +224,7 @@ class Message:
                cur.execute(sql, (new_message_txt, message_id)) # SQLを実行
                conn.commit()
        except pymysql.Error as e:
-           print(f'Message.updateでエラーが発生しています：{e}')
+           print(f"Message.updateでエラーが発生しています：{e}")
            abort(500)
        finally:
            db_pool.release(conn)
@@ -239,7 +239,7 @@ class Message:
                cur.execute(sql, (message_id))
                conn.commit()
        except pymysql.Error as e:
-           print(f'Message.deleteでエラーが発生しています：{e}')
+           print(f"Message.deleteでエラーが発生しています：{e}")
            abort(500)
        finally:
            db_pool.release(conn)

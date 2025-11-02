@@ -271,7 +271,7 @@ def messages_view(channel_id):
     messages = Message.get_all(channel_id)
 
     # メッセージ作成欄に「メッセージを入力してください」と表示
-    flash('メッセージを入力してください')
+    flash("メッセージを入力してください")
 
     # メッセージページ,ユーザーID, channel情報, メッセージ情報を返す
     return render_template(
@@ -280,7 +280,7 @@ def messages_view(channel_id):
 
 
 # TODO:メッセージの投稿
-@app.route('/channels/<channel_id>/messages', methods=['POST'])
+@app.route("/channels/<channel_id>/messages", methods=["POST"])
 def create_message(channel_id):
     """メッセージの投稿
 
@@ -294,23 +294,23 @@ def create_message(channel_id):
 
     """
     # ログイン状態の確認
-    user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
+    user_id = session.get("user_id")
     if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
-        return redirect(url_for('login_view'))
+        return redirect(url_for("login_view"))
 
     # メッセージの取得
-    message_txt = request.form.get('message_txt')
+    message_txt = request.form.get("message_txt")
 
     if message_txt: # メッセージが空白でない場合は、セッセージをDBに追加
         Message.create(user_id, channel_id, message_txt)
     else: # メッセージが空白の場合は、メッセージが空白であることをモーダルで表示
-        flash('メッセージが空白です')
+        flash("メッセージが空白です")
 
     # 選択したチャンネルのメッセージページにリダイレクト
-    return redirect('/channels/{channel_id}/messages'.format(channel_id = channel_id))
+    return redirect("/channels/{channel_id}/messages".format(channel_id = channel_id))
 
 # TODO:メッセージの編集
-@app.route('/channels/<channel_id>/messages/<message_id>', methods=['PUT'])
+@app.route("/channels/<channel_id>/messages/<message_id>", methods=["PUT"])
 def update_message(channel_id,message_id):
     """メッセージの編集
 
@@ -327,27 +327,27 @@ def update_message(channel_id,message_id):
 
     """
     # ログイン状態の確認
-    user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
+    user_id = session.get("user_id")
     if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
-        return redirect(url_for('login_view'))
+        return redirect(url_for("login_view"))
 
     # massagesテーブルから該当するメッセージIDの行を抽出(message_id, user_id, channel_id, message_txt, created_at)
     message = Channel.find_by_message_id(message_id)
 
-    if message['user_id'] != user_id: # メッセージの作成者かどうかを確認
-        flash('メッセージは作成者のみ更新が可能です')
+    if message["user_id"] != user_id: # メッセージの作成者かどうかを確認
+        flash("メッセージは作成者のみ更新が可能です")
     else:
-        message_txt = request.form.get('message_txt')
+        message_txt = request.form.get("message_txt")
         if message_txt: # メッセージが空白でない場合は、セッセージをDBに追加
             Message.update(message_id, message_txt)
         else:
-            flash('メッセージが空白です')
+            flash("メッセージが空白です")
 
     # 選択したチャンネルのメッセージページにリダイレクト
-    return redirect('/channels/{channel_id}/messages'.format(channel_id = channel_id))
+    return redirect("/channels/{channel_id}/messages".format(channel_id = channel_id))
 
 # TODO:メッセージの削除(追加機能)
-@app.route('/channels/<channel_id>/messages/<message_id>', methods=['DELETE'])
+@app.route("/channels/<channel_id>/messages/<message_id>", methods=["DELETE"])
 def delete_message(channel_id,message_id):
     """メッセージの削除
 
@@ -364,21 +364,21 @@ def delete_message(channel_id,message_id):
     """
 
     # ログイン状態の確認
-    user_id = session.get('user_id') #sessionの情報はどこで定義されているのだろう？
+    user_id = session.get("user_id")
     if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
-        return redirect(url_for('login_view'))
+        return redirect(url_for("login_view"))
 
     # massagesテーブルから該当するメッセージIDの行を抽出(message_id, user_id, channel_id, message_txt, created_at)
     message = Channel.find_by_message_id(message_id)
 
-    if message['user_id'] != user_id: # メッセージの作成者かどうかを確認
-        flash('メッセージは作成者のみが削除できます')
+    if message["user_id"] != user_id: # メッセージの作成者かどうかを確認
+        flash("メッセージは作成者のみが削除できます")
     else:
         if message_id:
             Message.delete(message_id)
 
     # 選択したチャンネルのメッセージページにリダイレクト
-    return redirect('/channels/{channel_id}/messages'.format(channel_id = channel_id))
+    return redirect("/channels/{channel_id}/messages".format(channel_id = channel_id))
 
 # TODO:メッセージにお花(いいね)を押す(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>/flowers", methods=["POST"])
