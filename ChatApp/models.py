@@ -187,6 +187,18 @@ class Message:
     # TODO: メッセージの削除(追加機能)
 
 
-# TODO(はるか): 都道府県クラスを定義
 class Prefecture:
-    pass
+    @classmethod
+    def get_all(cls):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM prefectures;"
+                cur.execute(sql)
+                prefectures = cur.fetchall()
+            return prefectures
+        except pymysql.Error as e:
+            print(f"都道府県の一覧を取得できませんでした：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
