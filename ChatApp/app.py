@@ -5,7 +5,7 @@ import uuid
 import hashlib
 
 from models import User, Channel, Message, Prefecture
-
+from util.assets import bundle_css_files
 
 # 定数定義
 SESSION_DAYS = 30
@@ -13,6 +13,9 @@ SESSION_DAYS = 30
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", uuid.uuid4().hex)
 app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
+
+# 複数のCSSファイルを1つにまとめて圧縮（バンドル）する処理を実行。
+bundle_css_files(app)
 
 
 @app.route("/", methods=["GET"])
