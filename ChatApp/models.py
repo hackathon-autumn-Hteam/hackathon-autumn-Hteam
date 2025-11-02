@@ -166,7 +166,7 @@ class Message:
         try:
             with conn.cursor() as cur:  # カーソルオブジェクトを作成
                 sql = """
-                   SELECT message_id,u.user_id, u.user_name, p.prefecture_name, message_txt, created_at
+                   SELECT message_id,u.user_id, u.user_name, p.prefecture_name, message_text, created_at
                    FROM messages AS m
                    INNER JOIN users AS u ON m.user_id = u.user_id
                    INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
@@ -182,7 +182,7 @@ class Message:
         finally:
            db_pool.release(conn)
 
-    # TODO: 該当するメッセージIDの情報取得(channel_id, user_id, channel_id, message_txt, created_at)
+    # TODO: 該当するメッセージIDの情報取得(channel_id, user_id, channel_id, message_text, created_at)
     @classmethod
     def find_by_message_id(cls, message_id):
         conn = db_pool.get_conn()
@@ -200,13 +200,13 @@ class Message:
 
     # TODO: メッセージの作成
     @classmethod
-    def create(cls, user_id, channel_id, message_txt):
+    def create(cls, user_id, channel_id, message_text):
        conn = db_pool.get_conn() # データベース接続プールからコネクションを取得
        try:
            with conn.cursor() as cur: # カーソルオブジェクトを作成
                # messagesテーブルにユーザーID,チャンネルID,メッセージ詳細を挿入
-               sql = "INSERT INTO messages(user_id, channel_id, message_txt) VALUES(%s, %s, %s)"
-               cur.execute(sql, (user_id, channel_id, message_txt,)) # SQLを実行
+               sql = "INSERT INTO messages(user_id, channel_id, message_text) VALUES(%s, %s, %s)"
+               cur.execute(sql, (user_id, channel_id, message_text,)) # SQLを実行
                conn.commit()
        except pymysql.Error as e:
            print(f"Class.createでエラーが発生しています：{e}")
@@ -216,12 +216,12 @@ class Message:
 
     # TODO: メッセージの変更
     @classmethod
-    def update(cls, message_id, new_message_txt):
+    def update(cls, message_id, message_text):
        conn = db_pool.get_conn()
        try:
-           with conn.cursor() as cur: # 該当するmessage_idのmessage_txtを更新
-               sql = "UPDATE messages SET message_txt=%s WHERE message_id=%s;"
-               cur.execute(sql, (new_message_txt, message_id)) # SQLを実行
+           with conn.cursor() as cur: # 該当するmessage_idのmessage_textを更新
+               sql = "UPDATE messages SET message_text=%s WHERE message_id=%s;"
+               cur.execute(sql, (message_text, message_id)) # SQLを実行
                conn.commit()
        except pymysql.Error as e:
            print(f"Message.updateでエラーが発生しています：{e}")
