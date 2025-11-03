@@ -1,43 +1,47 @@
-
-.background-image:{
+background-image:{
 }
-
 h1{
-text-align:center;  
-}
-h3{
-font-size:20px;
+top:  px;
 text-align:center;
+position: relative;
 }
 
-p {
-margin-bottom:0px;
+h3{
+top:20px;
+font-size:20px;
+position: relative;
+}
+P{
+top:10px;
 font-size:15px;
+position: relative;
+margin:8px;
 }
 
 .container{ 
-position: relative;
+position: ;
 text-align:center; 
 background-color:#B9D8C2;
 opacity: ;
+font-size:15px;
 width: 280px;
 height:360px;
+opacity:0.8;
 border-radius:50px;
 margin: 0 auto;
+border:none;
 }
 
 button{
-position: absolute;
-top:300px;
-left:96px; 
-text-align:center;
 background-color:#FFB3C1;
-font-size:12px;
+font-size:12px; 
 opacity:0.7;
 height:28px;
 width:88px;  
 border-radius:30px;
 border: none;
+top:10px;
+position: relative;
 }
 
 button:hover {
