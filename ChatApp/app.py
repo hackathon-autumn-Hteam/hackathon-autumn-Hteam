@@ -257,8 +257,8 @@ def messages_view(channel_id):
     Returns:
         messages.html : メッセージ一覧表示のページ
         user_id, 型 str : メッセージ一覧表示をリクエストしたユーザーのID
-        channel, 型 dict : 選択したチャンネル情報(channel_id,channel_name,discription)
-        messages, 型 list : 選択したチェンネルのメッセージ情報(message_id,user_id,user_name,prefecture_name,message_txt,created_at)
+        channel, 型 dict : 選択したチャンネル情報(channel_id,channel_name,description)
+        messages, 型 list : 選択したチェンネルのメッセージ情報(message_id,user_id,user_name,prefecture_name,message_text,created_at)
 
     """
     # ユーザーがログインしているかを確認
@@ -266,11 +266,14 @@ def messages_view(channel_id):
     if user_id is None:  # ログインしていない場合は、ログインページのURLへ自動転送
         return redirect(url_for("login_view"))
 
-    # 該当するchannel_idのチャンネル情報を取得(mchannel_id、channel_name、description)
-    channel = Channel.find_by_chanenl_id(channel_id)
+    # 該当するchannel_idのチャンネル情報を取得(channel_id、channel_name、description)
+    channel = Channel.find_by_channel_id(channel_id)
 
-    # 該当するchannel_idのmessages情報を全て取得(message_id, user_id, user_name, prefecture_name, message_txt, created_at)
+    # 該当するchannel_idのmessages情報を全て取得(message_id, user_id, user_name, prefecture_name, message_text, created_at)
     messages = Message.get_all(channel_id)
+
+    # メッセージ作成欄に「メッセージを入力してください」と表示
+    flash("メッセージを入力してください")
 
     # メッセージページ,ユーザーID, channel情報, メッセージ情報を返す
     return render_template(
@@ -280,26 +283,104 @@ def messages_view(channel_id):
 
 # TODO:メッセージの投稿
 @app.route("/channels/<channel_id>/messages", methods=["POST"])
-def create_message():
+def create_message(channel_id):
+    """メッセージの投稿
+
+    詳細説明
+    1.ログイン状態を確認
+    2.追加するメッセージを取得
+    3.メッセージテーブルにメッセージを追加
+
+    Args:
+        引数名 channel_id, 型 str : 選択したチャンネルのID
+
+    """
     # ログイン状態の確認
+    user_id = session.get("user_id")
+    if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
+        return redirect(url_for("login_view"))
+
     # メッセージの取得
-    # メッセージが空白でない場合は、セッセージをDBに追加
-    # メッセージが空白の場合は、メッセージが空白であることをモーダルで表示
+    message_text = request.form.get("message_text")
 
-    return "send message"
+    if message_text: # メッセージが空白でない場合は、セッセージをDBに追加
+        Message.create(user_id, channel_id, message_text)
+    else: # メッセージが空白の場合は、メッセージが空白であることをモーダルで表示
+        flash("メッセージが空白です")
 
+    # 選択したチャンネルのメッセージページにリダイレクト
+    return redirect(f"/channels/{channel_id}/messages")
 
 # TODO:メッセージの編集
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["PUT"])
-def update_message():
-    return "update message"
+def update_message(channel_id,message_id):
+    """メッセージの編集
 
+    詳細説明
+    1.ログイン状態を確認
+    2.編集するメッセージの情報を取得
+    3.編集権限の確認
+    4.編集するメッセージの取得
+    5.メッセージテーブルの更新
+
+    Args:
+        引数名 channel_id, 型 str : 選択したチャンネルID
+        引数名 message_id, 型 str : 編集するメッセージID
+
+    """
+    # ログイン状態の確認
+    user_id = session.get("user_id")
+    if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
+        return redirect(url_for("login_view"))
+
+    # massagesテーブルから該当するメッセージIDの行を抽出(message_id, user_id, channel_id, message_text, created_at)
+    message = Channel.find_by_message_id(message_id)
+
+    if message["user_id"] != user_id: # メッセージの作成者かどうかを確認
+        flash("メッセージは作成者のみ更新が可能です")
+    else:
+        message_text = request.form.get("message_text")
+        if message_text: # メッセージが空白でない場合は、セッセージをDBに追加
+            Message.update(message_id, message_text)
+        else:
+            flash("メッセージが空白です")
+
+    # 選択したチャンネルのメッセージページにリダイレクト
+    return redirect(f"/channels/{channel_id}/messages")
 
 # TODO:メッセージの削除(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["DELETE"])
-def delete_message():
-    return "delete message"
+def delete_message(channel_id,message_id):
+    """メッセージの削除
 
+    詳細説明
+    1.ログイン状態を確認
+    2.削除するメッセージの情報を取得
+    3.編集権限の確認
+    4.該当するメッセージIDの行を削除
+
+    Args:
+        引数名 channel_id, 型 str : 選択したチャンネルID
+        引数名 message_id, 型 str : 編集するメッセージID
+
+    """
+
+    # ログイン状態の確認
+    user_id = session.get("user_id")
+    if user_id is None: # ログインしていない場合は、ログインページのURLへ自動転送
+        return redirect(url_for("login_view"))
+
+    # massagesテーブルから該当するメッセージIDの行を抽出(message_id, user_id, channel_id, message_text, created_at)
+    message = Channel.find_by_message_id(message_id)
+
+    if message["user_id"] != user_id: # メッセージの作成者かどうかを確認
+        flash("メッセージは作成者のみが削除できます")
+    else:
+        if message_id:
+            Message.delete(message_id)
+
+    # 選択したチャンネルのメッセージページにリダイレクト
+    return redirect(f"/channels/{channel_id}/messages")
 
 # TODO:メッセージにお花(いいね)を押す(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>/flowers", methods=["POST"])
@@ -308,4 +389,4 @@ def send_flower():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=5001)  # port=5001を追記　消すこと！！！
+    app.run(host="0.0.0.0", debug=True, port=5000)
