@@ -306,7 +306,7 @@ def create_message(channel_id):
         flash("メッセージが空白です")
 
     # 選択したチャンネルのメッセージページにリダイレクト
-    return redirect(f"/channels/{channel_id}/messages"(channel_id))
+    return redirect(f"/channels/{channel_id}/messages")
 
 # TODO:メッセージの編集
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["PUT"])
@@ -343,7 +343,7 @@ def update_message(channel_id,message_id):
             flash("メッセージが空白です")
 
     # 選択したチャンネルのメッセージページにリダイレクト
-    return redirect(f"/channels/{channel_id}/messages"(channel_id))
+    return redirect(f"/channels/{channel_id}/messages")
 
 # TODO:メッセージの削除(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["DELETE"])
@@ -377,7 +377,7 @@ def delete_message(channel_id,message_id):
             Message.delete(message_id)
 
     # 選択したチャンネルのメッセージページにリダイレクト
-    return redirect(f"/channels/{channel_id}/messages"(channel_id))
+    return redirect(f"/channels/{channel_id}/messages")
 
 # TODO:メッセージにお花(いいね)を押す(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>/flowers", methods=["POST"])
