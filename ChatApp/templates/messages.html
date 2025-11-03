@@ -19,10 +19,10 @@
       <!-- チャンネルを作成したユーザーのみチャンネルの編集・削除ができる -->
       {% if user_id == channel.user_id %}
       <button id="update-channel-button">
-        <!-- TODO(はるか): 編集アイコンを追加 -->
+        <ion-icon name="create"></ion-icon>
       </button>
       <button id="delete-channel-button">
-        <!-- TODO(はるか): 削除アイコンを追加 -->
+        <ion-icon name="trash"></ion-icon>
       </button>
       {% endif %}
 
