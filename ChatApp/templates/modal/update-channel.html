@@ -1,1 +1,38 @@
-1
+<!-- TODO(rootさん): チャンネルの編集用のモーダルを記述 -->
+<!-- NOTE: ダイアログを閉じるボタンのアイコンは以下を使用してください。 -->
+<ion-icon name="close"></ion-icon>
+<!-- NOTE: ダイアログを閉じるボタンには「close-modal-button」というIDを付けてください。 -->
+<!-- NOTE: クラス名や記述方法はサンプルアプリを参考にしてください。 -->
+<div id="update-channel-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5>チャンネル名</h5>
+      <icon-button class="modalClose" id="close-modal-button">
+        <ion-icon name="close"></ion-icon>
+      </icon-button>
+      <input
+        type="text"
+        placeholder="チャンネル名"
+        class="channel-form-input"
+        name="channelTitle"
+        required
+      />
+    </div>
+
+    <h5>チャンネル詳細(任意)</h5>
+    <form
+      name="updateChannelForm"
+      class="modal-body"
+      action="/channels/{channel.id}/update"
+      method="POST"
+    >
+      <input
+        type="text"
+        placeholder="チャンネルの説明"
+        class="channel-form-input"
+        name="channelDescription"
+      />
+      <button>編集する</button>
+    </form>
+  </div>
+</div>
