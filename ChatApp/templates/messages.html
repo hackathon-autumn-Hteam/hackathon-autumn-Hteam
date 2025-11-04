@@ -18,10 +18,10 @@
     <div id="channel-actions">
       <!-- チャンネルを作成したユーザーのみチャンネルの編集・削除ができる -->
       {% if user_id == channel.user_id %}
-      <button id="update-channel-button">
+      <button id="update-channel-button" class="icon-button" aria-label="編集">
         <ion-icon name="create"></ion-icon>
       </button>
-      <button id="delete-channel-button">
+      <button id="delete-channel-button" class="icon-button" aria-label="削除">
         <ion-icon name="trash"></ion-icon>
       </button>
       {% endif %}
