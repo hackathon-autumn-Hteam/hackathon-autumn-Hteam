@@ -1,5 +1,37 @@
-<!-- TODO(はるかさん): メッセージの編集用のモーダルを記述 -->
-<!-- NOTE: ダイアログを閉じるボタンのアイコンは以下を使用してください。 -->
-<ion-icon name="close"></ion-icon>
-<!-- NOTE: ダイアログを閉じるボタンには「close-modal-button」というIDを付けてください。 -->
-<!-- NOTE: クラス名や記述方法はサンプルアプリを参考にしてください。 -->
+<div id="update-message-modal" class="modal">
+  <!-- モーダルの中身 -->
+  <div class="modal-content">
+    <!-- モーダルのヘッダー -->
+    <div class="modal-header">
+      <button id="close-modal-button" class="icon-button" aria-label="閉じる">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+
+    <form
+      action="{{ url_for('update_message', channel_id=channel.channel_id, message_id=message.message_id) }}"
+      method="POST"
+    >
+      <input type="hidden" name="_method" value="PUT" />
+
+      <!-- モーダルのメイン -->
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="message_text">メッセージ</label>
+          <textarea
+            id="message_text"
+            name="message_text"
+            rows="5"
+            placeholder="メッセージを入力してください。"
+            required
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- モーダルの操作ボタン -->
+      <div class="modal-action">
+        <button class="button green-button">編集する</button>
+      </div>
+    </form>
+  </div>
+</div>
