@@ -11,16 +11,41 @@ top:20px;
 font-size:20px;
 position: relative;
 }
-P{
+.name{
+top:10px;
+font-size:15px;
+position: relative;
+margin:10px;
+right:72px;
+}
+
+.email{
 top:10px;
 font-size:15px;
 position: relative;
 margin:8px;
+right:36px;
 }
 
-.container{ 
+.password{
+top:10px;
+font-size:15px;
+position: relative;
+margin:8px;
+right:44px;  
+}
+
+.prefecture{
+top:10px;
+font-size:15px;
+position: relative;
+margin:8px;
+right:50px;
+}
+
+.container{
 position: ;
-text-align:center; 
+text-align:center;
 background-color:#B9D8C2;
 opacity: ;
 font-size:15px;
@@ -34,17 +59,18 @@ border:none;
 
 button{
 background-color:#FFB3C1;
-font-size:12px; 
+font-size:12px;
 opacity:0.7;
 height:28px;
-width:88px;  
+width:88px;
 border-radius:30px;
 border: none;
 top:10px;
-position: relative;
+position: relative;  
 }
 
-button:hover {
+button:hover{
 background-color:#FFB3C1;
 opacity:1;
 }
+
