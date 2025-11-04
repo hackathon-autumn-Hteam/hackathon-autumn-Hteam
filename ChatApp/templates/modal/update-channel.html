@@ -6,20 +6,22 @@
 <div id="update-channel-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h5>チャンネル名</h5>
-      <icon-button class="modalClose" id="close-modal-button">
+      <button class="modalClose" id="close-modal-button">
         <ion-icon name="close"></ion-icon>
-      </icon-button>
-      <input
-        type="text"
-        placeholder="チャンネル名"
-        class="channel-form-input"
-        name="channelTitle"
-        required
-      />
+      </button>
     </div>
 
-    <h5>チャンネル詳細(任意)</h5>
+    <h4>チャンネル名</h4>
+    <input
+      type="text"
+      placeholder="チャンネル名"
+      class="channel-form-input"
+      name="channelTitle"
+      required
+    />
+    <p>※チャンネル名は変更できません。</p>
+
+    <h4>チャンネル詳細</h4>
     <form
       name="updateChannelForm"
       class="modal-body"
