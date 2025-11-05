@@ -1,45 +1,54 @@
 <!-- TODO(rootさん): チャンネルの編集用のモーダルを記述 -->
-<!-- NOTE: ダイアログを閉じるボタンのアイコンは以下を使用してください。 -->
-<ion-icon name="close"></ion-icon>
-<!-- NOTE: ダイアログを閉じるボタンには「close-modal-button」というIDを付けてください。 -->
-<!-- NOTE: クラス名や記述方法はサンプルアプリを参考にしてください。 -->
 <div id="update-channel-modal" class="modal">
+
   <div class="modal-content">
+    <!-- モーダルのヘッダー -->
     <div class="modal-header">
-      <button class="modalClose" id="close-modal-button">
+        <button id="close-modal-button" class="icon-button" aria-label="閉じる"></button>
         <ion-icon name="close"></ion-icon>
       </button>
     </div>
 
-    <h4>チャンネル名</h4>
-    <input
-      type="text"
-      placeholder="チャンネル名"
-      class="channel-form-input"
-      name="channelTitle"
-      required
-    />
-    <p>※チャンネル名は変更できません。</p>
-
-    <h4>チャンネル詳細</h4>
     <form
-      name="updateChannelForm"
-      class="modal-body"
-      action="/channels/{channel.id}/update"
+      action="{{ url_for('update_channel', channel_id=channel.channel_id) }}"
       method="POST"
     >
-      <input
-        type="text"
-        placeholder="チャンネルの説明"
-        class="channel-form-input"
-        name="channelDescription"
-      />
-      <button
-        class="editChannelDescription"
-        id="edit-channel-description-button"
-      >
-        編集する
-      </button>
+        <input type="hidden" name="_method" value="PUT" />
+
+        <!-- モーダルのメイン -->
+        <div class="modal-body">
+            <!-- チャンネル名 -->
+            <div class="form-group">
+                <label class="form-label" for="channel_name">チャンネル名</label>
+                <textarea
+                    id="channel_name"
+                    name="channel_name"
+                    rows="5"
+                    placeholder="チャンネル名を入力してください。"
+                    required
+                ></textarea>
+                <p class="form-help">
+                    ※チャンネル名は入力できません
+                </p>
+            </div>
+
+            <!-- チャンネル詳細 -->
+            <div class="form-group">
+                <label class="form-label" for="description">チャンネル詳細</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    placeholder="チャンネル詳細を入力してください。"
+                    required
+                ></textarea>
+            </div>
+        </div>
+
+        <!-- 編集ボタン -->
+        <div class="modal-action">
+            <button class="base-button green-button">編集する</button>
+        </div>
     </form>
   </div>
 </div>
