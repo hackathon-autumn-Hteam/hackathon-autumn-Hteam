@@ -12,6 +12,7 @@
     <form
       action="{{ url_for('update_channel', channel_id=channel.channel_id) }}"
       method="POST"
+      name="update-channel-form"
     >
         <input type="hidden" name="_method" value="PUT" />
 
@@ -20,11 +21,12 @@
             <!-- チャンネル名 -->
             <div class="form-group">
                 <label class="form-label" for="channel_name">チャンネル名</label>
-                <textarea
+                <textarea readonly
                     id="channel_name"
                     name="channel_name"
                     rows="5"
-                    value=channel.channel_name;
+                    placeholder=channel.channel_name
+                    value=channel.channel_name
                     required
                 ></textarea>
                 <p class="form-help">
@@ -39,7 +41,7 @@
                     id="description"
                     name="description"
                     rows="5"
-                    value=channel.description;
+                    placeholder=channel.description
                     required
                 ></textarea>
             </div>
