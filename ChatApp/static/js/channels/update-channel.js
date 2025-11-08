@@ -4,7 +4,9 @@
 const updateButton = document.getElementById("update-channel-button");
 
 // モーダルウィンドウを「閉じる」ボタン @update-channel.html
-const updatePageButtonClose = document.getElementById("close-modal-button");
+const updatePageButtonClose = document.getElementById(
+  "update-channel-modal-close-button"
+);
 
 // モーダル @update-channel.html
 const updateChannelModal = document.getElementById("update-channel-modal");
