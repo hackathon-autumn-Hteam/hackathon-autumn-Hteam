@@ -21,24 +21,27 @@
             <div class="form-group">
                 <!-- チャンネル名 -->
                 <label class="form-label" for="channel_name">チャンネル名</label>
-                <input readonly
+                <input disabled
                     id="channel_name"
                     name="channel_name"
-                    placeholder=channel.channel_name
-                    value=channel.channel_name
+                    placeholder=”チャンネル名を入力してください"
+                    value={{channel.channel_name}}
                     required
                 ></input>
                 <p class="form-help">
                     ※チャンネル名は入力できません
                 </p>
+            </div>
 
+            <div class="form-group">
                 <!-- チャンネル詳細 -->
                 <label class="form-label" for="description">チャンネル詳細(任意)</label>
                 <textarea
                     id="description"
                     name="description"
                     rows="5"
-                    placeholder=channel.description
+                    placeholder="チャンネル詳細を入力してください"
+                    value={{channel.description}}
                 ></textarea>
             </div>
         </div>
