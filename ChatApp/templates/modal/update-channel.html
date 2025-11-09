@@ -4,9 +4,9 @@
   <div class="modal-content">
     <!-- モーダルのヘッダー -->
     <div class="modal-header">
-        <button id="update-channel-modal-close-button" class="icon-button" aria-label="閉じる"></button>
-        <ion-icon name="close"></ion-icon>
-      </button>
+        <button id="update-channel-modal-close-button" class="icon-button" aria-label="閉じる">
+            <ion-icon name="close"></ion-icon>
+        </button>
     </div>
 
     <form
@@ -18,8 +18,8 @@
 
         <!-- モーダルのメイン -->
         <div class="modal-body">
-            <!-- チャンネル名 -->
             <div class="form-group">
+                <!-- チャンネル名 -->
                 <label class="form-label" for="channel_name">チャンネル名</label>
                 <input readonly
                     id="channel_name"
@@ -31,17 +31,14 @@
                 <p class="form-help">
                     ※チャンネル名は入力できません
                 </p>
-            </div>
 
-            <!-- チャンネル詳細 -->
-            <div class="form-group">
-                <label class="form-label" for="description">チャンネル詳細</label>
+                <!-- チャンネル詳細 -->
+                <label class="form-label" for="description">チャンネル詳細(任意)</label>
                 <textarea
                     id="description"
                     name="description"
                     rows="5"
                     placeholder=channel.description
-                    required
                 ></textarea>
             </div>
         </div>
