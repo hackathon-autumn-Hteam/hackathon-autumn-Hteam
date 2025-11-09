@@ -1,1 +1,48 @@
-1
+<div id="create-channel-modal" class="modal">
+  <div class="modal-content">
+    <!-- 「閉じる」ボタンのエリア＝ヘッダーとする -->
+    <div class="modal-header">
+      <button
+        id="create-channnel-modal-close-button"
+        class="icon-button"
+        aria-label="閉じる"
+      >
+        <icon-icon name="close"></icon-icon>
+      </button>
+    </div>
+
+    <form
+      action="/channels"
+      method="POST"
+    >
+      <!-- 入力エリア＝ボディとする -->
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="channel_name">チャンネル名</label>
+          <input
+            id="channel_name"
+            name="channel_name"
+            type="text"
+            placeholder="チャンネル名を入力してください"
+            required
+          />
+          <p class="form-help">※チャンネル名は後から変更できません</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="description">チャンネル詳細（任意）</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="5"
+            placeholder="チャンネルの内容を入力してください"
+         ></textarea>
+        </div>
+
+      <!-- モーダルの操作ボタン -->
+      <div class="modal-action">
+        <button class="base-button green-button">作成する</button>
+      </div>
+    </form>
+  </div>
+</div>
