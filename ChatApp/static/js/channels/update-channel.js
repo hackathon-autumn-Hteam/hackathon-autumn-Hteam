@@ -31,7 +31,4 @@ if (updateChannelModal) {
       updateChannelModal.style.display = "none";
     }
   });
-} else {
-  // デバッグ用
-  console.log("モーダルが見つかりません");
 }
