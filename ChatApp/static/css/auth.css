@@ -1,22 +1,20 @@
-.auth-wrapper {
-  background-image: url(static/img/image.png);
+
+background-image: url("https://github.com/hackathon-autumn-Hteam/hackathon-autumn-Hteam/blob/feature/191/ChatApp/static/img/image.png");
+
+form input[type = "submit"]:hover {
+  background-color: 　　　　　;　#ff69b4;
+  border: 2px solid #　　　　;　 #ff69b4;　　
 }
-.auth-form-container {
-}
-/* フォーム全体 */
-.auth-form {
-}
-/* 各フォーム */
-.auth-form-group {
-  display: flex;
-  flex-direction: column;
-}
-/* ボタン */
-.auth-button-container {
-}
-/* タイトル */
-.h1 {
-}
-/* サブタイトル */
-.h2 {
+
+.box a{
+  display:block;
+  height:　　px;
+  margin:　　　;
+  line-height:　　px;
+  background:white;
+  color:#    ;
+  border-radius:   px; 　　　　※角丸
+  text-decoration:none;
+  text-align:center;
+
 }

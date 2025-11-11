@@ -1,43 +1,33 @@
-{% extends 'auth/base.html' %} {% block title %}
-<title>login</title>
-{% endblock %} {% block body %}
-<div class="auth-wrapper">
-  <h1 class="auth-title">RareGarden</h1>
-  <div class="auth-form-container">
-    <form class="auth-form" method="post">
-      <h2 class="auth-subtitle">ユーザーログイン</h2>
-      <div class="auth-form-group">
-        <label class="form-label" for="email">メールアドレス</label>
-        <input
-          type="text"
-          placeholder="メールアドレスを入力"
-          name="email"
-          id="email"
-          required
-        />
-      </div>
-      <div class="auth-form-group">
-        <label class="form-label" for="password">パスワード</label>
-        <input
-          type="password"
-          placeholder="パスワードを入力"
-          name="password"
-          id="password"
-          required
-        />
-      </div>
-      <div class="auth-button-container">
-        <button class="base-button">ログイン</button>
-      </div>
-      <div class="auth-button-container">
-        <button
-          class="base-button"
-          onclick="location.href='{{ url_for('signup_view') }}'"
-        >
-          登録はこちら
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Login" />
+    <link rel="stylesheet" href="login.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Rare Garden</h1>
+
+      <form>
+        <p>メールアドレス</p>
+        <input type="email" required placeholder="メールアドレスを入力" />
+
+        <p>パスワード</p>
+        <input type="password" required placeholder="パスワードを入力" />
+      </form>
+      <br />
+      <input type="submit" value="ログイン" />
+      <br />
+      <button
+        class="btn"
+        onclick="location.href='https://github.com/hackathon-autumn-Hteam/tree/feature/191/signup.html'"
+      >
+        登録はこちら
+      </button>
+    </div>
+  </body>
+</html>
