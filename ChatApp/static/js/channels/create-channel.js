@@ -8,7 +8,7 @@ const closeButton = document.getElementById(
 
 // チャンネル作成ボタンが押された時にモーダルを表示する
 createChannelButton.addEventListener("click", () => {
-  createChannelModal.style.display == "flex";
+  createChannelModal.style.display = "flex";
 });
 
 // モーダル内のXボタンが押されたときにモーダルを閉じる
@@ -55,15 +55,4 @@ function keydownEvent(e) {
       }
     }
   }
-}
-
-// &&並列で記述 &&は全てのオペランドがtrueである場合にのみtrueになる
-if (
-  (e.ctrlKey || e.metaKey) &&
-  e.keyCode === 13 &&
-  e.code === "Enter" &&
-  createChannelModalStyle !== "none" &&
-  newChannelName !== ""
-) {
-  document.createChannelForm.submit();
 }
