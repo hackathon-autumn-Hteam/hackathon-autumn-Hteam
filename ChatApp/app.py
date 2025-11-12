@@ -131,7 +131,6 @@ def login():
 
     # DBからユーザーを取得
     user = User.find_by_email(email)
-    print(user)
     if user is None:
         flash(
             "メールアドレスまたはパスワードが間違っています。"
