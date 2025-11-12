@@ -36,6 +36,8 @@ class User:
         finally:
             db_pool.release(conn)
 
+# チャンネルの作成
+class Channel:
     # TODO(うっちーさん): チャンネルクラスを定義
     # チャンネル一覧ページの表示
     @classmethod
@@ -59,9 +61,6 @@ class User:
         finally:
             db_pool.release(conn)
 
-
-# チャンネルの作成
-class Channel:
     @classmethod
     def create(cls, user_id, channel_name, description):
         conn = db_pool.get_conn()
