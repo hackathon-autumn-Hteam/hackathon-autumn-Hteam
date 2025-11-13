@@ -10,6 +10,9 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='gen/bundled.css') }}"
     />
+    {% block css %}
+    <!-- 開発時は各ファイルで直接CSSを読み込む -->
+    {% endblock %}
   </head>
   <body>
     {% block body %}
