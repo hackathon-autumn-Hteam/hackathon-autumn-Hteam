@@ -6,11 +6,6 @@
 /* フォーム全体 */
 .auth-form {
 }
-/* 各フォーム */
-.auth-form-group {
-  display: flex;
-  flex-direction: column;
-}
 /* ボタン */
 .auth-button-container {
 }

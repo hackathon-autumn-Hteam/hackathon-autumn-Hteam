@@ -20,7 +20,7 @@ class DB:
             # 文字コード
             charset="utf8mb4",
             # カーソルクラス（辞書型でフェッチ）
-            cursorclass=pymysql.cursors.DictCursor,
+            cursorclass=pymysql.cursors.DictCursor
         )
         # コネクションプールの初期化
         pool.init()
