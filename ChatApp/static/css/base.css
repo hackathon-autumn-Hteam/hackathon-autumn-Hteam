@@ -1,1 +1,10 @@
-12345
+/* 各フォーム */
+.auth-form-group {
+  display: flex;
+  flex-direction: column;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

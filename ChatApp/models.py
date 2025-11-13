@@ -36,6 +36,8 @@ class User:
         finally:
             db_pool.release(conn)
 
+# チャンネルの作成
+class Channel:
     # TODO(うっちーさん): チャンネルクラスを定義
     # チャンネル一覧ページの表示
     @classmethod
@@ -43,10 +45,10 @@ class User:
         conn = db_pool.get_conn()
         try:
             with conn.cursor() as cur:
-                sql = "SELECT * FROM channels;"
+                # sql = "SELECT * FROM channels;"
 
                 # データベース側で並び替えを指定するなら（app.pyのreverse()削除）
-                # sql = SELECT * FROM ORDER BY channel_id DESC
+                sql = "SELECT * FROM channels ORDER BY channel_id DESC;"
 
                 cur.execute(sql)
                 channels = cur.fetchall()
@@ -59,9 +61,6 @@ class User:
         finally:
             db_pool.release(conn)
 
-
-# チャンネルの作成
-class Channel:
     @classmethod
     def create(cls, user_id, channel_name, description):
         conn = db_pool.get_conn()
