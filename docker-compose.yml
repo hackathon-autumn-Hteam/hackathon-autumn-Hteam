@@ -49,7 +49,7 @@ services:
     # ボリュームを指定
     # ローカルのカレントディレクトリをコンテナの/codeにマウントする
     volumes:
-      - ./ChatApp:/code
+      - ./ChatApp:/code:cached
     # ローカルのFlaskポートとコンテナの5000番ポートをつなぐ
     ports:
       - "${FLASK_PORT}:5000"
