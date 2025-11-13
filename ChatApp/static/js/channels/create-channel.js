@@ -13,13 +13,13 @@ createChannelButton.addEventListener("click", () => {
 
 // モーダル内のXボタンが押されたときにモーダルを閉じる
 closeButton.addEventListener("click", () => {
-  createChannelModal.style.display == "none";
+  createChannelModal.style.display = "none";
 });
 
 // 画面のどこかが押された時にモーダルを閉じる
 addEventListener("click", (e) => {
   if (e.target == createChannelModal) {
-    createChannelModal.style.display == "none";
+    createChannelModal.style.display = "none";
   }
 });
 
