@@ -139,14 +139,14 @@ def login():
 
     # パスワード照合
     hash_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
-    if user.password != hash_password:
+    if user["password"] != hash_password:
         flash(
             "メールアドレスまたはパスワードが間違っています。"
         )  # TODO(はるか): フロント側との調整
         return redirect(url_for("login_view"))
 
     # 認証成功
-    session["user_id"] = user.user_id
+    session["user_id"] = user["user_id"]
     return redirect(url_for("channels_view"))
 
 
@@ -172,7 +172,7 @@ def channels_view():
         return redirect(url_for("login_view"))
     else:
         channels = Channel.get_all()
-        channels.reverse()  # チャンネルの順番を新しい順にする DB側→ORDER BYで設定？
+        #channels.reverse()  # チャンネルの順番を新しい順にする DB側→ORDER BYで設定？
         return render_template(
             "channels.html", channels=channels, user_id=user_id
         )  # 今後変動の可能性あり　変数としてchannels(全チャンネルの一覧)とuid（ログイン中のユーザID）をHTMLに渡す
