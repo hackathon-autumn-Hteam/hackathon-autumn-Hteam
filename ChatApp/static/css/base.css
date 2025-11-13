@@ -1,8 +1,37 @@
-/* 各フォーム */
-.auth-form-group {
-  display: flex;
-  flex-direction: column;
+* {
+  box-sizing: border-box; /* 代替ボックスモデル(widthやheightがborderとpaddingを含んだサイズとして扱われる) */
 }
+
+body {
+  background-image: url("../img/background.png");
+  /* 背景画像の調節が必要 */
+}
+
+/* 各フォーム */
+.form-group {
+  width: 100%;
+  max-width: 400px; /* 親要素の最大幅を指定する */
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* ラベル */
+.form-label {
+  display: block; /* ラベルのみブロック要素にする */
+  margin-left: 12px;
+  margin-bottom: 4px;
+}
+
+/* フォーム */
+input[type="password"],
+input[type="text"],
+input[type="email"] {
+  width: 100%; /* 親要素(form-group)の幅に合わせる */
+  border: 1px solid #b9d8c2; /* 色は変数化する */
+  padding: 8px 20px;
+  border-radius: 50px;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
