@@ -10,8 +10,7 @@ body {
 /* 各フォーム */
 .form-group {
   width: 100%;
-  max-width: 400px; /* 親要素の最大幅を指定する */
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   font-size: 16px;
 }
 
@@ -25,11 +24,63 @@ body {
 /* フォーム */
 input[type="password"],
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+textarea {
   width: 100%; /* 親要素(form-group)の幅に合わせる */
-  border: 1px solid #b9d8c2; /* 色は変数化する */
+  border: 1px solid #b9d8c2;
   padding: 8px 20px;
   border-radius: 50px;
+}
+
+/* フォーム(フォーカス時) */
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: #a6d5a0;
+  box-shadow: 0 0 5px rgba(116, 198, 157, 0.4);
+  outline: none;
+}
+
+/* ヘルプメッセージ */
+.form-help {
+  color: #888888;
+  margin: 4px 12px;
+  font-size: 14px;
+}
+
+/* ヘルプメッセージ(※マーク) */
+.form-help::before {
+  content: "※";
+  margin-right: 4px;
+}
+
+/* ボタン */
+.base-button {
+  border: 1px solid;
+  border-radius: 50px;
+  height: 33px;
+  font-size: 16px;
+  padding: 0 24px;
+}
+
+/* 黄色いボタン */
+.yellow-button {
+  background-color: #f9e491;
+  border-color: #f5db73;
+}
+
+/* 黄色いボタン(ホバー時) */
+.yellow-button:hover {
+  background-color: #f7dd78;
+  border-color: #f0cf5c;
+}
+
+/* 黄色いボタン(アクティブ時) */
+.yellow-button:active {
+  background-color: #f2c95e;
+  border-color: #e6ba4a;
+  transform: scale(0.96);
 }
 
 .main-container {
