@@ -18,10 +18,10 @@
     <div id="channel-actions">
       <!-- チャンネルを作成したユーザーのみチャンネルの編集・削除ができる -->
       {% if user_id == channel.user_id %}
-      <button id="update-channel-button">
+      <button id="update-channel-button" class="icon-button" aria-label="編集">
         <ion-icon name="create"></ion-icon>
       </button>
-      <button id="delete-channel-button">
+      <button id="delete-channel-button" class="icon-button" aria-label="削除">
         <ion-icon name="trash"></ion-icon>
       </button>
       {% endif %}
@@ -38,6 +38,21 @@
     <!-- メッセージの一覧 -->
 
     <!-- メッセージ作成フォーム -->
+    <div id="create-message-form">
+      <form
+        action="{{ url_for('create_message', channel_id=channel.channel_id) }}"
+        method="POST"
+      >
+        <textarea
+          id="message_text"
+          name="message_text"
+          rows="5"
+          placeholder="メッセージを入力してください。"
+          required
+        ></textarea>
+        <button class="base-button green-button">送信</button>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}
@@ -53,6 +68,12 @@
 <!-- チャンネルの削除のモーダルを制御するスクリプトを読み込む -->
 <script
   src="{{url_for('static',filename='js/channels/delete-channel.js')}}"
+  type="text/javascript"
+></script>
+
+<!-- メッセージの編集のモーダルを制御するスクリプトを読み込む -->
+<script
+  src="{{url_for('static',filename='js/messages/update-message.js')}}"
   type="text/javascript"
 ></script>
 {% endblock %}
