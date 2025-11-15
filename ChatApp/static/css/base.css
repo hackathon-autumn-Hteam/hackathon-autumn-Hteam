@@ -30,10 +30,11 @@ input[type="text"],
 input[type="email"],
 textarea,
 select {
-  width: 100%; /* 親要素(form-group)の幅に合わせる */
+  width: 100%; /* 親要素の幅に合わせる */
   border: 1px solid #b9d8c2;
   padding: 8px 20px;
   border-radius: var(--border-radius);
+  resize: none;
 }
 
 /* フォーム(フォーカス時) */
