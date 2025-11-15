@@ -4,6 +4,11 @@
 <!--手順2：ブラウザのタブ名の指定(URL設計参照) -->
 {% block title %}
 <title>channels</title>
+{% endblock %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/channels.css') }}"
+/>
 {% endblock %} {% block body %}
 <div class="main-container">
   <!-- 左上の表示-->
@@ -12,12 +17,29 @@
   </div>
   <!-- チャンネル作成のボタン（このエリアをヘッダーとする）　-->
   <div id="channels-header">
-    <button id="creat-channel-button" type="button">チャンネル作成</button>
+    <button id="create-channel-button" type="button">チャンネル作成</button>
   </div>
   <!-- チャンネル一覧（このエリアをボディとする）　-->
   <div id="channels-body">
     <h2>チャンネル一覧</h2>
-    <ul class="channels-box"></ul>
+    <div id="channels-list">
+      <ul class="channel-box"></ul>
+      <div id="pagination-wrapper">
+        <div>
+          <div class="pagination-container">
+            <p id="prev">
+              <
+              <span>PREV</span>
+            </p>
+            <ul class="pagination"></ul>
+            <p id="next">
+              <span>NEXT</span>
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- モーダル読み込み -->
@@ -27,8 +49,18 @@
 
 <!-- JS読み込み -->
 {% block script%}
+<script type="text/javascript">
+  // prettier-ignore
+  const channels = JSON.parse('{{ channels|tojson }}');
+  // prettier-ignore
+  const user_id = JSON.parse('{{ user_id|tojson }}');
+</script>
 <script
   src="{{url_for('static',filename='js/channels/create-channel.js')}}"
+  type="module"
+></script>
+<script
+  src="{{url_for('static',filename='js/pagination.js')}}"
   type="module"
 ></script>
 {% endblock %}

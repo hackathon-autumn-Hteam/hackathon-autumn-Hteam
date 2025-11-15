@@ -1,0 +1,9 @@
+.pagination-container {
+  display: flex;
+}
+.pagination {
+  display: flex;
+}
+li {
+  list-style: none;
+}
