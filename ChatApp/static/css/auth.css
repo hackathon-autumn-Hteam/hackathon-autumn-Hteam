@@ -7,8 +7,8 @@ position: relative;
 }
 
 h3{
-top:20px;
 font-size:20px;
+top:20px;
 position: relative;
 }
 
@@ -31,7 +31,7 @@ right:44px;
 position: relative;
 text-align:center;
 background-color:#B9D8C2;
-opacity: ;
+opacity:0.6;
 font-size:15px;
 width: 280px;
 height:360px;
@@ -78,5 +78,6 @@ form{
 position: relative;  
 top:44px;
 }
+
 
 
