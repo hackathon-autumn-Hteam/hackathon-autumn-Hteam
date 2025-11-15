@@ -36,7 +36,7 @@
 .back{
  background-color:#F9F6EB;
  opasity:0.5px;
- color:;
+ color:#808080;
  border-color:#B9D8C2;
  border-radius:30px;
  font-size:12px;
@@ -47,6 +47,7 @@
  background-color:#B9D8C2;
  opasity:1px;
  border-color:none;
+ color:black;
 } 
 
 p{
