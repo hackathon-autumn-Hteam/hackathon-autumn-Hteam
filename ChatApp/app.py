@@ -66,25 +66,25 @@ def signup():
 
     # 入力チェック
     if user_name == "":
-        flash("名前を入力してください。")  # TODO(はるか): フロント側との調整
+        flash("名前を入力してください")
         return redirect(url_for("signup_view"))
 
     if email == "":
-        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整
+        flash("メールアドレスを入力してください")
         return redirect(url_for("signup_view"))
 
     if password != password_confirmation:
-        flash("パスワードが一致しません。")  # TODO(はるか): フロント側との調整
+        flash("パスワードが一致しません")
         return redirect(url_for("signup_view"))
 
     if prefecture_id == "":
-        flash("都道府県を選択してください。")  # TODO(はるか): フロント側との調整
+        flash("都道府県を選択してください")
         return redirect(url_for("signup_view"))
 
     # DBからユーザーを取得
     registered_user = User.find_by_email(email)
     if registered_user:
-        flash("ユーザーを登録できませんでした。")  # TODO(はるか): フロント側との調整
+        flash("ユーザーを登録できませんでした")
         return redirect(url_for("signup_view"))
 
     # ユーザー登録
@@ -122,27 +122,23 @@ def login():
 
     # 入力チェック
     if email == "":
-        flash("メールアドレスを入力してください。")  # TODO(はるか): フロント側との調整
+        flash("メールアドレスを入力してください")
         return redirect(url_for("login_view"))
 
     if password == "":
-        flash("パスワードを入力してください。")  # TODO(はるか): フロント側との調整
+        flash("パスワードを入力してください")
         return redirect(url_for("login_view"))
 
     # DBからユーザーを取得
     user = User.find_by_email(email)
     if user is None:
-        flash(
-            "メールアドレスまたはパスワードが間違っています。"
-        )  # TODO(はるか): フロント側との調整
+        flash("ログインできませんでした")
         return redirect(url_for("login_view"))
 
     # パスワード照合
     hash_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
     if user["password"] != hash_password:
-        flash(
-            "メールアドレスまたはパスワードが間違っています。"
-        )  # TODO(はるか): フロント側との調整
+        flash("ログインできませんでした")
         return redirect(url_for("login_view"))
 
     # 認証成功

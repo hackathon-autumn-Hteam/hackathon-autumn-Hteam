@@ -3,9 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block title %}
-    <!-- ここにタイトルを記述 -->
-    {% endblock %}
+    <title>
+      RareGarden | {% block title %} <!-- ここにタイトルを記述 --> {% endblock
+      %}
+    </title>
+    <!-- アプリタイトル用のフォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Itim&display=swap"
+      rel="stylesheet"
+    />
     <!-- 完成後は以下のCSSのみ読み込む -->
     <link
       rel="stylesheet"
@@ -15,6 +23,14 @@
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/base.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/auth.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/variables.css') }}"
     />
     {% block css %}
     <!-- 開発時に各ファイルで読み込むCSSを記述 -->
