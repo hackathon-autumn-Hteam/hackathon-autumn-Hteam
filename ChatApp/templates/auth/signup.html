@@ -11,6 +11,7 @@
   <h1>RareGarden</h1>
   <div class="auth-form-container">
     <h2>新規登録</h2>
+
     <form class="auth-form" method="post">
       <div class="form-fields">
         {% with messages = get_flashed_messages() %}
@@ -26,6 +27,7 @@
         {% endif %}
         <!-- prettier-ignore -->
         {% endwith %}
+
         <div>
           <label class="form-label" for="user_name">名前</label>
           <input
@@ -36,6 +38,7 @@
             required
           />
         </div>
+
         <div>
           <label class="form-label" for="email">メールアドレス</label>
           <input
@@ -46,6 +49,7 @@
             required
           />
         </div>
+
         <div>
           <label class="form-label" for="password">パスワード</label>
           <input
@@ -56,6 +60,7 @@
             required
           />
         </div>
+
         <div>
           <label class="form-label" for="password_confirmation"
             >パスワードの再入力</label
@@ -68,9 +73,11 @@
             required
           />
         </div>
+
         <div>
           <label class="form-label" for="prefecture_id">都道府県</label>
           <select name="prefecture_id" id="prefecture_id">
+            <option value="">都道府県を選択してください</option>
             {% for prefecture in prefectures %}
             <option value="{{ prefecture.prefecture_id }}">
               {{ prefecture.prefecture_name }}
