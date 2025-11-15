@@ -1,4 +1,9 @@
+/*-------------------------------------------
+  タグ
+  -------------------------------------------*/
 * {
+  margin: 0; /* デフォルトの余白をリセット */
+  padding: 0; /* デフォルトの余白をリセット */
   box-sizing: border-box; /* 代替ボックスモデル(widthやheightがborderとpaddingを含んだサイズとして扱われる) */
 }
 
@@ -7,39 +12,75 @@ body {
   /* 背景画像の調節が必要 */
 }
 
-/* 各フォーム */
-.form-group {
-  width: 100%;
-  margin-bottom: 16px;
-  font-size: 16px;
+/* アプリタイトル(RareGarden) */
+h1 {
+  margin: 0;
+  white-space: nowrap;
 }
 
-/* ラベル */
-.form-label {
-  display: block; /* ラベルのみブロック要素にする */
-  margin-left: 12px;
-  margin-bottom: 4px;
+/* ページタイトル */
+h2 {
+  margin: 0;
+  white-space: nowrap;
 }
 
 /* フォーム */
 input[type="password"],
 input[type="text"],
 input[type="email"],
-textarea {
+textarea,
+select {
   width: 100%; /* 親要素(form-group)の幅に合わせる */
   border: 1px solid #b9d8c2;
   padding: 8px 20px;
-  border-radius: 50px;
+  border-radius: var(--border-radius);
 }
 
 /* フォーム(フォーカス時) */
 input[type="password"]:focus,
 input[type="text"]:focus,
 input[type="email"]:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   border-color: #a6d5a0;
   box-shadow: 0 0 5px rgba(116, 198, 157, 0.4);
   outline: none;
+}
+
+/* ブラウザのオート入力でフォームが青くなるのを抑制 */
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: #000;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/*-------------------------------------------
+  クラス
+  -------------------------------------------*/
+
+.flashes {
+  color: red;
+  list-style: none;
+}
+
+.flashes li {
+  text-align: center;
+}
+
+/* フォームの入力欄(ボタン以外) */
+.form-fields {
+  width: 100%;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+}
+
+/* ラベル */
+.form-label {
+  display: block; /* ブロック要素にする */
+  margin-left: 12px;
+  margin-bottom: 4px;
 }
 
 /* ヘルプメッセージ */
@@ -58,7 +99,7 @@ textarea:focus {
 /* ボタン */
 .base-button {
   border: 1px solid;
-  border-radius: 50px;
+  border-radius: var(--border-radius);
   height: 33px;
   font-size: 16px;
   padding: 0 24px;
@@ -81,10 +122,4 @@ textarea:focus {
   background-color: #f2c95e;
   border-color: #e6ba4a;
   transform: scale(0.96);
-}
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
