@@ -346,6 +346,22 @@ def update_message(channel_id, message_id):
     return redirect(f"/channels/{channel_id}/messages")
 
 
+@app.route("/channels/<channel_id>/messages/<message_id>/flowers", methods=["POST"])
+def send_flower(channel_id, message_id):
+    """お花を送る処理
+
+    Args:
+        channel_id (int): チャンネルID
+        message_id (int): メッセージID
+
+    Returns:
+        flask.Response: リダイレクト先のHTTPレスポンス。
+            メッセージ一覧ページ(messages_view)へのリダイレクト。
+    """
+    Message.send_flower(message_id)
+    return redirect(f"/channels/{channel_id}/messages")
+
+
 # TODO:メッセージの削除(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["DELETE"])
 def delete_message(channel_id, message_id):
