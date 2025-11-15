@@ -44,7 +44,8 @@ def signup_view():
     Returns:
         flask.Response: サインアップページを描画したHTTPレスポンス。
     """
-    return render_template("auth/signup.html")
+    prefectures = Prefecture.get_all()
+    return render_template("auth/signup.html", prefectures=prefectures)
 
 
 @app.route("/signup", methods=["POST"])
@@ -60,7 +61,6 @@ def signup():
     user_name = request.form.get("user_name")
     email = request.form.get("email")
     password = request.form.get("password")
-    # TODO(はるか): フロント側との調整(パスワードの確認フォームを用意するか)
     password_confirmation = request.form.get("password_confirmation")
     prefecture_id = request.form.get("prefecture_id")
 
@@ -172,7 +172,7 @@ def channels_view():
         return redirect(url_for("login_view"))
     else:
         channels = Channel.get_all()
-        #channels.reverse()  # チャンネルの順番を新しい順にする DB側→ORDER BYで設定？
+        # channels.reverse()  # チャンネルの順番を新しい順にする DB側→ORDER BYで設定？
         return render_template(
             "channels.html", channels=channels, user_id=user_id
         )  # 今後変動の可能性あり　変数としてchannels(全チャンネルの一覧)とuid（ログイン中のユーザID）をHTMLに渡す

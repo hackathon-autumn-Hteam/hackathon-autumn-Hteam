@@ -1,12 +1,22 @@
-{% extends 'auth/base.html' %} {% block title %}
+{% extends 'auth/base.html' %}
+
+<!-- prettier-ignore -->
+{% block title %}
 <title>login</title>
-{% endblock %} {% block body %}
+{% endblock %}
+
+<!-- prettier-ignore -->
+{% block css %}
+{% endblock %}
+
+<!-- prettier-ignore -->
+{% block body %}
 <div class="auth-wrapper">
   <h1 class="auth-title">RareGarden</h1>
   <div class="auth-form-container">
     <form class="auth-form" method="post">
       <h2 class="auth-subtitle">ユーザーログイン</h2>
-      <div class="auth-form-group">
+      <div class="form-group">
         <label class="form-label" for="email">メールアドレス</label>
         <input
           type="text"
@@ -16,7 +26,7 @@
           required
         />
       </div>
-      <div class="auth-form-group">
+      <div class="form-group">
         <label class="form-label" for="password">パスワード</label>
         <input
           type="password"
@@ -27,11 +37,11 @@
         />
       </div>
       <div class="auth-button-container">
-        <button class="base-button">ログイン</button>
+        <button class="base-button yellow-button">ログイン</button>
       </div>
       <div class="auth-button-container">
         <button
-          class="base-button"
+          class="base-button yellow-button"
           onclick="location.href='{{ url_for('signup_view') }}'"
         >
           登録はこちら
