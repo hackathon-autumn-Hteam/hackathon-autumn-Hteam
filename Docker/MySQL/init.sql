@@ -35,6 +35,7 @@ CREATE TABLE messages (
     channel_id INT NOT NULL,
     message_text TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    like_flower_count INT NOT NULL DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (channel_id) REFERENCES channels(channel_id) ON DELETE CASCADE
 );
