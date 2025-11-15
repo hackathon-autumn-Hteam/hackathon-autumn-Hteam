@@ -15,8 +15,23 @@
   <h1>RareGarden</h1>
   <div class="auth-form-container">
     <h2>ユーザーログイン</h2>
+
     <form class="auth-form" method="post">
       <div class="form-fields">
+        {% with messages = get_flashed_messages() %}
+        <!-- prettier-ignore -->
+        {% if messages %}
+        <div>
+          <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        <!-- prettier-ignore -->
+        {% endwith %}
+
         <div>
           <label class="form-label" for="email">メールアドレス</label>
           <input
@@ -27,6 +42,7 @@
             required
           />
         </div>
+
         <div>
           <label class="form-label" for="password">パスワード</label>
           <input
@@ -40,6 +56,7 @@
       </div>
       <button class="base-button yellow-button">ログイン</button>
     </form>
+
     <button
       class="base-button yellow-button"
       onclick="location.href='{{ url_for('signup_view') }}'"
