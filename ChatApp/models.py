@@ -36,6 +36,7 @@ class User:
         finally:
             db_pool.release(conn)
 
+
 # チャンネルの作成
 class Channel:
     # TODO(うっちーさん): チャンネルクラスを定義
@@ -172,14 +173,14 @@ class Message:
                    WHERE channel_id = %s
                    ORDER BY id ASC;
                 """
-                cur.execute(sql, (channel_id,)) # SQLを実行
-                messages = cur.fetchall() # 実行結果から全ての行を取得
+                cur.execute(sql, (channel_id,))  # SQLを実行
+                messages = cur.fetchall()  # 実行結果から全ての行を取得
                 return messages
         except pymysql.Error as e:
-           print(f"Class.get_allでエラーが発生しています：{e}")
-           abort(500)
+            print(f"Class.get_allでエラーが発生しています：{e}")
+            abort(500)
         finally:
-           db_pool.release(conn)
+            db_pool.release(conn)
 
     # TODO: 該当するメッセージIDの情報取得(channel_id, user_id, channel_id, message_text, created_at)
     @classmethod
@@ -200,50 +201,69 @@ class Message:
     # TODO: メッセージの作成
     @classmethod
     def create(cls, user_id, channel_id, message_text):
-       conn = db_pool.get_conn() # データベース接続プールからコネクションを取得
-       try:
-           with conn.cursor() as cur: # カーソルオブジェクトを作成
-               # messagesテーブルにユーザーID,チャンネルID,メッセージ詳細を挿入
-               sql = "INSERT INTO messages(user_id, channel_id, message_text) VALUES(%s, %s, %s);"
-               cur.execute(sql, (user_id, channel_id, message_text,)) # SQLを実行
-               conn.commit()
-       except pymysql.Error as e:
-           print(f"Class.createでエラーが発生しています：{e}")
-           abort(500)
-       finally:
-           db_pool.release(conn)
+        conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
+        try:
+            with conn.cursor() as cur:  # カーソルオブジェクトを作成
+                # messagesテーブルにユーザーID,チャンネルID,メッセージ詳細を挿入
+                sql = "INSERT INTO messages(user_id, channel_id, message_text) VALUES(%s, %s, %s);"
+                cur.execute(
+                    sql,
+                    (
+                        user_id,
+                        channel_id,
+                        message_text,
+                    ),
+                )  # SQLを実行
+                conn.commit()
+        except pymysql.Error as e:
+            print(f"Class.createでエラーが発生しています：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
 
     # TODO: メッセージの変更
     @classmethod
     def update(cls, message_id, message_text):
-       conn = db_pool.get_conn()
-       try:
-           with conn.cursor() as cur: # 該当するmessage_idのmessage_textを更新
-               sql = "UPDATE messages SET message_text=%s WHERE message_id=%s;"
-               cur.execute(sql, (message_text, message_id)) # SQLを実行
-               conn.commit()
-       except pymysql.Error as e:
-           print(f"Message.updateでエラーが発生しています：{e}")
-           abort(500)
-       finally:
-           db_pool.release(conn)
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:  # 該当するmessage_idのmessage_textを更新
+                sql = "UPDATE messages SET message_text=%s WHERE message_id=%s;"
+                cur.execute(sql, (message_text, message_id))  # SQLを実行
+                conn.commit()
+        except pymysql.Error as e:
+            print(f"Message.updateでエラーが発生しています：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
 
     # TODO: メッセージの削除(追加機能)
     @classmethod
     def delete(cls, message_id):
-       conn = db_pool.get_conn()
-       try:
-           with conn.cursor() as cur:
-               sql = "DELETE FROM messages WHERE message_id=%s;"
-               cur.execute(sql, (message_id))
-               conn.commit()
-       except pymysql.Error as e:
-           print(f"Message.deleteでエラーが発生しています：{e}")
-           abort(500)
-       finally:
-           db_pool.release(conn)
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = "DELETE FROM messages WHERE message_id=%s;"
+                cur.execute(sql, (message_id))
+                conn.commit()
+        except pymysql.Error as e:
+            print(f"Message.deleteでエラーが発生しています：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
 
 
-# TODO(はるか): 都道府県クラスを定義
 class Prefecture:
-    pass
+    @classmethod
+    def get_all(cls):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM prefectures;"
+                cur.execute(sql)
+                prefectures = cur.fetchall()
+                return prefectures
+        except pymysql.Error as e:
+            print(f"都道府県の一覧を取得できませんでした:{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
