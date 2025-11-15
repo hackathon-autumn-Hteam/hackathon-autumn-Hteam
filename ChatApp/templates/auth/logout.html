@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+{% block title %} Logout {% endblock %}
+
+{% block content %}
+<body>
+    <button id="openModal" class="logout">ログアウト</button>  
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>ログアウトしました</p>
+            <button onclick="location.href='login.html'" class="back">ログイン画面へ戻る</button>       
+    </div>
+    </div>
+  {% endblock %}
+<script src="logout.js"></script>
+</body>
+</html>
