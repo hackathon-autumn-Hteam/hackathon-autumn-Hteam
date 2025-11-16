@@ -5,4 +5,21 @@
   --gap-medium: 24px;
   --gap-large: 40px;
   --border-radius: 16px;
+  --white: #ffffff;
+  --grey: #888888;
+  --background-color: #fffdf6;
+  --green: #b9d8c2;
+  --green-60: #b9d8c299;
+  --green-light: #d3ead6; /* ホバー・アクション・ハイライト 用 */
+  --green-dark: #91bba0; /* アクティブ 用 */
+  --green-border: #a0c7ac; /* ボーダー 用 */
+  --yellow: #f9e491;
+  --yellow-light: #f7dd78; /* ホバー・アクション・ハイライト 用 */
+  --yellow-dark: #f2c95e; /* アクティブ 用 */
+  --yellow-border: #f5db73; /* ボーダー 用  */
+  --red: #f29b9b;
+  --red-light: #f6c1c1; /* ホバー・アクション・ハイライト 用 */
+  --red-dark: #c76d6d; /* アクティブ 用 */
+  --red-border: #e19a9a; /* ボーダー 用  */
+  --font-size: 16px;
 }
