@@ -1,66 +1,92 @@
-{% extends 'auth/base.html' %} {% block title %}
-<title>signup</title>
-{% endblock %} {% block body %}
+{% extends 'auth/base.html' %}
+
+<!-- prettier-ignore -->
+{% block title %}
+新規登録
+{% endblock %}
+
+<!-- prettier-ignore -->
+{% block body %}
 <div class="auth-wrapper">
-  <h1 class="auth-title">RareGarden</h1>
+  <h1>RareGarden</h1>
   <div class="auth-form-container">
+    <h2>新規登録</h2>
+
     <form class="auth-form" method="post">
-      <h2 class="auth-subtitle">新規登録</h2>
-      <div class="auth-form-group">
-        <label class="form-label" for="user_name">名前</label>
-        <input
-          type="text"
-          placeholder="名前を入力してください"
-          name="user_name"
-          id="user_name"
-          required
-        />
+      <div class="form-fields">
+        {% with messages = get_flashed_messages() %}
+        <!-- prettier-ignore -->
+        {% if messages %}
+        <div>
+          <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        <!-- prettier-ignore -->
+        {% endwith %}
+
+        <div>
+          <label class="form-label" for="user_name">名前</label>
+          <input
+            type="text"
+            placeholder="名前を入力してください"
+            name="user_name"
+            id="user_name"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="form-label" for="email">メールアドレス</label>
+          <input
+            type="text"
+            placeholder="メールアドレスを入力してください"
+            name="email"
+            id="email"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="form-label" for="password">パスワード</label>
+          <input
+            type="password"
+            placeholder="パスワードを入力してください"
+            name="password"
+            id="password"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="form-label" for="password_confirmation"
+            >パスワードの再入力</label
+          >
+          <input
+            type="password"
+            placeholder="パスワードを再入力してください"
+            name="password_confirmation"
+            id="password_confirmation"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="form-label" for="prefecture_id">都道府県</label>
+          <select name="prefecture_id" id="prefecture_id">
+            <option value="">都道府県を選択してください</option>
+            {% for prefecture in prefectures %}
+            <option value="{{ prefecture.prefecture_id }}">
+              {{ prefecture.prefecture_name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
-      <div class="auth-form-group">
-        <label class="form-label" for="email">メールアドレス</label>
-        <input
-          type="text"
-          placeholder="メールアドレスを入力してください"
-          name="email"
-          id="email"
-          required
-        />
-      </div>
-      <div class="auth-form-group">
-        <label class="form-label" for="password">パスワード</label>
-        <input
-          type="password"
-          placeholder="パスワードを入力してください"
-          name="password"
-          id="password"
-          required
-        />
-      </div>
-      <div class="auth-form-group">
-        <label class="form-label" for="password_confirmation"
-          >パスワードの再入力</label
-        >
-        <input
-          type="password"
-          placeholder="パスワードを再入力してください"
-          name="password_confirmation"
-          id="password_confirmation"
-          required
-        />
-      </div>
-      <div class="auth-form-group">
-        <label class="form-label" for="prefecture_id">都道府県</label>
-        <select name="prefecture_id" id="prefecture_id">
-          {% for prefecture in prefectures %}
-          <option value="{{ prefecture.id }}">
-            {{ prefecture.prefecture_name }}
-          </option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="auth-button-container">
-        <button class="base-button">登録する</button>
-      </div>
+      <button class="base-button yellow-button">登録する</button>
     </form>
   </div>
 </div>
