@@ -166,18 +166,18 @@ class Message:
         try:
             with conn.cursor() as cur:  # カーソルオブジェクトを作成
                 sql = """
-                   SELECT message_id,u.user_id, u.user_name, p.prefecture_name, message_text, created_at
+                   SELECT m.message_id, u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at
                    FROM messages AS m
                    INNER JOIN users AS u ON m.user_id = u.user_id
                    INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
                    WHERE channel_id = %s
-                   ORDER BY id ASC;
+                   ORDER BY m.message_id ASC;
                 """
                 cur.execute(sql, (channel_id,))  # SQLを実行
                 messages = cur.fetchall()  # 実行結果から全ての行を取得
                 return messages
         except pymysql.Error as e:
-            print(f"Class.get_allでエラーが発生しています：{e}")
+            print(f"Message.get_allでエラーが発生しています：{e}")
             abort(500)
         finally:
             db_pool.release(conn)
@@ -216,7 +216,7 @@ class Message:
                 )  # SQLを実行
                 conn.commit()
         except pymysql.Error as e:
-            print(f"Class.createでエラーが発生しています：{e}")
+            print(f"Message.createでエラーが発生しています：{e}")
             abort(500)
         finally:
             db_pool.release(conn)
