@@ -1,0 +1,8 @@
+/* よく使う値は変数化すると便利 */
+/* background-color: var(--main-bg-color);　のように使用する */
+:root {
+  --gap-small: 12px;
+  --gap-medium: 24px;
+  --gap-large: 40px;
+  --border-radius: 16px;
+}

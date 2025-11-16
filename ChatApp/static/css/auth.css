@@ -1,17 +1,32 @@
+/* ページ全体 */
 .auth-wrapper {
-  background-image: url(static/img/image.png);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-large);
+  min-height: 100vh;
+  margin: 0 40px;
+  max-width: 1280px;
 }
+
+/* フォームコンテナ(囲っている緑色の部分) */
 .auth-form-container {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: rgba(185, 216, 194, 0.6);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-medium);
 }
-/* フォーム全体 */
+
+/* フォーム全体(form-fieldsと送信用のボタン) */
 .auth-form {
-}
-/* ボタン */
-.auth-button-container {
-}
-/* タイトル */
-.h1 {
-}
-/* サブタイトル */
-.h2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-large);
 }
