@@ -181,10 +181,8 @@ def create_channel():
     if user_id is None:
         return redirect(url_for("login_view"))
 
-    channel_name = request.form.get(
-        "channel_name"
-    )  # formのタイトルと　191さんと合わせる必要あり
-    channel = Channel.find_by_name(channel_name)
+    channel_name = request.form.get("channel_name")
+    channel = Channel.find_by_channel_name(channel_name)
     if channel == None:
         description = request.form.get("description")
         Channel.create(user_id, channel_name, description)
