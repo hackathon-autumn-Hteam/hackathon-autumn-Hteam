@@ -1,0 +1,113 @@
+.message-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-small);
+}
+
+.message-header .channel-name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-small);
+}
+
+.message-header .channel-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.message-header .channel-description {
+  border: 2px solid var(--green);
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  padding: 2px 12px;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.message-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+  background-color: var(--green-60);
+  border-radius: var(--border-radius);
+  padding: 12px;
+  min-width: 400px;
+  height: 540px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.messages {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.message-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 4px;
+  border: 1px solid var(--yellow-border);
+  max-width: 70%;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size);
+  padding: 2px 12px;
+  font-size: 16px;
+}
+
+.box-right {
+  background-color: var(--yellow);
+  margin-left: auto;
+  border-top-right-radius: 0;
+}
+
+.box-left {
+  background-color: var(--background-color);
+  margin-right: auto;
+  border-top-left-radius: 0;
+}
+
+.my-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.other-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.created_at {
+  font-size: 12px;
+}
+
+.user-name {
+  font-size: 12px;
+}
+
+.update-message-button {
+  border: none;
+  border-radius: 50%;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.create-message-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gap-small);
+}
