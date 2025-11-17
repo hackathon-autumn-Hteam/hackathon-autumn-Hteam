@@ -1,10 +1,6 @@
 // チャンネル一覧ページでレスポンスが返ってきたあと
 // チャンネル一覧の配列データを元にページネーションを作成・制御する
 
-import { initCreateChannelModal } from "/static/js/channels/create-channel.js";
-
-const deleteChannelModal = document.getElementById("delete-channel-modal"); // ページネーションを作成・制御する関数 // チャンネル名、削除ボタンを作成・制御
-
 const pagination = () => {
   try {
     let page = 1; // 今何ページ目にいるか
@@ -55,10 +51,6 @@ const pagination = () => {
         const li = document.createElement("li");
         const channelURL = `/channels/${channel.channel_id}/messages`;
         a.innerText = channel.channel_name;
-        a.setAttribute("href", channelURL);
-        li.appendChild(a);
-        ul.appendChild(li);
-        console.log(channel);
       });
     };
     // ページネーション内で現在選択されているページの番号に色を付ける
@@ -72,11 +64,6 @@ const pagination = () => {
       paginationArr[page - 1].classList.add("colored");
     };
 
-    const init = (page, STEP) => {
-      createChannelsList(page, STEP);
-      colorPaginationNum();
-      initCreateChannelModal();
-    };
     // 初期動作時に1ページ目を表示
     init(page, STEP);
 
