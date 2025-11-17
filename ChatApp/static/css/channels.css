@@ -1,3 +1,7 @@
+.app-title {
+  display: flex;
+  flex-direction: row;
+}
 .pagination-container {
   display: flex;
 }

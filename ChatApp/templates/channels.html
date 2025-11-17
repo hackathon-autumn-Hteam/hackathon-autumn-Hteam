@@ -2,10 +2,14 @@
 {% extends 'base.html' %}
 
 <!--手順2：ブラウザのタブ名の指定(URL設計参照) -->
-{% block title %} チャンネル一覧 {% endblock %} {% block css %}
+{% block title %} チャンネル一覧 {% endblock %}{% block css %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/channels.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/tabbar.css') }}"
 />
 {% endblock %}
 
@@ -15,6 +19,15 @@
   <!-- 左上の表示-->
   <div class="app-title">
     <h1>Rare Garden</h1>
+    <nav class="menu">
+      <ul id="header-menu">
+        <li><a href="">マイページ</a></li>
+        <li><a href="">ログアウト</a></li>
+      </ul>
+    </nav>
+    <div id="hamburger" class="hamburger">
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </div>
   </div>
   <!-- チャンネル作成のボタン（このエリアをヘッダーとする）　-->
   <div id="channels-header">
@@ -64,4 +77,7 @@
   src="{{url_for('static',filename='js/pagination.js')}}"
   type="module"
 ></script>
+<script src="{{url_for('static',filename='js/tabbar.js')}}">
+  type="module"
+</script>
 {% endblock %}
