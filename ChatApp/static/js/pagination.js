@@ -64,6 +64,11 @@ const pagination = () => {
       paginationArr[page - 1].classList.add("colored");
     };
 
+    const init = (page, STEP) => {
+      createChannelsList(page, STEP);
+      colorPaginationNum();
+    };
+
     // 初期動作時に1ページ目を表示
     init(page, STEP);
 
