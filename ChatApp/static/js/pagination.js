@@ -3,8 +3,6 @@
 チャンネル一覧の配列データをもとにページネーションの作成・制御をする
 */
 
-import { initCreateChannelModal } from "/static/js/channels/create-channel.js";
-
 /*
 ページネーションを作成・制御する関数。
 チャンネル名、削除ボタンを作成・制御。
@@ -74,7 +72,6 @@ const pagination = () => {
     const init = (page, STEP) => {
       createChannelsList(page, STEP);
       colorPaginationNum();
-      initCreateChannelModal();
     };
     // 初期動作時に1ページ目を表示
     init(page, STEP);
