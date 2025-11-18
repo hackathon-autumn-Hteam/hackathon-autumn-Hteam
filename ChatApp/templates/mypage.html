@@ -7,7 +7,43 @@
 
 <!-- prettier-ignore -->
 {% block body %}
-<div class="main-container"></div>
+<div class="mypage-wrapper">
+    <h1>RareGarden</h1>
+    <div class="mypage-container">
+        <h2>ユーザーログイン</h2>
+        <table>
+            <tr>
+                <th>ユーザー名</th>
+                <th>"{{users.user_name}}"</th>
+            </tr>
+            <tr>
+                <th>メールアドレス</th>
+                <th>"{{channel.channel_name}}"</th>
+            </tr>
+            <tr>
+                <th>都道府県</th>
+                <th>
+                    <div>
+                        <select name="prefecture_id" id="prefecture_id">
+                        <option value="">都道府県を選択してください</option>
+                        {% for prefecture in prefectures %}
+                        <option value="{{ prefecture.prefecture_id }}">
+                        {{ prefecture.prefecture_name }}
+                        </option>
+                        {% endfor %}
+                    </div>
+                    <button class="base-button yellow-button">更新Sする</button>
+                </th>
+            </tr>
+            <tr>
+                <th>集めたお花の数</th>
+                <th></th>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
 {% endblock %}
 
 <!-- prettier-ignore -->
