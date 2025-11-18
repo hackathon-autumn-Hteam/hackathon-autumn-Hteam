@@ -4,13 +4,13 @@ nav {
   width: 100%;
   z-index: 10;
 }
-ul {
+#header-menu {
   height: 0;
   overflow: hidden;
   transition: 0.3s;
   list-style: none;
 }
-li a {
+#header-menu　li a {
   padding: 8px;
   font-size: 16px;
   color: #464646;
