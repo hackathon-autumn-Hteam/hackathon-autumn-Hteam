@@ -1,26 +1,21 @@
 /*
-チャンネル一覧ページでレスポンスが返ってきた後、
-チャンネル一覧の配列データをもとにページネーションの作成・制御をする
-*/
-
-/*
 ページネーションを作成・制御する関数。
 チャンネル名、削除ボタンを作成・制御。
 */
 const pagination = () => {
   try {
     let page = 1; // 今何ページ目にいるか
-    const STEP = 6; // ステップ数（1ページに表示する項目数）
+    const STEP = 5; // 1ページに表示する項目数
 
     // 全ページ数を計算
-    // 「チャンネルの総数/(割る)ステップ数」の余りの有無で場合分け
-    // 余りがある場合は１ページ余分に追加する
+    //「 チャンネルの総数/ステップ数　の余りの有無で場合分
+    // 余りがある場合は1ページ余分に追加する
     const TOTAL =
       channels.length % STEP == 0
         ? channels.length / STEP
         : Math.floor(channels.length / STEP) + 1;
 
-    // ページネーションで表示されるページ数部分（< PREV 1 2 3 NEXT >）の要素を作成
+    // ページネーションで表示されるページ数部分の要素を作成（＜　PREV 1 2 3 NEXT >)
     const paginationUl = document.querySelector(".pagination");
     let pageCount = 0;
     while (pageCount < TOTAL) {
@@ -28,7 +23,7 @@ const pagination = () => {
       pageNumber.dataset.pageNum = pageCount + 1;
       pageNumber.innerText = pageCount + 1;
       paginationUl.appendChild(pageNumber);
-      // ページネーションの数字部分が押された時にもページが変わるように処理
+      //　ページネーションの数字部分が押された時にもページ数が変わるようにする処理
       pageNumber.addEventListener("click", (e) => {
         const targetPageNum = e.target.dataset.pageNum;
         page = Number(targetPageNum);
@@ -58,6 +53,7 @@ const pagination = () => {
         ul.appendChild(li);
       });
     };
+
     // ページネーション内で現在選択されているページの番号に色を付ける
     const colorPaginationNum = () => {
       // ページネーションの数字部分の全要素から"colored"クラスを一旦取り除く
@@ -73,10 +69,11 @@ const pagination = () => {
       createChannelsList(page, STEP);
       colorPaginationNum();
     };
+
     // 初期動作時に1ページ目を表示
     init(page, STEP);
 
-    // 前ページ遷移
+    //前ページへ遷移
     document.getElementById("prev").addEventListener("click", () => {
       if (page <= 1) return;
       page = page - 1;
