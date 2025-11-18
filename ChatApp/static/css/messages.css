@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--gap-small);
+  margin-top: 20px;
 }
 
 .message-header .channel-name {

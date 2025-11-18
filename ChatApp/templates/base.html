@@ -26,6 +26,14 @@
     />
     <link
       rel="stylesheet"
+      href="{{ url_for('static', filename='css/app-bar.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/modal.css') }}"
+    />
+    <link
+      rel="stylesheet"
       href="{{ url_for('static', filename='css/variables.css') }}"
     />
     {% block css %}
@@ -33,6 +41,10 @@
     {% endblock %}
   </head>
   <body>
+    <!-- アプリバーを取り込む -->
+    {% include'util/app-bar.html' %}
+
+    <!-- prettier-ignore -->
     {% block body %}
     <!-- ここにボディを記述 -->
     {% endblock %}
