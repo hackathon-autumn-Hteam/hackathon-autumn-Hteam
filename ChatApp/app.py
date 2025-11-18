@@ -132,7 +132,7 @@ def login():
     # DBからユーザーを取得
     user = User.find_by_email(email)
     if user is None:
-        flash("ログインできませんでした")
+        flash("メールアドレスが確認できませんでした")
         return redirect(url_for("login_view"))
 
     # パスワード照合

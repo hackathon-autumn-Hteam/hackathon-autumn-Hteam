@@ -51,6 +51,9 @@ const pagination = () => {
         const li = document.createElement("li");
         const channelURL = `/channels/${channel.channel_id}/messages`;
         a.innerText = channel.channel_name;
+        a.setAttribute("href", channelURL);
+        li.appendChild(a);
+        ul.appendChild(li);
       });
     };
     // ページネーション内で現在選択されているページの番号に色を付ける
