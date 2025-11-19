@@ -233,7 +233,6 @@ def delete_channel(channel_id):
     return redirect("channels_view")
 
 
-# メッセージ一覧ページの表示
 @app.route("/channels/<channel_id>/messages", methods=["GET"])
 def messages_view(channel_id):
     """メッセージ一覧表示
@@ -255,26 +254,18 @@ def messages_view(channel_id):
 
     """
     # ユーザーがログインしているかを確認
-    user_id = session.get("user_id")  # sessionの情報はどこで定義されているのだろう？
-    if user_id is None:  # ログインしていない場合は、ログインページのURLへ自動転送
+    user_id = session.get("user_id")
+    if user_id is None:
         return redirect(url_for("login_view"))
 
-    # 該当するchannel_idのチャンネル情報を取得(channel_id、channel_name、description)
     channel = Channel.find_by_channel_id(channel_id)
-
-    # 該当するchannel_idのmessages情報を全て取得(message_id, user_id, user_name, prefecture_name, message_text, created_at)
     messages = Message.get_all(channel_id)
 
-    # メッセージ作成欄に「メッセージを入力してください」と表示
-    flash("メッセージを入力してください")
-
-    # メッセージページ,ユーザーID, channel情報, メッセージ情報を返す
     return render_template(
         "messages.html", user_id=user_id, channel=channel, messages=messages
     )
 
 
-# メッセージの投稿
 @app.route("/channels/<channel_id>/messages", methods=["POST"])
 def create_message(channel_id):
     """メッセージの投稿
@@ -286,26 +277,22 @@ def create_message(channel_id):
 
     Args:
         引数名 channel_id, 型 str : 選択したチャンネルのID
-
     """
-    # ログイン状態の確認
+
     user_id = session.get("user_id")
-    if user_id is None:  # ログインしていない場合は、ログインページのURLへ自動転送
+    if user_id is None:
         return redirect(url_for("login_view"))
 
-    # メッセージの取得
     message_text = request.form.get("message_text")
 
-    if message_text:  # メッセージが空白でない場合は、セッセージをDBに追加
+    if message_text:
         Message.create(user_id, channel_id, message_text)
-    else:  # メッセージが空白の場合は、メッセージが空白であることをモーダルで表示
+    else:
         flash("メッセージが空白です")
 
-    # 選択したチャンネルのメッセージページにリダイレクト
     return redirect(f"/channels/{channel_id}/messages")
 
 
-# メッセージの編集
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["PUT"])
 def update_message(channel_id, message_id):
     """メッセージの編集
@@ -320,26 +307,23 @@ def update_message(channel_id, message_id):
     Args:
         引数名 channel_id, 型 str : 選択したチャンネルID
         引数名 message_id, 型 str : 編集するメッセージID
-
     """
-    # ログイン状態の確認
+
     user_id = session.get("user_id")
-    if user_id is None:  # ログインしていない場合は、ログインページのURLへ自動転送
+    if user_id is None:
         return redirect(url_for("login_view"))
 
-    # massagesテーブルから該当するメッセージIDの行を抽出(message_id, user_id, channel_id, message_text, created_at)
     message = Channel.find_by_message_id(message_id)
 
-    if message["user_id"] != user_id:  # メッセージの作成者かどうかを確認
+    if message["user_id"] != user_id:
         flash("メッセージは作成者のみ更新が可能です")
     else:
         message_text = request.form.get("message_text")
-        if message_text:  # メッセージが空白でない場合は、セッセージをDBに追加
+        if message_text:
             Message.update(message_id, message_text)
         else:
             flash("メッセージが空白です")
 
-    # 選択したチャンネルのメッセージページにリダイレクト
     return redirect(f"/channels/{channel_id}/messages")
 
 
@@ -357,34 +341,31 @@ def delete_message(channel_id, message_id):
     Args:
         引数名 channel_id, 型 str : 選択したチャンネルID
         引数名 message_id, 型 str : 編集するメッセージID
-
     """
 
-    # ログイン状態の確認
     user_id = session.get("user_id")
-    if user_id is None:  # ログインしていない場合は、ログインページのURLへ自動転送
+    if user_id is None:
         return redirect(url_for("login_view"))
 
-    # massagesテーブルから該当するメッセージIDの行を抽出(message_id, user_id, channel_id, message_text, created_at)
     message = Channel.find_by_message_id(message_id)
 
-    if message["user_id"] != user_id:  # メッセージの作成者かどうかを確認
+    if message["user_id"] != user_id:
         flash("メッセージは作成者のみが削除できます")
     else:
         if message_id:
             Message.delete(message_id)
 
-    # 選択したチャンネルのメッセージページにリダイレクト
     return redirect(f"/channels/{channel_id}/messages")
 
 
-# TODO:メッセージにお花(いいね)を押す(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>/flowers", methods=["POST"])
 def send_flower(channel_id, message_id):
     """お花を送る処理
+
     Args:
         channel_id (int): チャンネルID
         message_id (int): メッセージID
+
     Returns:
         flask.Response: リダイレクト先のHTTPレスポンス。
             メッセージ一覧ページ(messages_view)へのリダイレクト。
@@ -392,9 +373,19 @@ def send_flower(channel_id, message_id):
     Message.send_flower(message_id)
     return redirect(f"/channels/{channel_id}/messages")
 
-# マイページの表示
+
 @app.route("/mypage")
 def mypage_view():
+    """マイページの表示
+
+    詳細説明
+    1.ログイン状態を確認
+    2.ユーザー情報と都道府県のDBを取得
+    3.テンプレートのユーザー情報を更新
+
+    Returns:
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+    """
     user_id = session.get("user_id")
     if user_id is None:
         return redirect(url_for("login_view"))
@@ -405,14 +396,28 @@ def mypage_view():
             "mypage.html", user=user, prefectures=prefectures
         )
 
-# マイページの更新
+
 @app.route("/users/<user_id>/prefecture", methods=["POST"])
 def update_user_prefecture(user_id):
+    """都道府県情報の更新
+
+    詳細説明
+    1.ログイン状態を確認
+    2.変更後の都道府県情報を取得
+    3.ユーザーの都道府県情報を更新
+    4.テンプレートのユーザー情報を更新
+
+    Args:
+        user_id : ユーザーID
+
+    Returns:
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+    """
     if user_id is None:
         return redirect(url_for("login_view"))
     else:
         prefecture_id = request.form.get("prefecture_id")
-        if prefecture_id:  # 空白でない場合は、都道府県を更新
+        if prefecture_id:
             Mypage.update(user_id, prefecture_id)
             user = Mypage.get_all(user_id)
             prefectures = Prefecture.get_all()
