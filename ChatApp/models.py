@@ -166,7 +166,7 @@ class Message:
         try:
             with conn.cursor() as cur:  # カーソルオブジェクトを作成
                 sql = """
-                   SELECT m.message_id,u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at
+                   SELECT m.message_id,u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at, m.like_flower_count
                    FROM messages AS m
                    INNER JOIN users AS u ON m.user_id = u.user_id
                    INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
