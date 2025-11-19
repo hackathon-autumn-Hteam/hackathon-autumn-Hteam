@@ -58,7 +58,7 @@
     <!-- prettier-ignore -->
     {% for message in messages %}
     <!-- prettier-ignore -->
-    {% if message.user_id == user_id %}
+    {% if message.user_id|string == user_id|string %}
     <div class="my-messages">
       <div class="message-box box-right">
         <p>{{ message.message_text | replace('\n', '<br />') | safe }}</p>
