@@ -1,7 +1,5 @@
 <div id="update-message-modal" class="modal">
-  <!-- モーダルの中身 -->
   <div class="modal-content">
-    <!-- モーダルのヘッダー -->
     <div class="modal-header">
       <button
         id="update-message-modal-close-button"
@@ -12,32 +10,22 @@
       </button>
     </div>
 
-    <form
-      action="{{ url_for('update_message', channel_id=channel.channel_id, message_id=message.message_id) }}"
-      method="POST"
-    >
+    <form id="update-message-form" method="POST">
       <input type="hidden" name="_method" value="PUT" />
 
-      <!-- モーダルのメイン -->
       <div class="modal-body">
-        <div>
-          <label class="form-label" for="message_text">メッセージ</label>
-          <textarea
-            id="message_text"
-            name="message_text"
-            rows="5"
-            placeholder="メッセージを入力してください。"
-            required
-          ></textarea>
-          <p class="form-help">
-            フォームの下にヘルプメッセージを書く場合はこちらに
-          </p>
-        </div>
+        <label class="form-label" for="modal-message-text">メッセージ</label>
+        <textarea
+          id="modal-message-text"
+          name="message_text"
+          rows="5"
+          placeholder="メッセージを入力してください。"
+          required
+        ></textarea>
       </div>
 
-      <!-- モーダルの操作ボタン -->
       <div class="modal-action">
-        <button class="base-button green-button">編集する</button>
+        <button class="base-button yellow-button">編集する</button>
       </div>
     </form>
   </div>

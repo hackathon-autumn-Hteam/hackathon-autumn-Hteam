@@ -236,6 +236,20 @@ class Message:
         finally:
             db_pool.release(conn)
 
+    @classmethod
+    def send_flower(cls, message_id):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = "UPDATE messages SET like_flower_count = like_flower_count + 1 WHERE message_id=%s;"
+                cur.execute(sql, (message_id,))
+                conn.commit()
+        except pymysql.Error as e:
+            print(f"お花を送れませんでした：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
+
     # TODO: メッセージの削除(追加機能)
     @classmethod
     def delete(cls, message_id):

@@ -63,6 +63,17 @@ input:-webkit-autofill {
   クラス
   -------------------------------------------*/
 
+.main-container {
+  padding-top: 60px; /* アプリバー分の余白 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-medium);
+  margin: 0 20px;
+  margin-bottom: 20px;
+  max-width: 1280px;
+}
+
 .flashes {
   color: red;
   list-style: none;
@@ -112,19 +123,63 @@ input:-webkit-autofill {
 
 /* 黄色いボタン */
 .yellow-button {
-  background-color: #f9e491;
-  border-color: #f5db73;
+  background-color: var(--yellow);
+  border-color: var(--yellow-border);
 }
 
 /* 黄色いボタン(ホバー時) */
 .yellow-button:hover {
-  background-color: #f7dd78;
-  border-color: #f0cf5c;
+  background-color: var(--yellow-light);
 }
 
 /* 黄色いボタン(アクティブ時) */
 .yellow-button:active {
-  background-color: #f2c95e;
-  border-color: #e6ba4a;
+  background-color: var(--yellow-dark);
   transform: scale(0.96);
+}
+
+/* アイコンボタン */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid;
+  border-radius: 50%;
+  font-size: 18px;
+  background-color: transparent;
+}
+
+/* 編集アイコンボタン */
+.icon-button.update {
+  border-color: var(--green-border);
+  background-color: var(--green);
+}
+
+/* 編集アイコンボタン(ホバー時) */
+.icon-button.update:hover {
+  background-color: var(--green-light);
+}
+
+/* 編集アイコンボタン(アクティブ時) */
+.icon-button.update:active {
+  background-color: var(--green-dark);
+}
+
+/* 削除アイコンボタン */
+.icon-button.delete {
+  border-color: var(--red-border);
+  background-color: var(--red);
+}
+
+/* 削除アイコンボタン(ホバー時) */
+.icon-button.delete:hover {
+  background-color: var(--red-light);
+}
+
+/* 削除アイコンボタン(アクティブ時) */
+.icon-button.delete:active {
+  background-color: var(--red-dark);
 }
