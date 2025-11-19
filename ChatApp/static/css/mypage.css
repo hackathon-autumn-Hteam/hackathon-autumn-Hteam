@@ -1,0 +1,6 @@
+.mypage-container th {
+  text-align: left;
+}
+.mypage-form {
+  display: flex;
+}

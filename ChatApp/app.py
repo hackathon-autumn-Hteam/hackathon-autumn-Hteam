@@ -4,7 +4,7 @@ import os
 import uuid
 import hashlib
 
-from models import User, Channel, Message, Prefecture
+from models import User, Channel, Message, Prefecture, Mypage
 from util.assets import bundle_css_files
 
 # 定数定義
@@ -233,8 +233,7 @@ def delete_channel(channel_id):
     return redirect("channels_view")
 
 
-# TODO(rootさん): メッセージ用の関数定義
-# TODO:メッセージ一覧ページの表示
+# メッセージ一覧ページの表示
 @app.route("/channels/<channel_id>/messages", methods=["GET"])
 def messages_view(channel_id):
     """メッセージ一覧表示
@@ -275,7 +274,7 @@ def messages_view(channel_id):
     )
 
 
-# TODO:メッセージの投稿
+# メッセージの投稿
 @app.route("/channels/<channel_id>/messages", methods=["POST"])
 def create_message(channel_id):
     """メッセージの投稿
@@ -306,7 +305,7 @@ def create_message(channel_id):
     return redirect(f"/channels/{channel_id}/messages")
 
 
-# TODO:メッセージの編集
+# メッセージの編集
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["PUT"])
 def update_message(channel_id, message_id):
     """メッセージの編集
@@ -344,7 +343,7 @@ def update_message(channel_id, message_id):
     return redirect(f"/channels/{channel_id}/messages")
 
 
-# TODO:メッセージの削除(追加機能)
+# メッセージの削除(追加機能)
 @app.route("/channels/<channel_id>/messages/<message_id>", methods=["DELETE"])
 def delete_message(channel_id, message_id):
     """メッセージの削除
@@ -393,6 +392,35 @@ def send_flower(channel_id, message_id):
     Message.send_flower(message_id)
     return redirect(f"/channels/{channel_id}/messages")
 
+# マイページの表示
+@app.route("/mypage")
+def mypage_view():
+    user_id = session.get("user_id")
+    if user_id is None:
+        return redirect(url_for("login_view"))
+    else:
+        user = Mypage.get_all(user_id)
+        prefectures = Prefecture.get_all()
+        return render_template(
+            "mypage.html", user=user, prefectures=prefectures
+        )
+
+# マイページの更新
+@app.route("/users/<user_id>/prefecture", methods=["POST"])
+def update_user_prefecture(user_id):
+    if user_id is None:
+        return redirect(url_for("login_view"))
+    else:
+        prefecture_id = request.form.get("prefecture_id")
+        if prefecture_id:  # 空白でない場合は、都道府県を更新
+            Mypage.update(user_id, prefecture_id)
+            user = Mypage.get_all(user_id)
+            prefectures = Prefecture.get_all()
+            return render_template(
+            "mypage.html", user=user, prefectures=prefectures
+            )
+        else:
+            flash("都道府県が空白です")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=5000)

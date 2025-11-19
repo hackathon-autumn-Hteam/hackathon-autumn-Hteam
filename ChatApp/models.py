@@ -156,9 +156,7 @@ class Channel:
             db_pool.release(conn)
 
 
-# TODO(rootさん): メッセージクラスを定義
 class Message:
-    # TODO: 全てのメッセージを取得
     # 選択したチャンネルのメッセージID,ユーザーID,ユーザー名,都道府県名,メッセージ,投稿日時を抽出
     @classmethod
     def get_all(cls, channel_id):
@@ -182,7 +180,6 @@ class Message:
         finally:
             db_pool.release(conn)
 
-    # TODO: 該当するメッセージIDの情報取得(channel_id, user_id, channel_id, message_text, created_at)
     @classmethod
     def find_by_message_id(cls, message_id):
         conn = db_pool.get_conn()
@@ -198,7 +195,6 @@ class Message:
         finally:
             db_pool.release(conn)
 
-    # TODO: メッセージの作成
     @classmethod
     def create(cls, user_id, channel_id, message_text):
         conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
@@ -221,7 +217,6 @@ class Message:
         finally:
             db_pool.release(conn)
 
-    # TODO: メッセージの変更
     @classmethod
     def update(cls, message_id, message_text):
         conn = db_pool.get_conn()
@@ -265,6 +260,37 @@ class Message:
         finally:
             db_pool.release(conn)
 
+class Mypage:
+   # マイページの表示と更新
+   # 該当するユーザーの情報取得
+   @classmethod
+   def get_all(cls, user_id):
+        conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
+        try:
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM users WHERE user_id=%s;"
+                cur.execute(sql, (user_id,))
+                user = cur.fetchone()
+            return user
+        except pymysql.Error as e:
+            print(f"ユーザーIDが{user_id}のユーザー情報を取得できませんでした：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
+
+   @classmethod
+   def update(cls, user_id, prefecture_id):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:  # 該当するuser_idのprefecture_idを更新
+                sql = "UPDATE users SET prefecture_id=%s WHERE user_id=%s;"
+                cur.execute(sql, (prefecture_id, user_id))  # SQLを実行
+                conn.commit()
+        except pymysql.Error as e:
+            print(f"Mypage.updateでエラーが発生しています：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
 
 class Prefecture:
     @classmethod
