@@ -93,7 +93,7 @@ def signup():
     User.create(user_id, user_name, email, password, prefecture_id)
 
     # ログイン済みとしてユーザーIDをセッションに保持
-    session["user_id"] = user_id
+    session["user_id"] = str(user_id)
     return redirect(url_for("channels_view"))
 
 
