@@ -60,6 +60,9 @@
     <!-- prettier-ignore -->
     {% if message.user_id|string == user_id|string %}
     <div class="my-messages">
+      <span class="created_at">
+        {{ message.created_at.strftime('%y-%m-%d %H:%M') }}
+      </span>
       <div class="message-box box-right">
         <p>{{ message.message_text | replace('\n', '<br />') | safe }}</p>
         <button
@@ -71,19 +74,27 @@
           <ion-icon name="create"></ion-icon>
         </button>
       </div>
-      <!-- <p class="created_at">
-          {{ message.created_at.strftime('%Y年%m月%d日 %H:%M') }}
-        </p> -->
+      <button class="like_flower_count" disabled>
+        <ion-icon name="flower-outline"></ion-icon>
+        {{message.like_flower_count}}
+      </button>
     </div>
     {% else %}
     <div class="other-messages">
-      <p class="user-name">
-        {{ message.user_name }}@{{message.prefecture_name}}
-      </p>
+      <span class="user-name">
+        {{ message.user_name }}@{{message.prefecture_name}}　{{
+        message.created_at.strftime('%y-%m-%d %H:%M') }}
+      </span>
       <div class="message-box box-left">{{ message.message_text }}</div>
-      <!-- <p class="created_at">
-          {{ message.created_at.strftime('%Y年%m月%d日 %H:%M') }}
-        </p> -->
+      <form
+        action="{{ url_for('send_flower', channel_id=channel.channel_id, message_id=message.message_id) }}"
+        method="POST"
+      >
+        <button class="like_flower_count">
+          <ion-icon name="flower-outline"></ion-icon>
+          {{message.like_flower_count}}
+        </button>
+      </form>
     </div>
     {% endif %}
     <!-- prettier-ignore -->
