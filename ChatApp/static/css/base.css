@@ -101,7 +101,7 @@ input:-webkit-autofill {
 
 /* ヘルプメッセージ */
 .form-help {
-  color: #888888;
+  color: #0000
   margin: 4px 12px;
   font-size: 14px;
 }
@@ -119,6 +119,40 @@ input:-webkit-autofill {
   height: 33px;
   font-size: 16px;
   padding: 0 24px;
+}
+
+/* 緑のボタン */
+.green-button {
+  background-color: var(--green);
+  border-color: var(--green-border);
+}
+
+/* 緑のボタン(ホバー時） */
+.green-button:hover {
+  background-color: var(--green-light);
+}
+
+/* 緑のボタン（アクティブ時） */
+.green-button:active {
+  background-color: var(--green-dark);
+  transform: scale(0.96);
+}
+
+/* ピンクのボタン */
+.pink-button {
+  background-color: var(--red);
+  border-color: var(--red-border);
+}
+
+/* ピンクのボタン(ホバー時） */
+.pink-button:hover {
+  background-color: var(--red-light);
+}
+
+/* ピンクのボタン(アクティブ時） */
+.pink-button:active {
+  background-color: var(--red-dark);
+  transform: scale(0.96);
 }
 
 /* 黄色いボタン */

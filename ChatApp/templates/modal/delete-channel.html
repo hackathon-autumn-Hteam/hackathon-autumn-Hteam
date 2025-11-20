@@ -1,4 +1,33 @@
-<!-- TODO(191さん): チャンネルの削除用のモーダルを記述 -->
-<!-- NOTE: ダイアログを閉じるボタンのアイコンは以下を使用してください。 -->
-<!-- NOTE: ダイアログを閉じるボタンには「close-modal-button」というIDを付けてください。 -->
-<!-- NOTE: クラス名や記述方法はサンプルアプリを参考にしてください。 -->
+<div id="delete-channel-modal" class="modal">
+  <div class="modal-content">
+    <!-- モーダルのヘッダー -->
+    <div class="modal-header">
+      <button
+        id="delete-channel-modal-close-button"
+        class="icon-button"
+        aria-label="閉じる"
+      >
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+
+    <form
+      name="delete_channel_form"
+      id="delete_channel_form"
+      action=""
+      method="DELETE"
+    >
+      <input type="hidden" name="_method" value="DELETE" />
+
+      <p>削除したチャンネルは元には戻せません。</p>
+      <p>本当に削除してよろしいですか？</p>
+
+      <!-- 削除ボタン -->
+      <div class="modal-footer">
+        <div class="modal-action">
+          <button class="base-button pink-button">削除する</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
