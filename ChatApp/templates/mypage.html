@@ -7,22 +7,22 @@
 
 <!-- prettier-ignore -->
 {% block body %}
-<div class="mypage-wrapper">
+<section class="mypage">
   <h1>RareGarden</h1>
-  <div class="mypage-container">
-    <h2>ユーザーログイン</h2>
-    <table>
+  <div class="mypage-info">
+    <h2>マイページ</h2>
+    <table class="info">
       <tr>
         <th>ユーザー名</th>
-        <th>{{user.user_name}}</th>
+        <td>{{user.user_name}}</td>
       </tr>
       <tr>
         <th>メールアドレス</th>
-        <th>{{user.email}}</th>
+        <td>{{user.email}}</td>
       </tr>
       <tr>
         <th>都道府県</th>
-        <th>
+        <td>
           <form
             class="mypage-form"
             action="{{ url_for('update_user_prefecture', user_id=user.user_id) }}"
@@ -44,15 +44,16 @@
             </div>
             <button class="base-button yellow-button">更新する</button>
           </form>
-        </th>
+        </td>
       </tr>
+
       <tr>
         <th>集めたお花の数</th>
-        <th></th>
+        <td></td>
       </tr>
     </table>
   </div>
-</div>
+</section>
 {% endblock %}
 
 <!-- prettier-ignore -->
