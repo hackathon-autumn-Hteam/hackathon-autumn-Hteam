@@ -34,7 +34,7 @@ const pagination = () => {
 
     // 各チャンネル名と削除ボタンの要素を作成
     const createChannelsList = (page, STEP) => {
-      const ul = document.querySelector(".channel-box");
+      const ul = document.querySelector(".channels-box");
       // 一度チャンネルリストを空にする
       ul.innerHTML = "";
 
