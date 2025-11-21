@@ -97,7 +97,6 @@ def signup():
 
     # ログイン済みとしてユーザーIDをセッションに保持
     session["user_id"] = user_id
-    return redirect(url_for("channels_view"))
 
     # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
     hour = datetime.now(jst).hour
@@ -156,7 +155,6 @@ def login():
 
     # 認証成功
     session["user_id"] = user["user_id"]
-    return redirect(url_for("channels_view"))
 
     # 追加機能：ログインした時間帯の励ましメッセージを決める・セッションに保存
     hour = datetime.now(jst).hour
