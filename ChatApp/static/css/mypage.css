@@ -7,6 +7,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  margin-top: 100px;
 }
 .mypage-info .info {
   width: 100%;
@@ -15,6 +16,7 @@
   padding: 0 1.5rem;
   border-spacing: 0;
   background-color: #fffdf6;
+  margin-top: 20px;
 }
 .mypage-info .info th,
 td {
@@ -31,4 +33,7 @@ td {
 }
 .mypage-form {
   display: flex;
+}
+.mypage-form button {
+  margin-left: 20px; /* ボタンの間隔 */
 }
