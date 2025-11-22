@@ -7,10 +7,6 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/channels.css') }}"
 />
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/util/app-bar.css') }}"
-/>
 {% endblock %}
 
 <!-- prettier-ignore -->
@@ -66,7 +62,4 @@
   src="{{url_for('static',filename='js/pagination.js')}}"
   type="module"
 ></script>
-<script src="{{url_for('static',filename='js/tabbar.js')}}">
-  type="module"
-</script>
 {% endblock %}
