@@ -7,28 +7,11 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/channels.css') }}"
 />
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/tabbar.css') }}"
-/>
 {% endblock %}
 
 <!-- prettier-ignore -->
 {% block body %}
 <div class="main-container">
-  <!-- 左上の表示-->
-  <div class="app-title">
-    <h1>Rare Garden</h1>
-    <nav class="menu">
-      <ul id="header-menu">
-        <li><a href="/mypage">マイページ</a></li>
-        <li><a href="/logout">ログアウト</a></li>
-      </ul>
-    </nav>
-    <div id="hamburger" class="hamburger">
-      <ion-icon name="person-circle-outline"></ion-icon>
-    </div>
-  </div>
   <!-- チャンネル作成のボタン（このエリアをヘッダーとする）　-->
   <div id="channels-header">
     <button id="create-channel-button" type="button">チャンネル作成</button>

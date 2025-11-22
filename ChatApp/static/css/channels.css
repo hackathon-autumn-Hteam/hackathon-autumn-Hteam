@@ -16,9 +16,9 @@ li {
   display: none;
 }
 
-.main-container {
+/* .main-container {
   margin-top: 60px;
-}
+} */
 
 /* .app-title {
   position: fixed;
@@ -40,11 +40,11 @@ li {
 } */
 
 #channels-header {
-  padding-top: 65px;
   text-align: right;
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  margin-top: 20px;
 }
 
 #create-channel-button {
@@ -64,7 +64,6 @@ li {
 }
 
 #channels-body {
-  padding-top: 65px;
 }
 
 #channels-body h2 {
@@ -92,7 +91,11 @@ li {
 }
 
 .channels-box li a {
-  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: black;
 }
