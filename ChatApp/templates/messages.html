@@ -30,6 +30,7 @@
         <button
           id="delete-channel-button"
           class="icon-button delete"
+          data-channel-id="{{ channel.channel_id }}"
           aria-label="削除"
         >
           <ion-icon name="trash"></ion-icon>
@@ -43,7 +44,10 @@
   </div>
 
   <!-- メッセージの編集用のモーダルを取り込む -->
-  {% include'modal/update-message.html' %}
+  {% include 'modal/update-message.html' %}
+
+  <!-- メッセージの削除用のモーダルを取り込む -->
+  {% include 'modal/delete-message.html' %}
 
   <!-- チャンネルの編集用のモーダルを取り込む -->
   {% include 'modal/update-channel.html' %}
@@ -65,14 +69,23 @@
       </span>
       <div class="message-box box-right">
         <p>{{ message.message_text | replace('\n', '<br />') | safe }}</p>
-        <button
-          class="update-message-button"
-          data-message-id="{{ message.message_id }}"
-          data-message-text="{{ message.message_text }}"
-          data-channel-id="{{ channel.channel_id }}"
-        >
-          <ion-icon name="create"></ion-icon>
-        </button>
+        <div class="message-actions">
+          <button
+            class="update-message-button"
+            data-message-id="{{ message.message_id }}"
+            data-message-text="{{ message.message_text }}"
+            data-channel-id="{{ channel.channel_id }}"
+          >
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button
+            class="delete-message-button"
+            data-message-id="{{ message.message_id }}"
+            data-channel-id="{{ channel.channel_id }}"
+          >
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </div>
       </div>
       <button class="like_flower_count" disabled>
         <ion-icon name="flower-outline"></ion-icon>
@@ -134,6 +147,10 @@
 ></script>
 <script
   src="{{url_for('static',filename='js/messages/update-message.js')}}"
+  type="text/javascript"
+></script>
+<script
+  src="{{url_for('static',filename='js/messages/delete-message.js')}}"
   type="text/javascript"
 ></script>
 <script

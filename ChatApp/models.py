@@ -309,3 +309,32 @@ class Prefecture:
             abort(500)
         finally:
             db_pool.release(conn)
+
+
+# 追加機能「励ましのメッセージ」
+# ORDER BY RAND() 遅くなりがち（データが多い時注意）
+class SupportMessage:
+    @classmethod
+    def get_random_by_hour(cls, hour: int):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = """
+                      SELECT support_message_text
+                      FROM support_messages
+                      WHERE hour = %s
+                      ORDER BY RAND()
+                      LIMIT 1;
+                """
+                cur.execute(sql, (hour,))
+                support_messages = cur.fetchone()
+                return (
+                    support_messages["support_message_text"]
+                    if support_messages
+                    else None
+                )
+        except pymysql.Error as e:
+            print(f"エラーが発生しています：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
