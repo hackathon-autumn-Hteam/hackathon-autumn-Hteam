@@ -1,6 +1,7 @@
-// チャンネル一覧ページでレスポンスが返ってきたあと
-// チャンネル一覧の配列データを元にページネーションを作成・制御する
-
+/*
+ページネーションを作成・制御する関数。
+チャンネル名、削除ボタンを作成・制御。
+*/
 const pagination = () => {
   try {
     let page = 1; // 今何ページ目にいるか
@@ -15,14 +16,12 @@ const pagination = () => {
         : Math.floor(channels.length / STEP) + 1;
 
     // ページネーションで表示されるページ数部分の要素を作成（＜　PREV 1 2 3 NEXT >)
-    //querySelector() ＝＞指定されたセレクターまたはセレクター群に一致する、文書内の最初の要素を返す
     const paginationUl = document.querySelector(".pagination");
     let pageCount = 0;
     while (pageCount < TOTAL) {
       let pageNumber = document.createElement("li");
       pageNumber.dataset.pageNum = pageCount + 1;
       pageNumber.innerText = pageCount + 1;
-      // appendChild　＝＞　特定の親ノードの子ノードリストの”末尾”に追加
       paginationUl.appendChild(pageNumber);
       //　ページネーションの数字部分が押された時にもページ数が変わるようにする処理
       pageNumber.addEventListener("click", (e) => {
@@ -40,13 +39,11 @@ const pagination = () => {
       ul.innerHTML = "";
 
       const firstChannelInPage = (page - 1) * STEP + 1;
-      const lasChannelInPage = page * STEP;
+      const lastChannelInPage = page * STEP;
 
-      //各チャンネル要素の作成
+      // 各チャンネル要素の作成
       channels.forEach((channel, i) => {
-        // 表示範囲外のものを無視する
-        if (i < firstChannelInPage - 1 || i > lasChannelInPage - 1) return;
-        // 取得したデータに応じて自動でリストを作成する（HTMLで固定で書くと動的な更新が不可）
+        if (i < firstChannelInPage - 1 || i > lastChannelInPage - 1) return;
         const a = document.createElement("a");
         const li = document.createElement("li");
         const channelURL = `/channels/${channel.channel_id}/messages`;
@@ -56,6 +53,7 @@ const pagination = () => {
         ul.appendChild(li);
       });
     };
+
     // ページネーション内で現在選択されているページの番号に色を付ける
     const colorPaginationNum = () => {
       // ページネーションの数字部分の全要素から"colored"クラスを一旦取り除く
@@ -63,7 +61,7 @@ const pagination = () => {
       paginationArr.forEach((page) => {
         page.classList.remove("colored");
       });
-      // 選択されているページに"class=colored"を追加（文字色が変わる）
+      // 選択されているページにclass="colored"を追加（文字色が変わる）
       paginationArr[page - 1].classList.add("colored");
     };
 
@@ -82,7 +80,7 @@ const pagination = () => {
       init(page, STEP);
     });
 
-    // 次ページへ遷移
+    // 次ページ遷移
     document.getElementById("next").addEventListener("click", () => {
       if (page >= channels.length / STEP) return;
       page = page + 1;
@@ -96,7 +94,7 @@ const pagination = () => {
   }
 };
 
-//DOMツリーが構築されたらpagination関数を発火（ページネーションを作成）
+// DOMツリーが構築されたらpagination関数を発火（ページネーションを作成し、その後チャンネル追加ボタンを作成・表示）
 document.addEventListener("DOMContentLoaded", function () {
   try {
     pagination();
