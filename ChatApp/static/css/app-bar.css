@@ -43,6 +43,7 @@ nav {
 }
 
 #header-menu　li a {
+  width: 100%;
   padding: 8px;
   font-size: 16px;
   color: #464646;

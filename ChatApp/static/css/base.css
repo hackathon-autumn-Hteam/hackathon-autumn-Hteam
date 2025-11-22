@@ -101,7 +101,11 @@ input:-webkit-autofill {
 
 /* ヘルプメッセージ */
 .form-help {
+<<<<<<< HEAD
   color: #0000;
+=======
+  color: #0000
+>>>>>>> develop
   margin: 4px 12px;
   font-size: 14px;
 }

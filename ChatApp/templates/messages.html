@@ -73,14 +73,6 @@
       </span>
       <div class="message-box box-right">
         <p>{{ message.message_text | replace('\n', '<br />') | safe }}</p>
-        <button
-          class="update-message-button"
-          data-message-id="{{ message.message_id }}"
-          data-message-text="{{ message.message_text }}"
-          data-channel-id="{{ channel.channel_id }}"
-        >
-          <ion-icon name="create"></ion-icon>
-        </button>
         <div class="message-actions">
           <button
             class="update-message-button"

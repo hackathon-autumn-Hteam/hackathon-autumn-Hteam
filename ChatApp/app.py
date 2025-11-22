@@ -96,6 +96,16 @@ def signup():
     User.create(user_id, user_name, email, password, prefecture_id)
 
     # ログイン済みとしてユーザーIDをセッションに保持
+    session["user_id"] = user_id
+
+    # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
+    hour = datetime.now(jst).hour
+
+    support_message = SupportMessage.get_random_by_hour(hour)
+    session["support_message"] = support_message
+
+    session["support_message_hour"] = hour
+
     session["user_id"] = str(user_id)
 
     # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
@@ -190,10 +200,13 @@ def channels_view():
     else:
         channels = Channel.get_all()
         # channels.reverse()  # チャンネルの順番を新しい順にする DB側→ORDER BYで設定？
-        
+
     # 追加機能「励ましのメッセージ」
     # 現在の時刻（日本時間）を取得する
     current_hour = datetime.now(jst).hour
+
+    # 前回のメッセージを決めたときの時間を取得する
+    last_hour = session.get("support_message_hour")
 
     # 前回のメッセージを決めたときの時間を取得する
     last_hour = session.get("support_message_hour")
