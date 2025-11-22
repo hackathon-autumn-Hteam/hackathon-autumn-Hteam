@@ -10,7 +10,7 @@
 
 .modal-content {
   background-color: #b9d8c2;
-  opacity: 0.8;
+  /* opacity: 0.8; */
   border-radius: 20px;
   padding: 24px 28px;
   max-width: 400px;
