@@ -1,5 +1,4 @@
 // チャンネルを新規作成するモーダルの制御
-
 const createChannelModal = document.getElementById("create-channel-modal");
 const createChannelButton = document.getElementById("create-channel-button");
 const closeButton = document.getElementById(
@@ -18,7 +17,7 @@ closeButton.addEventListener("click", () => {
 
 // 画面のどこかが押された時にモーダルを閉じる
 addEventListener("click", (e) => {
-  if (e.target == createChannelModal) {
+  if (e.target === createChannelModal) {
     createChannelModal.style.display = "none";
   }
 });
