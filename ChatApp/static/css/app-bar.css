@@ -32,33 +32,43 @@ nav {
   z-index: 10;
 }
 
+/*スライドメニュー*/
 #header-menu {
   position: fixed; /* 画面に固定 */
-  top: 0; /* 画面の上端から */
-  right: 0; /* 画面の右端に固定 */
-  width: 200px;
+  top: 54px; /* app-barの下に表示 */
+  right: -100%; /* 初期状態では画面の外に隠れている */
+  width: 150px; /* メニューの横幅 */
   overflow: hidden;
   transition: 0.3s;
   list-style: none;
-  background-color: #fafad2;
+  background-color: var(--yellow);
 }
 
+/* スライドメニューを開く */
+#header-menu.open {
+  right: 0; /*右から出現s*/
+}
+
+/* スライドメニューの項目 */
 #header-menu　li a {
+  width: 100%;
   padding: 8px;
   font-size: 16px;
   color: #464646;
   display: block;
-  text-align: left;
+  text-align: center;
   padding-left: 20px;
   text-decoration: none;
 }
+
+/* スライドメニューのアイコン */
 .hamburger {
   position: absolute;
-  top: 10px;
+  top: 5px;
   right: 32px;
   cursor: pointer;
   width: 32px;
   height: 24px;
   z-index: 10;
-  font-size: 2.5em;
+  font-size: 1.8em;
 }

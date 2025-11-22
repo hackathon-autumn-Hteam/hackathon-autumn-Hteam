@@ -7,20 +7,11 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/channels.css') }}"
 />
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/tabbar.css') }}"
-/>
 {% endblock %}
 
 <!-- prettier-ignore -->
 {% block body %}
 <div class="main-container">
-  <!-- 左上の表示-->
-  <div class="app-title">
-    <h1>Rare Garden</h1>
-  </div> -->
-
   <!-- ＊＊追加機能：励ましのメッセージ -->
   {% if support_message %}
   <div class="support-message-bar" id="support-message-bar">
@@ -28,16 +19,6 @@
   </div>
   {% endif %}
 
-    <nav class="menu">
-      <ul id="header-menu">
-        <li><a href="/mypage">マイページ</a></li>
-        <li><a href="/logout">ログアウト</a></li>
-      </ul>
-    </nav>
-    <div id="hamburger" class="hamburger">
-      <ion-icon name="person-circle-outline"></ion-icon>
-    </div>
-  </div>
   <!-- チャンネル作成のボタン（このエリアをヘッダーとする）　-->
   <div id="channels-header">
     <button id="create-channel-button" type="button">チャンネル作成</button>
@@ -81,7 +62,4 @@
   src="{{url_for('static',filename='js/pagination.js')}}"
   type="module"
 ></script>
-<script src="{{url_for('static',filename='js/tabbar.js')}}">
-  type="module"
-</script>
 {% endblock %}
