@@ -1,16 +1,25 @@
 // チャンネルを削除するモーダルの制御
 
+// console.log("delete-channel.js loaded");　検証用
+
 const deleteChannelModal = document.getElementById("delete-channel-modal");
-const deleteChannelButton = document.getElementById("delete-channel-button");
 const deleteChannelButtonClose = document.getElementById(
   "delete-channel-modal-close-button"
 );
 
-// モーダルが存在するページのみ（uidとチャンネルidが同じ時のみ）
-if (deleteChannelModal) {
-  // 「ゴミ箱」アイコンが押されたときモーダルを表示する
+const deleteChannelForm = document.getElementById("delete-channel-form");
+const deleteChannelButton = document.getElementById("delete-channel-button");
+
+if (deleteChannelModal && deleteChannelButton) {
   deleteChannelButton.addEventListener("click", () => {
+    const channelId = deleteChannelButton.dataset.channelId;
+
+    // console.log("delete channel target", channelId);　検証用
+
+    // モーダルを表示する
     deleteChannelModal.style.display = "flex";
+
+    deleteChannelForm.action = `/channels/${channelId}`;
   });
 
   // モーダルを閉じるボタンが押されたときモーダルを非表示にする
@@ -18,8 +27,8 @@ if (deleteChannelModal) {
     deleteChannelModal.style.display = "none";
   });
 
-  // 画面のどこかを押されたときに、モーダルを非表示にする
-  addEventListener("click", (e) => {
+  // 画面のどこかを押されたときモーダルを非表示にする
+  document.addEventListener("click", (e) => {
     if (e.target == deleteChannelModal) {
       deleteChannelModal.style.display = "none";
     }
