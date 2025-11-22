@@ -1,11 +1,14 @@
 from flask import Flask, request, session, redirect, url_for, render_template, flash
-from datetime import timedelta
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 import os
 import uuid
 import hashlib
 
-from models import User, Channel, Message, Prefecture, Mypage
+from models import User, Channel, Message, Prefecture, Mypage, SupportMessage
 from util.assets import bundle_css_files
+
+jst = ZoneInfo("Asia/Tokyo")
 
 # 定数定義
 SESSION_DAYS = 30
@@ -93,7 +96,16 @@ def signup():
     User.create(user_id, user_name, email, password, prefecture_id)
 
     # ログイン済みとしてユーザーIDをセッションに保持
-    session["user_id"] = user_id
+    session["user_id"] = str(user_id)
+
+    # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
+    hour = datetime.now(jst).hour
+
+    support_message = SupportMessage.get_random_by_hour(hour)
+    session["support_message"] = support_message
+
+    session["support_message_hour"] = hour
+
     return redirect(url_for("channels_view"))
 
 
@@ -143,6 +155,15 @@ def login():
 
     # 認証成功
     session["user_id"] = user["user_id"]
+
+    # 追加機能：ログインした時間帯の励ましメッセージを決める・セッションに保存
+    hour = datetime.now(jst).hour
+
+    support_message = SupportMessage.get_random_by_hour(hour)
+    session["support_message"] = support_message
+
+    session["support_message_hour"] = hour
+
     return redirect(url_for("channels_view"))
 
 
@@ -169,10 +190,29 @@ def channels_view():
     else:
         channels = Channel.get_all()
         # channels.reverse()  # チャンネルの順番を新しい順にする DB側→ORDER BYで設定？
-        return render_template(
-            "channels.html", channels=channels, user_id=user_id
-        )  # 今後変動の可能性あり　変数としてchannels(全チャンネルの一覧)とuid（ログイン中のユーザID）をHTMLに渡す
+        
+    # 追加機能「励ましのメッセージ」
+    # 現在の時刻（日本時間）を取得する
+    current_hour = datetime.now(jst).hour
 
+    # 前回のメッセージを決めたときの時間を取得する
+    last_hour = session.get("support_message_hour")
+
+    # ログイン時と時間帯が変わっていたらchannels.viewに遷移したタイミングでメッセージを更新する
+    if last_hour != current_hour:
+        support_message = SupportMessage.get_random_by_hour(current_hour)
+        session["support_message"] = support_message
+        session["support_message_hour"] = current_hour
+    # 時間が変わっていなければログイン時に決めた励ましメッセージをセッションから取得する
+    else:
+        support_message = session.get("support_message")
+
+    return render_template(
+        "channels.html",
+        channels=channels,
+        user_id=user_id,
+        support_message=support_message,
+    )
 
 # チャンネルの作成
 @app.route("/channels", methods=["POST"])

@@ -164,7 +164,7 @@ class Message:
         try:
             with conn.cursor() as cur:  # カーソルオブジェクトを作成
                 sql = """
-                   SELECT m.message_id, u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at
+                   SELECT m.message_id, u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at, m.like_flower_count
                    FROM messages AS m
                    INNER JOIN users AS u ON m.user_id = u.user_id
                    INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
@@ -288,6 +288,34 @@ class Mypage:
                 conn.commit()
         except pymysql.Error as e:
             print(f"Mypage.updateでエラーが発生しています：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
+
+# 追加機能「励ましのメッセージ」
+# ORDER BY RAND() 遅くなりがち（データが多い時注意）
+class SupportMessage:
+    @classmethod
+    def get_random_by_hour(cls, hour: int):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = """
+                      SELECT support_message_text
+                      FROM support_messages
+                      WHERE hour = %s
+                      ORDER BY RAND()
+                      LIMIT 1;
+                """
+                cur.execute(sql, (hour,))
+                support_messages = cur.fetchone()
+                return (
+                    support_messages["support_message_text"]
+                    if support_messages
+                    else None
+                )
+        except pymysql.Error as e:
+            print(f"エラーが発生しています：{e}")
             abort(500)
         finally:
             db_pool.release(conn)

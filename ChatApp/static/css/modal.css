@@ -1,3 +1,99 @@
 .modal {
+  position: fixed;
+  inset: 0;
   display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.modal-content {
+  background-color: #b9d8c2;
+  opacity: 0.8;
+  border-radius: 20px;
+  padding: 24px 28px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+}
+
+#create-channel-modal-close-button,
+#delete-channel-modal-close-button,
+#update-channel-modal-close-button,
+#update-message-modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 16px;
+  background-color: #ffff;
+  border: none;
+}
+
+.modal-body {
+  margin-top: 50px;
+}
+
+.form-label {
+  margin-top: 20px;
+}
+
+#delete_channel_form {
+  margin-top: 40px;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* テキストエリアの角丸をきちんと出すためのラッパー */
+.textarea-wrapper {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.textarea-wrapper textarea {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  padding: 8px 20px;
+  font-size: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+#modal-message-text {
+  font-size: 16px;
+  overflow-y: scroll;
+}
+
+.modal-footer {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+
+.modal-action {
+  padding: 10px 20px;
+  /* border: none;
+  outline: none; */
+  font-size: 16px;
+}
+
+.base-button.green-button {
+  border-color: var(--green-border);
+  background-color: var(--green);
+}
+
+.base-button.pink-button {
+  border-color: var(--red-border);
+  background-color: var(--red);
+}
+
+.base-button.yellow-button {
+  border-color: var(--yellow-border);
+  background-color: var(--yellow);
 }
