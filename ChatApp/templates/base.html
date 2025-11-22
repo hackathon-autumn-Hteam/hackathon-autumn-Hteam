@@ -35,6 +35,14 @@
     <link rel="shortcut icon" href="" />
     <link
       rel="stylesheet"
+      href="{{ url_for('static', filename='css/app-bar.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/modal.css') }}"
+    />
+    <link
+      rel="stylesheet"
       href="{{ url_for('static', filename='css/variables.css') }}"
     />
     {% block css %}

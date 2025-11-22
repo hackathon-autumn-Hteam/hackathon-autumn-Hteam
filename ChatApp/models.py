@@ -260,11 +260,12 @@ class Message:
         finally:
             db_pool.release(conn)
 
+
 class Mypage:
-   # マイページの表示と更新
-   # 該当するユーザーの情報取得
-   @classmethod
-   def get_all(cls, user_id):
+    # マイページの表示と更新
+    # 該当するユーザーの情報取得
+    @classmethod
+    def get_all(cls, user_id):
         conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
         try:
             with conn.cursor() as cur:
@@ -278,8 +279,8 @@ class Mypage:
         finally:
             db_pool.release(conn)
 
-   @classmethod
-   def update(cls, user_id, prefecture_id):
+    @classmethod
+    def update(cls, user_id, prefecture_id):
         conn = db_pool.get_conn()
         try:
             with conn.cursor() as cur:  # 該当するuser_idのprefecture_idを更新

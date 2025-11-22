@@ -202,6 +202,7 @@ input:-webkit-autofill {
 /* 編集アイコンボタン(アクティブ時) */
 .icon-button.update:active {
   background-color: var(--green-dark);
+  transform: scale(0.96);
 }
 
 /* 削除アイコンボタン */
@@ -219,4 +220,5 @@ input:-webkit-autofill {
 /* 削除アイコンボタン(アクティブ時) */
 .icon-button.delete:active {
   background-color: var(--red-dark);
+  transform: scale(0.96);
 }
