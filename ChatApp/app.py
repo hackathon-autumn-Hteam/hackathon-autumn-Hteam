@@ -106,6 +106,7 @@ def signup():
 
     session["support_message_hour"] = hour
 
+    session["user_id"] = str(user_id)
     return redirect(url_for("channels_view"))
 
 
