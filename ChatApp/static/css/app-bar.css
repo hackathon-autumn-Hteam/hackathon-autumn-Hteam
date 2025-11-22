@@ -24,3 +24,41 @@
   text-decoration: none;
   color: black;
 }
+
+nav {
+  position: fixed;
+  top: 24px;
+  width: 100%;
+  z-index: 10;
+}
+
+#header-menu {
+  position: fixed; /* 画面に固定 */
+  top: 0; /* 画面の上端から */
+  right: 0; /* 画面の右端に固定 */
+  width: 200px;
+  overflow: hidden;
+  transition: 0.3s;
+  list-style: none;
+  background-color: #fafad2;
+}
+
+#header-menu　li a {
+  padding: 8px;
+  font-size: 16px;
+  color: #464646;
+  display: block;
+  text-align: left;
+  padding-left: 20px;
+  text-decoration: none;
+}
+.hamburger {
+  position: absolute;
+  top: 10px;
+  right: 32px;
+  cursor: pointer;
+  width: 32px;
+  height: 24px;
+  z-index: 10;
+  font-size: 2.5em;
+}

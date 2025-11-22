@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+<!-- prettier-ignore -->
+{% block title %}
+マイページ
+{% endblock %}
+
+<!-- prettier-ignore -->
+{% block body %}
+<section class="mypage">
+  <a href="/channels"><h1>RareGarden</h1></a>
+  <div class="mypage-info">
+    <h2>マイページ</h2>
+    <table class="info">
+      <tr>
+        <th>ユーザー名</th>
+        <td>{{user.user_name}}</td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td>{{user.email}}</td>
+      </tr>
+      <tr>
+        <th>都道府県</th>
+        <td>
+          <form
+            class="mypage-form"
+            action="{{ url_for('update_user_prefecture', user_id=user.user_id) }}"
+            method="POST"
+          >
+            <div>
+              <select name="prefecture_id" id="prefecture_id">
+                {% for prefecture in prefectures %} {% if
+                prefecture.prefecture_id == user.prefecture_id %}
+                <option value="{{ prefecture.prefecture_id }}" selected>
+                  {{ prefecture.prefecture_name }}
+                </option>
+                {% else %}
+                <option value="{{ prefecture.prefecture_id }}">
+                  {{ prefecture.prefecture_name }}
+                </option>
+                {%endif %} {% endfor %}
+              </select>
+            </div>
+            <button class="base-button yellow-button">更新する</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <th>集めたお花の数</th>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</section>
+{% endblock %}
+
+<!-- prettier-ignore -->
+{% block script %}
+<!-- チャンネルの編集用のモーダルを制御するスクリプトを読み込む -->
+
+{% endblock %}
