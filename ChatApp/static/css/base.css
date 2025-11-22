@@ -64,7 +64,7 @@ input:-webkit-autofill {
   -------------------------------------------*/
 
 .main-container {
-  padding-top: 60px; /* アプリバー分の余白 */
+  padding-top: 54px; /* アプリバー分の余白 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -184,6 +184,7 @@ input:-webkit-autofill {
   border-radius: 50%;
   font-size: 18px;
   background-color: transparent;
+  cursor: pointer;
 }
 
 /* 編集アイコンボタン */
@@ -200,6 +201,7 @@ input:-webkit-autofill {
 /* 編集アイコンボタン(アクティブ時) */
 .icon-button.update:active {
   background-color: var(--green-dark);
+  transform: scale(0.96);
 }
 
 /* 削除アイコンボタン */
@@ -216,4 +218,5 @@ input:-webkit-autofill {
 /* 削除アイコンボタン(アクティブ時) */
 .icon-button.delete:active {
   background-color: var(--red-dark);
+  transform: scale(0.96);
 }

@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--gap-small);
+  margin-top: 20px;
 }
 
 .message-header .channel-name {
@@ -33,7 +34,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-medium);
+  gap: var(--gap-small);
   background-color: var(--green-60);
   border-radius: var(--border-radius);
   padding: 12px;
@@ -87,6 +88,32 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.like_flower_count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  font-size: 14px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--green-border);
+  cursor: pointer;
+}
+
+.like_flower_count:not(:disabled):hover {
+  background-color: #f0f0f0;
+}
+
+.like_flower_count:not(:disabled):active {
+  background-color: #e0e0e0;
+  transform: scale(0.96);
+}
+
+.like_flower_count:disabled {
+  cursor: default;
+  color: black;
 }
 
 .created_at {
