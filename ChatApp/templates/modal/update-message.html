@@ -15,17 +15,21 @@
 
       <div class="modal-body">
         <label class="form-label" for="modal-message-text">メッセージ</label>
-        <textarea
-          id="modal-message-text"
-          name="message_text"
-          rows="5"
-          placeholder="メッセージを入力してください。"
-          required
-        ></textarea>
+        <div class="textarea-wrapper">
+          <textarea
+            id="modal-message-text"
+            name="message_text"
+            rows="5"
+            placeholder="メッセージを入力してください。"
+            required
+          ></textarea>
+        </div>
       </div>
 
-      <div class="modal-action">
-        <button class="base-button yellow-button">編集する</button>
+      <div class="modal-footer">
+        <div class="modal-action">
+          <button class="base-button yellow-button">編集する</button>
+        </div>
       </div>
     </form>
   </div>
