@@ -164,7 +164,7 @@ class Message:
         try:
             with conn.cursor() as cur:  # カーソルオブジェクトを作成
                 sql = """
-                   SELECT m.message_id, u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at
+                   SELECT m.message_id,u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at, m.like_flower_count
                    FROM messages AS m
                    INNER JOIN users AS u ON m.user_id = u.user_id
                    INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
@@ -260,11 +260,12 @@ class Message:
         finally:
             db_pool.release(conn)
 
+
 class Mypage:
-   # マイページの表示と更新
-   # 該当するユーザーの情報取得
-   @classmethod
-   def get_all(cls, user_id):
+    # マイページの表示と更新
+    # 該当するユーザーの情報取得
+    @classmethod
+    def get_all(cls, user_id):
         conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
         try:
             with conn.cursor() as cur:
@@ -278,8 +279,8 @@ class Mypage:
         finally:
             db_pool.release(conn)
 
-   @classmethod
-   def update(cls, user_id, prefecture_id):
+    @classmethod
+    def update(cls, user_id, prefecture_id):
         conn = db_pool.get_conn()
         try:
             with conn.cursor() as cur:  # 該当するuser_idのprefecture_idを更新
@@ -291,6 +292,7 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
+
 
 class Prefecture:
     @classmethod
