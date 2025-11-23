@@ -5,7 +5,7 @@ import os
 import uuid
 import hashlib
 
-from models import User, Channel, Message, Prefecture, SupportMessage,  Mypage
+from models import User, Channel, Message, Prefecture, SupportMessage, Mypage
 from util.assets import bundle_css_files
 
 jst = ZoneInfo("Asia/Tokyo")
@@ -208,11 +208,15 @@ def channels_view():
     else:
         support_message = session.get("support_message")
 
+    # 全体のお花の数の集計
+    total_flowers = Message.count_all_flowers()
+
     return render_template(
         "channels.html",
         channels=channels,
         user_id=user_id,
         support_message=support_message,
+        total_flowers=total_flowers,
     )
 
 
@@ -434,9 +438,7 @@ def mypage_view():
     else:
         user = Mypage.get_all(user_id)
         prefectures = Prefecture.get_all()
-        return render_template(
-            "mypage.html", user=user, prefectures=prefectures
-        )
+        return render_template("mypage.html", user=user, prefectures=prefectures)
 
 
 @app.route("/users/<user_id>/prefecture", methods=["POST"])
@@ -463,11 +465,10 @@ def update_user_prefecture(user_id):
             Mypage.update(user_id, prefecture_id)
             user = Mypage.get_all(user_id)
             prefectures = Prefecture.get_all()
-            return render_template(
-            "mypage.html", user=user, prefectures=prefectures
-            )
+            return render_template("mypage.html", user=user, prefectures=prefectures)
         else:
             flash("都道府県が空白です")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=5000)

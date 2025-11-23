@@ -1,5 +1,4 @@
 // メッセージを削除するモーダルの制御
-// 担当ではないためローカルで所持
 
 const deleteMessageModal = document.getElementById("delete-message-modal");
 const deleteMessageButtonClose = document.getElementById(

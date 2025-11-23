@@ -101,7 +101,7 @@ input:-webkit-autofill {
 
 /* ヘルプメッセージ */
 .form-help {
-  color: #0000
+  color: #0000;
   margin: 4px 12px;
   font-size: 14px;
 }
@@ -187,19 +187,36 @@ input:-webkit-autofill {
   cursor: pointer;
 }
 
+/* 作成アイコンボタン */
+.icon-button .add {
+  border-color: var(--green-border);
+  background-color: var(--green);
+}
+
+/* 作成アイコンボタン(ホバー時) */
+.icon-button .add:hover {
+  background-color: var(--green-light);
+}
+
+/* 作成アイコンボタン(アクティブ時) */
+.icon-button .add:active {
+  background-color: var(--green-dark);
+  transform: scale(0.96);
+}
+
 /* 編集アイコンボタン */
-.icon-button.update {
+.icon-button .update {
   border-color: var(--green-border);
   background-color: var(--green);
 }
 
 /* 編集アイコンボタン(ホバー時) */
-.icon-button.update:hover {
+.icon-button .update:hover {
   background-color: var(--green-light);
 }
 
 /* 編集アイコンボタン(アクティブ時) */
-.icon-button.update:active {
+.icon-button .update:active {
   background-color: var(--green-dark);
   transform: scale(0.96);
 }

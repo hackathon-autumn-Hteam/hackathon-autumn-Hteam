@@ -17,39 +17,28 @@ li {
 }
 
 .main-container {
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
-#channels-header {
-  padding-top: 65px;
-  text-align: right;
-  display: flex;
-  justify-content: flex-end;
+.channel-info-area {
   width: 100%;
-}
-
-#create-channel-button {
-  display: inline-block;
-  padding: 7px 20px;
-  border-radius: 30px;
-  text-decoration: none;
-  border: none;
-  background-color: #b9d8c2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 #support-message-bar {
-  align-self: flex-start;
-  width: 100%;
-  text-align: left;
-}
-
-.support-message-bar-text {
-  margin: 80px 0 0 0;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  font-size: 16px;
-  gap: 5px;
+  justify-content: center;
+}
+
+.support-message-bar-text,
+.flower-count {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-size: 14px;
 }
 
 .support-message-bar-text::before,
@@ -69,16 +58,36 @@ li {
   transform: rotate(-60deg);
 }
 
-#channels-body {
-  padding-top: 65px;
+.channel-title-area {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-small);
 }
 
-#channels-body h2 {
-  margin-bottom: 40px;
-  text-align: center;
+.channel-title {
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+#create-channel-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--green);
+  color: black;
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .channels-box {
+  margin-top: 16px;
   list-style: none;
   display: grid;
   justify-items: center;
@@ -103,29 +112,29 @@ li {
   color: black;
 }
 
-/* 1番目：ピンク */
+/* 1番目 */
 .channels-box li:nth-child(1) {
-  background-color: #ffb3c1;
+  background-color: #f9e491;
 }
 
-/* 2番目：イエロー */
+/* 2番目 */
 .channels-box li:nth-child(2) {
-  background-color: #fffacd;
+  background-color: #f9e491;
 }
 
-/* 3番目：オレンジ */
+/* 3番目 */
 .channels-box li:nth-child(3) {
-  background-color: #f5d29e;
+  background-color: #f9e491;
 }
 
-/* 4番目：グリーン */
+/* 4番目 */
 .channels-box li:nth-child(4) {
-  background-color: #b9d8c2;
+  background-color: #f9e491;
 }
 
-/* 5番目：ブルー */
+/* 5番目 */
 .channels-box li:nth-child(5) {
-  background-color: #9dbfe3;
+  background-color: #f9e491;
 }
 
 .pagination-container {
@@ -148,8 +157,6 @@ li {
   display: flex;
   width: 30px;
   height: 30px;
-  /* border-radius: 50%;
-  border: 2px dotted #000; */
   align-items: center;
   justify-content: center;
 }
@@ -160,7 +167,6 @@ li {
 }
 
 .pagination li.colored {
-  /* color: indianred; */
   font-weight: 700;
   transition: all 0.5s;
 }
