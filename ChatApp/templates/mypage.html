@@ -1,14 +1,11 @@
-{% extends 'base.html' %}
-
-<!-- prettier-ignore -->
-{% block title %}
-マイページ
-{% endblock %}
-
-<!-- prettier-ignore -->
-{% block body %}
+{% extends 'base.html' %} {% block title %} マイページ {% endblock %} {% block
+css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/mypage.css') }}"
+/>
+{% endblock %} {% block body %}
 <section class="mypage">
-  <a href="/channels"><h1>RareGarden</h1></a>
   <div class="mypage-info">
     <h2>マイページ</h2>
     <table class="info">
@@ -48,10 +45,19 @@
       </tr>
       <tr>
         <th>集めたお花の数</th>
-        <td></td>
+        <td>{{user_flowers}}本</td>
       </tr>
     </table>
   </div>
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <div>
+    <ul class="flashes">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %} {% endwith %}
 </section>
 {% endblock %}
 

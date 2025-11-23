@@ -12,6 +12,13 @@
 <!-- prettier-ignore -->
 {% block body %}
 <div class="main-container">
+  <!-- ＊＊追加機能：励ましのメッセージ -->
+  {% if support_message %}
+  <div class="support-message-bar" id="support-message-bar">
+    <div class="support-message-bar-text">{{ support_message }}</div>
+  </div>
+  {% endif %}
+
   <!-- チャンネル作成のボタン（このエリアをヘッダーとする）　-->
   <div id="channels-header">
     <button id="create-channel-button" type="button">チャンネル作成</button>
@@ -69,7 +76,4 @@
   src="{{url_for('static',filename='js/pagination.js')}}"
   type="module"
 ></script>
-<script src="{{url_for('static',filename='js/tabbar.js')}}">
-  type="module"
-</script>
 {% endblock %}

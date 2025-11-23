@@ -163,7 +163,7 @@ class Message:
         try:
             with conn.cursor() as cur:  # カーソルオブジェクトを作成
                 sql = """
-                   SELECT m.message_id,u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at, m.like_flower_count
+                   SELECT m.message_id, u.user_id, u.user_name, p.prefecture_name, m.message_text, m.created_at, m.like_flower_count
                    FROM messages AS m
                    INNER JOIN users AS u ON m.user_id = u.user_id
                    INNER JOIN prefectures AS p ON u.prefecture_id = p.prefecture_id
@@ -276,7 +276,22 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
-
+    # ユーザーの集めたお花の数の集計
+    @classmethod
+    def count_flowers(cls, user_id):
+        conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
+        try:
+            with conn.cursor() as cur:
+                sql = "SELECT SUM(like_flower_count) FROM messages WHERE user_id = %s"
+                cur.execute(sql, (user_id,))
+                user_flowers = cur.fetchall()
+            return user_flowers
+        except pymysql.Error as e:
+            print(f"ユーザーIDが{user_id}のお花の数を取得できませんでした：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
+    # 都道府県情報の更新
     @classmethod
     def update(cls, user_id, prefecture_id):
         conn = db_pool.get_conn()
@@ -290,7 +305,6 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
-
 
 class Prefecture:
     @classmethod
@@ -307,7 +321,6 @@ class Prefecture:
             abort(500)
         finally:
             db_pool.release(conn)
-
 
 # 追加機能「励ましのメッセージ」
 # ORDER BY RAND() 遅くなりがち（データが多い時注意）

@@ -5,7 +5,11 @@ import os
 import uuid
 import hashlib
 
+<<<<<<< HEAD
 from models import User, Channel, Message, Prefecture, SupportMessage, Mypage
+=======
+from models import User, Channel, Message, Prefecture, Mypage, SupportMessage
+>>>>>>> develop
 from util.assets import bundle_css_files
 
 jst = ZoneInfo("Asia/Tokyo")
@@ -107,6 +111,15 @@ def signup():
     session["support_message_hour"] = hour
 
     session["user_id"] = str(user_id)
+
+    # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
+    hour = datetime.now(jst).hour
+
+    support_message = SupportMessage.get_random_by_hour(hour)
+    session["support_message"] = support_message
+
+    session["support_message_hour"] = hour
+
     return redirect(url_for("channels_view"))
 
 
@@ -198,6 +211,9 @@ def channels_view():
     # 前回のメッセージを決めたときの時間を取得する
     last_hour = session.get("support_message_hour")
 
+    # 前回のメッセージを決めたときの時間を取得する
+    last_hour = session.get("support_message_hour")
+
     # ログイン時と時間帯が変わっていたらchannels.viewに遷移したタイミングでメッセージを更新する
     if last_hour != current_hour:
         support_message = SupportMessage.get_random_by_hour(current_hour)
@@ -213,7 +229,6 @@ def channels_view():
         user_id=user_id,
         support_message=support_message,
     )
-
 
 # チャンネルの作成
 @app.route("/channels", methods=["POST"])
@@ -406,19 +421,27 @@ def mypage_view():
 
     詳細説明
     1.ログイン状態を確認
-    2.ユーザー情報と都道府県のDBを取得
+    2.ユーザー情報とユーザーのお花の本数、都道府県のDBを取得
     3.テンプレートのユーザー情報を更新
 
     Returns:
-        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(ユーザーが集めたお花の本数)
     """
     user_id = session.get("user_id")
     if user_id is None:
         return redirect(url_for("login_view"))
     else:
         user = Mypage.get_all(user_id)
+        user_flowers_dict = Mypage.count_flowers(user_id)
+        user_flowers = int(user_flowers_dict[0]['SUM(like_flower_count)'])
         prefectures = Prefecture.get_all()
+<<<<<<< HEAD
         return render_template("mypage.html", user=user, prefectures=prefectures)
+=======
+        return render_template(
+            "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
+        )
+>>>>>>> develop
 
 
 @app.route("/users/<user_id>/prefecture", methods=["POST"])
@@ -435,7 +458,7 @@ def update_user_prefecture(user_id):
         user_id : ユーザーID
 
     Returns:
-        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(ユーザーが集めたお花の本数)
     """
     if user_id is None:
         return redirect(url_for("login_view"))
@@ -444,8 +467,17 @@ def update_user_prefecture(user_id):
         if prefecture_id:
             Mypage.update(user_id, prefecture_id)
             user = Mypage.get_all(user_id)
+            user_flowers_dict = Mypage.count_flowers(user_id)
+            user_flowers = int(user_flowers_dict[0]['SUM(like_flower_count)'])
             prefectures = Prefecture.get_all()
+<<<<<<< HEAD
             return render_template("mypage.html", user=user, prefectures=prefectures)
+=======
+            flash("都道府県情報を更新しました")
+            return render_template(
+            "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
+            )
+>>>>>>> develop
         else:
             flash("都道府県が空白です")
 

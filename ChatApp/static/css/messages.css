@@ -150,3 +150,8 @@
   align-items: flex-end;
   gap: var(--gap-small);
 }
+
+.app-title {
+  display: flex;
+  flex-direction: row;
+}

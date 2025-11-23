@@ -221,6 +221,7 @@ input:-webkit-autofill {
 .icon-button.update {
   border-color: var(--green-border);
   background-color: var(--green);
+  transform: scale(0.96);
 }
 
 /* 編集アイコンボタン(ホバー時) */
@@ -238,6 +239,7 @@ input:-webkit-autofill {
 .icon-button.delete {
   border-color: var(--red-border);
   background-color: var(--red);
+  transform: scale(0.96);
 }
 
 /* 削除アイコンボタン(ホバー時) */
