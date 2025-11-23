@@ -278,7 +278,22 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
-
+    # ユーザーの集めたお花の数の集計
+    @classmethod
+    def count_flowers(cls, user_id):
+        conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
+        try:
+            with conn.cursor() as cur:
+                sql = "SELECT SUM(like_flower_count) FROM messages WHERE user_id = %s"
+                cur.execute(sql, (user_id,))
+                user_flowers = cur.fetchall()
+            return user_flowers
+        except pymysql.Error as e:
+            print(f"ユーザーIDが{user_id}のお花の数を取得できませんでした：{e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
+    # 都道府県情報の更新
     @classmethod
     def update(cls, user_id, prefecture_id):
         conn = db_pool.get_conn()
@@ -289,34 +304,6 @@ class Mypage:
                 conn.commit()
         except pymysql.Error as e:
             print(f"Mypage.updateでエラーが発生しています：{e}")
-            abort(500)
-        finally:
-            db_pool.release(conn)
-
-# 追加機能「励ましのメッセージ」
-# ORDER BY RAND() 遅くなりがち（データが多い時注意）
-class SupportMessage:
-    @classmethod
-    def get_random_by_hour(cls, hour: int):
-        conn = db_pool.get_conn()
-        try:
-            with conn.cursor() as cur:
-                sql = """
-                      SELECT support_message_text
-                      FROM support_messages
-                      WHERE hour = %s
-                      ORDER BY RAND()
-                      LIMIT 1;
-                """
-                cur.execute(sql, (hour,))
-                support_messages = cur.fetchone()
-                return (
-                    support_messages["support_message_text"]
-                    if support_messages
-                    else None
-                )
-        except pymysql.Error as e:
-            print(f"エラーが発生しています：{e}")
             abort(500)
         finally:
             db_pool.release(conn)
@@ -336,7 +323,6 @@ class Prefecture:
             abort(500)
         finally:
             db_pool.release(conn)
-
 
 # 追加機能「励ましのメッセージ」
 # ORDER BY RAND() 遅くなりがち（データが多い時注意）

@@ -5,6 +5,13 @@
 マイページ
 {% endblock %}
 
+{% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/mypage.css') }}"
+/>
+{% endblock %}
+
 <!-- prettier-ignore -->
 {% block body %}
 <section class="mypage">
@@ -48,7 +55,7 @@
       </tr>
       <tr>
         <th>集めたお花の数</th>
-        <td></td>
+        <td>{{user_flowers}}本</td>
       </tr>
     </table>
   </div>

@@ -444,9 +444,11 @@ def mypage_view():
         return redirect(url_for("login_view"))
     else:
         user = Mypage.get_all(user_id)
+        user_flowers_dict = Mypage.count_flowers(user_id)
+        user_flowers = int(user_flowers_dict[0]['SUM(like_flower_count)'])
         prefectures = Prefecture.get_all()
         return render_template(
-            "mypage.html", user=user, prefectures=prefectures
+            "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
         )
 
 
@@ -464,7 +466,7 @@ def update_user_prefecture(user_id):
         user_id : ユーザーID
 
     Returns:
-        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(お花の数)
     """
     if user_id is None:
         return redirect(url_for("login_view"))
