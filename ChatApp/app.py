@@ -5,11 +5,7 @@ import os
 import uuid
 import hashlib
 
-<<<<<<< HEAD
-from models import User, Channel, Message, Prefecture, SupportMessage, Mypage
-=======
 from models import User, Channel, Message, Prefecture, Mypage, SupportMessage
->>>>>>> develop
 from util.assets import bundle_css_files
 
 jst = ZoneInfo("Asia/Tokyo")
@@ -230,6 +226,7 @@ def channels_view():
         support_message=support_message,
     )
 
+
 # チャンネルの作成
 @app.route("/channels", methods=["POST"])
 def create_channel():
@@ -433,15 +430,11 @@ def mypage_view():
     else:
         user = Mypage.get_all(user_id)
         user_flowers_dict = Mypage.count_flowers(user_id)
-        user_flowers = int(user_flowers_dict[0]['SUM(like_flower_count)'])
+        user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
         prefectures = Prefecture.get_all()
-<<<<<<< HEAD
-        return render_template("mypage.html", user=user, prefectures=prefectures)
-=======
         return render_template(
             "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
         )
->>>>>>> develop
 
 
 @app.route("/users/<user_id>/prefecture", methods=["POST"])
@@ -468,16 +461,15 @@ def update_user_prefecture(user_id):
             Mypage.update(user_id, prefecture_id)
             user = Mypage.get_all(user_id)
             user_flowers_dict = Mypage.count_flowers(user_id)
-            user_flowers = int(user_flowers_dict[0]['SUM(like_flower_count)'])
+            user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
             prefectures = Prefecture.get_all()
-<<<<<<< HEAD
-            return render_template("mypage.html", user=user, prefectures=prefectures)
-=======
             flash("都道府県情報を更新しました")
             return render_template(
-            "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
+                "mypage.html",
+                user=user,
+                prefectures=prefectures,
+                user_flowers=user_flowers,
             )
->>>>>>> develop
         else:
             flash("都道府県が空白です")
 
