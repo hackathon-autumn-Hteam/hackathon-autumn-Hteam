@@ -19,6 +19,20 @@
   <!-- チャンネル一覧（このエリアをボディとする）　-->
   <div id="channels-body">
     <h2>チャンネル一覧</h2>
+    {% with messages = get_flashed_messages() %}
+    <!-- prettier-ignore -->
+    {% if messages %}
+    <div>
+      <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <!-- prettier-ignore -->
+    {% endwith %}
+
     <ul class="channels-box"></ul>
     <!-- ページネーションの表示 -->
     <div class="pagination-container">
