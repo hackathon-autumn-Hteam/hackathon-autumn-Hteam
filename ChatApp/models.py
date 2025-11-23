@@ -39,7 +39,6 @@ class User:
 
 # チャンネルの作成
 class Channel:
-    # TODO(うっちーさん): チャンネルクラスを定義
     # チャンネル一覧ページの表示
     @classmethod
     def get_all(cls):
@@ -245,7 +244,6 @@ class Message:
         finally:
             db_pool.release(conn)
 
-    # TODO: メッセージの削除(追加機能)
     @classmethod
     def delete(cls, message_id):
         conn = db_pool.get_conn()

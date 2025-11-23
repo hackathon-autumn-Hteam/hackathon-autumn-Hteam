@@ -13,19 +13,16 @@ const updateChannelModal = document.getElementById("update-channel-modal");
 
 // モーダルが存在するページのみ（uidとチャンネルidが同じ時のみ）
 if (updateChannelModal) {
-  // TODO(rootさん): id="update-channel-button"のボタンがクリックされた時に、モーダルを表示する
   // メッセージページ内の「チャンネル編集」アイコンが押された時にモーダルを表示する
   updateButton.addEventListener("click", () => {
     updateChannelModal.style.display = "flex";
   });
 
-  // TODO(rootさん): id="close-modal-button"のボタンがクリックされた時に、モーダルを非表示にする
   // チャンネル編集モーダル内の「閉じる」アイコンが押された時にモーダルを非表示にする
   updatePageButtonClose.addEventListener("click", () => {
     updateChannelModal.style.display = "none";
   });
 
-  // TODO(rootさん): 画面のどこかが押された時に、モーダルを非表示にする
   addEventListener("click", (e) => {
     if (e.target == updateChannelModal) {
       updateChannelModal.style.display = "none";

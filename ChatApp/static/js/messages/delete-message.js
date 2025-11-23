@@ -1,5 +1,4 @@
 // メッセージを削除するモーダルの制御
-// 担当ではないためローカルで所持
 
 const deleteMessageModal = document.getElementById("delete-message-modal");
 const deleteMessageButtonClose = document.getElementById(
@@ -23,7 +22,7 @@ if (deleteMessageModal && deleteMessageButtons.length > 0) {
       deleteMessageModal.style.display = "flex";
 
       // form.actionをセット
-      deleteMessageForm.action = `/channels/${channelId}/messages/${messageId}`;
+      deleteMessageForm.action = `/channels/${channelId}/messages/${messageId}/delete`;
     });
   });
 

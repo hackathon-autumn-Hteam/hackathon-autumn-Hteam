@@ -1,9 +1,11 @@
 <div id="update-message-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
+      <h3>メッセージの編集</h3>
       <button
+        title="閉じる"
         id="update-message-modal-close-button"
-        class="icon-button"
+        class="icon-button close"
         aria-label="閉じる"
       >
         <ion-icon name="close"></ion-icon>
@@ -11,25 +13,21 @@
     </div>
 
     <form id="update-message-form" method="POST">
-      <input type="hidden" name="_method" value="PUT" />
-
+      <!-- モーダルボディ -->
       <div class="modal-body">
-        <label class="form-label" for="modal-message-text">メッセージ</label>
-        <div class="textarea-wrapper">
-          <textarea
-            id="modal-message-text"
-            name="message_text"
-            rows="5"
-            placeholder="メッセージを入力してください。"
-            required
-          ></textarea>
-        </div>
+        <label class="form-label" for="message-text">メッセージ</label>
+        <textarea
+          id="message-text"
+          name="message_text"
+          rows="5"
+          placeholder="メッセージを入力してください。"
+          required
+        ></textarea>
       </div>
 
+      <!-- モーダルフッター -->
       <div class="modal-footer">
-        <div class="modal-action">
-          <button class="base-button yellow-button">編集する</button>
-        </div>
+        <button class="base-button yellow">編集する</button>
       </div>
     </form>
   </div>

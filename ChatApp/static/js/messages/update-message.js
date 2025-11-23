@@ -5,7 +5,7 @@ const closeButton = document.getElementById(
 );
 
 const updateMessageForm = document.getElementById("update-message-form");
-const modalMessageText = document.getElementById("modal-message-text");
+const modalMessageText = document.getElementById("message-text");
 const updateButtons = document.querySelectorAll(".update-message-button");
 
 if (updateMessageModal && updateButtons.length > 0) {
@@ -22,7 +22,7 @@ if (updateMessageModal && updateButtons.length > 0) {
       modalMessageText.value = messageText;
 
       // form.action をセット
-      updateMessageForm.action = `/channels/${channelId}/messages/${messageId}`;
+      updateMessageForm.action = `/channels/${channelId}/messages/${messageId}/update`;
     });
   });
 

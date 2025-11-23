@@ -1,19 +1,22 @@
 <div id="create-channel-modal" class="modal">
   <div class="modal-content">
-    <!-- 「閉じる」ボタンのエリア＝ヘッダーとする -->
+    <!-- モーダルヘッダー -->
     <div class="modal-header">
+      <h3>チャンネルの作成</h3>
       <button
+        title="閉じる"
         id="create-channel-modal-close-button"
-        class="icon-button"
+        class="icon-button close"
         aria-label="閉じる"
       >
         <ion-icon name="close"></ion-icon>
       </button>
     </div>
 
-    <form action="/channels" method="POST">
-      <!-- 入力エリア＝ボディとする -->
-      <div class="modal-body">
+    <form action="{{ url_for('create_channel') }}" method="POST">
+      <!-- モーダルボディ -->
+      <!-- form-fieldsクラスを追加すると、フォームとフォームの間に余白が入る -->
+      <div class="modal-body form-fields">
         <div>
           <label class="form-label" for="channel_name">チャンネル名</label>
           <input
@@ -39,11 +42,9 @@
         </div>
       </div>
 
-      <!-- モーダルの操作ボタン -->
+      <!-- モーダルフッター -->
       <div class="modal-footer">
-        <div class="modal-action">
-          <button class="base-button green-button">作成する</button>
-        </div>
+        <button class="base-button yellow">作成する</button>
       </div>
     </form>
   </div>
