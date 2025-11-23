@@ -478,6 +478,7 @@ def update_user_prefecture(user_id):
             user_flowers_dict = Mypage.count_flowers(user_id)
             user_flowers = int(user_flowers_dict[0]['SUM(like_flower_count)'])
             prefectures = Prefecture.get_all()
+            flash("都道府県情報を更新しました")
             return render_template(
             "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
             )
