@@ -272,11 +272,3 @@ input:-webkit-autofill {
 .small-icon-button {
   cursor: pointer;
 }
-
-.small-icon-button.update {
-  color: var(--green-dark);
-}
-
-.small-icon-button.delete {
-  color: var(--red-dark);
-}
