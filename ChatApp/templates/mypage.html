@@ -1,21 +1,11 @@
-{% extends 'base.html' %}
-
-<!-- prettier-ignore -->
-{% block title %}
-マイページ
-{% endblock %}
-
-{% block css %}
+{% extends 'base.html' %} {% block title %} マイページ {% endblock %} {% block
+css %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/mypage.css') }}"
 />
-{% endblock %}
-
-<!-- prettier-ignore -->
-{% block body %}
+{% endblock %} {% block body %}
 <section class="mypage">
-  <a href="/channels"><h1>RareGarden</h1></a>
   <div class="mypage-info">
     <h2>マイページ</h2>
     <table class="info">

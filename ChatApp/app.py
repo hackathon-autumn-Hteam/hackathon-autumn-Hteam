@@ -433,11 +433,11 @@ def mypage_view():
 
     詳細説明
     1.ログイン状態を確認
-    2.ユーザー情報と都道府県のDBを取得
+    2.ユーザー情報とユーザーのお花の本数、都道府県のDBを取得
     3.テンプレートのユーザー情報を更新
 
     Returns:
-        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(ユーザーが集めたお花の本数)
     """
     user_id = session.get("user_id")
     if user_id is None:
@@ -466,7 +466,7 @@ def update_user_prefecture(user_id):
         user_id : ユーザーID
 
     Returns:
-        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(お花の数)
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(ユーザーが集めたお花の本数)
     """
     if user_id is None:
         return redirect(url_for("login_view"))
@@ -475,9 +475,11 @@ def update_user_prefecture(user_id):
         if prefecture_id:
             Mypage.update(user_id, prefecture_id)
             user = Mypage.get_all(user_id)
+            user_flowers_dict = Mypage.count_flowers(user_id)
+            user_flowers = int(user_flowers_dict[0]['SUM(like_flower_count)'])
             prefectures = Prefecture.get_all()
             return render_template(
-            "mypage.html", user=user, prefectures=prefectures
+            "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
             )
         else:
             flash("都道府県が空白です")
