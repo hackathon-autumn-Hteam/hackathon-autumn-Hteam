@@ -2,31 +2,27 @@
   <div class="modal-content">
     <!-- モーダルのヘッダー -->
     <div class="modal-header">
+      <h3>メッセージの削除</h3>
       <button
+        title="閉じる"
         id="delete-message-modal-close-button"
-        class="icon-button"
+        class="icon-button close"
         aria-label="閉じる"
       >
         <ion-icon name="close"></ion-icon>
       </button>
     </div>
 
-    <form
-      name="delete-message-form"
-      id="delete-message-form"
-      action=""
-      method="POST"
-    >
-      <input type="hidden" name="_method" value="DELETE" />
+    <form id="delete-message-form" method="POST">
+      <!-- モーダルボディ -->
+      <div class="modal-body">
+        <p>削除したメッセージは元には戻せません。</p>
+        <p>本当に削除してよろしいですか？</p>
+      </div>
 
-      <p>削除したメッセージは元には戻せません。</p>
-      <p>本当に削除してよろしいですか？</p>
-
-      <!-- 削除ボタン -->
+      <!-- モーダルフッター -->
       <div class="modal-footer">
-        <div class="modal-action">
-          <button class="base-button pink-button">削除する</button>
-        </div>
+        <button class="base-button pink">削除する</button>
       </div>
     </form>
   </div>

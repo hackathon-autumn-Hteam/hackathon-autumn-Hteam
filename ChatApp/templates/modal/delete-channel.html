@@ -1,10 +1,12 @@
 <div id="delete-channel-modal" class="modal">
   <div class="modal-content">
-    <!-- モーダルのヘッダー -->
+    <!-- モーダルヘッダー -->
     <div class="modal-header">
+      <h3>チャンネルの削除</h3>
       <button
+        title="閉じる"
         id="delete-channel-modal-close-button"
-        class="icon-button"
+        class="icon-button close"
         aria-label="閉じる"
       >
         <ion-icon name="close"></ion-icon>
@@ -12,21 +14,18 @@
     </div>
 
     <form
-      name="delete-channel-form"
-      id="delete-channel-form"
-      action=""
+      action="{{ url_for('delete_channel', channel_id=channel.channel_id) }}"
       method="POST"
     >
-      <input type="hidden" name="_method" value="DELETE" />
+      <!-- モーダルボディ -->
+      <div class="modal-body">
+        <p>削除したチャンネルは元には戻せません。</p>
+        <p>本当に削除してよろしいですか？</p>
+      </div>
 
-      <p>削除したチャンネルは元には戻せません。</p>
-      <p>本当に削除してよろしいですか？</p>
-
-      <!-- 削除ボタン -->
+      <!-- モーダルフッター -->
       <div class="modal-footer">
-        <div class="modal-action">
-          <button class="base-button pink-button">削除する</button>
-        </div>
+        <button class="base-button pink">削除する</button>
       </div>
     </form>
   </div>
