@@ -107,23 +107,13 @@ def signup():
     # ログイン済みとしてユーザーIDをセッションに保持
     session["user_id"] = user_id
 
-    # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
-    hour = datetime.now(jst).hour
-
-    support_message = SupportMessage.get_random_by_hour(hour)
-    session["support_message"] = support_message
-
-    session["support_message_hour"] = hour
+    # # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
+    # hour = datetime.now(jst).hour
+    # support_message = SupportMessage.get_random_by_hour(hour)
+    # session["support_message"] = support_message
+    # session["support_message_hour"] = hour
 
     session["user_id"] = str(user_id)
-
-    # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
-    hour = datetime.now(jst).hour
-
-    support_message = SupportMessage.get_random_by_hour(hour)
-    session["support_message"] = support_message
-
-    session["support_message_hour"] = hour
 
     return redirect(url_for("channels_view"))
 
@@ -176,12 +166,10 @@ def login():
     session["user_id"] = user["user_id"]
 
     # 追加機能：ログインした時間帯の励ましメッセージを決める・セッションに保存
-    hour = datetime.now(jst).hour
-
-    support_message = SupportMessage.get_random_by_hour(hour)
-    session["support_message"] = support_message
-
-    session["support_message_hour"] = hour
+    # hour = datetime.now(jst).hour
+    # support_message = SupportMessage.get_random_by_hour(hour)
+    # session["support_message"] = support_message
+    # session["support_message_hour"] = hour
 
     return redirect(url_for("channels_view"))
 
@@ -214,16 +202,19 @@ def channels_view():
     current_hour = datetime.now(jst).hour
 
     # 前回のメッセージを決めたときの時間を取得する
-    last_hour = session.get("support_message_hour")
+    # last_hour = session.get("support_message_hour")
 
     # ログイン時と時間帯が変わっていたらchannels.viewに遷移したタイミングでメッセージを更新する
-    if last_hour != current_hour:
-        support_message = SupportMessage.get_random_by_hour(current_hour)
-        session["support_message"] = support_message
-        session["support_message_hour"] = current_hour
+    # if last_hour != current_hour:
+    #     support_message = SupportMessage.get_random_by_hour(current_hour)
+    # session["support_message"] = support_message
+    # session["support_message_hour"] = current_hour
     # 時間が変わっていなければログイン時に決めた励ましメッセージをセッションから取得する
-    else:
-        support_message = session.get("support_message")
+    # else:
+    # support_message = session.get("support_message")
+
+    # ページを更新するたびにメッセージを変える
+    support_message = SupportMessage.get_random_by_hour(current_hour)
 
     # 全体のお花の数の集計
     total_flowers = Message.count_all_flowers()
