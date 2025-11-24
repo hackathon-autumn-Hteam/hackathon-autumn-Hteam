@@ -1,4 +1,13 @@
-from flask import Flask, request, session, redirect, url_for, render_template, flash
+from flask import (
+    Flask,
+    request,
+    session,
+    redirect,
+    url_for,
+    render_template,
+    flash,
+    abort,
+)
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import os
@@ -216,11 +225,15 @@ def channels_view():
     else:
         support_message = session.get("support_message")
 
+    # 全体のお花の数の集計
+    total_flowers = Message.count_all_flowers()
+
     return render_template(
         "channels.html",
         channels=channels,
         user_id=user_id,
         support_message=support_message,
+        total_flowers=total_flowers,
     )
 
 
@@ -307,6 +320,10 @@ def messages_view(channel_id):
 
     channel = Channel.find_by_channel_id(channel_id)
     messages = Message.get_all(channel_id)
+
+    # チャンネルが存在しない場合は404を表示
+    if not channel:
+        abort(404)
 
     return render_template(
         "messages.html", user_id=user_id, channel=channel, messages=messages
@@ -427,8 +444,8 @@ def mypage_view():
     else:
         user = Mypage.get_all(user_id)
         user_flowers_dict = Mypage.count_flowers(user_id)
-        if user_flowers_dict[0]["SUM(like_flower_count)"]==None:
-            user_flowers=0
+        if user_flowers_dict[0]["SUM(like_flower_count)"] == None:
+            user_flowers = 0
         else:
             user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
         prefectures = Prefecture.get_all()
@@ -472,6 +489,16 @@ def update_user_prefecture(user_id):
             )
         else:
             flash("都道府県が空白です")
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("error/404.html"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template("error/500.html"), 500
 
 
 if __name__ == "__main__":

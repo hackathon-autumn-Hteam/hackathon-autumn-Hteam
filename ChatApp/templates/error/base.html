@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      RareGarden | {% block title %} <!-- ここにタイトルを記述 --> {% endblock
+      %}
+    </title>
+    <!-- フォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Itim&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 完成後は以下のCSSのみ読み込む -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='gen/bundled.css') }}"
+    />
+    <!-- 以下に開発時に全ファイルで読み込むCSSを記述 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/variables.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/error.css') }}"
+    />
+  </head>
+  <body>
+    <div id="error-content">
+      <p id="error-title">{% block page_title %}{% endblock %}</p>
+      <p id="error-description">{% block page_description %}{% endblock %}</p>
+      <button
+        class="base-button yellow"
+        onclick="location.href='{{ url_for('index') }}'"
+      >
+        ホームに戻る
+      </button>
+    </div>
+  </body>
+</html>

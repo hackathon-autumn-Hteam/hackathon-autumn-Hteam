@@ -5,31 +5,28 @@
   width: 100%;
 }
 
-#create-channel-button {
-  display: inline-block;
-  padding: 7px 20px;
-  border-radius: 30px;
-  text-decoration: none;
-  border: none;
-  background-color: #b9d8c2;
+.channel-info-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 #support-message-bar {
-  align-self: flex-start;
-  width: 100%;
-  text-align: left;
-}
-
-.support-message-bar-text {
-  margin: 20px 0 0 0;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  font-size: 16px;
-  gap: 5px;
+  justify-content: center;
 }
 
-.support-message-bar-text::before,
+.support-message-bar-text,
+.flower-count {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+
+/* .support-message-bar-text::before,
 .support-message-bar-text::after {
   display: block;
   content: "";
@@ -44,7 +41,7 @@
 
 .support-message-bar-text::after {
   transform: rotate(-60deg);
-}
+} */
 
 #channels-body {
   display: flex;
@@ -52,6 +49,21 @@
   align-items: center;
   justify-content: center;
   gap: var(--gap-medium);
+}
+
+.channel-title-area {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-small);
+}
+
+.channel-title {
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
 .channels-box {
@@ -106,19 +118,16 @@
   display: flex;
   width: 30px;
   height: 30px;
-  /* border-radius: 50%;
-  border: 2px dotted #000; */
   align-items: center;
   justify-content: center;
 }
 
 .pagination li:hover {
   cursor: pointer;
-  color: #ffb3c1;
+  color: #f6c1c1;
 }
 
 .pagination li.colored {
-  /* color: indianred; */
   font-weight: 700;
   transition: all 0.5s;
 }
@@ -126,5 +135,5 @@
 #prev:hover,
 #next:hover {
   cursor: pointer;
-  color: #ffb3c1;
+  color: #f6c1c1;
 }
