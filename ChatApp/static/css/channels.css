@@ -1,27 +1,4 @@
-.app-title {
-  display: flex;
-  flex-direction: row;
-}
-.pagination-container {
-  display: flex;
-}
-.pagination {
-  display: flex;
-}
-li {
-  list-style: none;
-  text-align: center;
-}
-.modal {
-  display: none;
-}
-
-.main-container {
-  margin-top: 60px;
-}
-
 #channels-header {
-  padding-top: 65px;
   text-align: right;
   display: flex;
   justify-content: flex-end;
@@ -44,7 +21,7 @@ li {
 }
 
 .support-message-bar-text {
-  margin: 80px 0 0 0;
+  margin: 20px 0 0 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -70,12 +47,11 @@ li {
 }
 
 #channels-body {
-  padding-top: 65px;
-}
-
-#channels-body h2 {
-  margin-bottom: 40px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-medium);
 }
 
 .channels-box {
@@ -85,7 +61,6 @@ li {
   align-items: center;
   gap: 20px;
   padding: 0;
-  margin-bottom: 32px;
 }
 
 .channels-box li {
@@ -95,37 +70,19 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+  list-style: none;
+  background-color: var(--yellow);
+  border: 1px solid var(--yellow-border);
 }
 
 .channels-box li a {
-  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: black;
-}
-
-/* 1番目：ピンク */
-.channels-box li:nth-child(1) {
-  background-color: #ffb3c1;
-}
-
-/* 2番目：イエロー */
-.channels-box li:nth-child(2) {
-  background-color: #fffacd;
-}
-
-/* 3番目：オレンジ */
-.channels-box li:nth-child(3) {
-  background-color: #f5d29e;
-}
-
-/* 4番目：グリーン */
-.channels-box li:nth-child(4) {
-  background-color: #b9d8c2;
-}
-
-/* 5番目：ブルー */
-.channels-box li:nth-child(5) {
-  background-color: #9dbfe3;
 }
 
 .pagination-container {
@@ -144,6 +101,7 @@ li {
   padding: 0;
   align-items: center;
 }
+
 .pagination li {
   display: flex;
   width: 30px;

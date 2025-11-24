@@ -1,58 +1,58 @@
-<!-- TODO(rootさん): チャンネルの編集用のモーダルを記述 -->
 <div id="update-channel-modal" class="modal">
-
   <div class="modal-content">
     <!-- モーダルのヘッダー -->
     <div class="modal-header">
-        <button id="update-channel-modal-close-button" class="icon-button" aria-label="閉じる">
-            <ion-icon name="close"></ion-icon>
-        </button>
+      <h3>チャンネルの編集</h3>
+      <button
+        title="閉じる"
+        id="update-channel-modal-close-button"
+        class="icon-button close"
+        aria-label="閉じる"
+      >
+        <ion-icon name="close"></ion-icon>
+      </button>
     </div>
 
     <form
       action="{{ url_for('update_channel', channel_id=channel.channel_id) }}"
       method="POST"
-      name="update-channel-form"
     >
-        <input type="hidden" name="_method" value="PUT" />
-
-        <!-- モーダルのメイン -->
-        <div class="modal-body">
-            <div>
-                <!-- チャンネル名 -->
-                <label class="form-label" for="channel_name">チャンネル名</label>
-                <input readonly
-                    id="channel_name"
-                    name="channel_name"
-                    type="text"
-                    placeholder="チャンネル名を入力してください"
-                    value="{{channel.channel_name}}"
-                    required
-                ></input>
-                <p class="form-help">
-                    チャンネル名は入力できません
-                </p>
-            </div>
-
-            <div>
-                <!-- チャンネル詳細 -->
-                <label class="form-label" for="description">チャンネル詳細(任意)</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    rows="5"
-                    placeholder="チャンネルの内容を入力してください"
-                    value="{{channel.description}}"
-                ></textarea>
-            </div>
+      <!-- モーダルボディ -->
+      <!-- form-fieldsクラスを追加すると、フォームとフォームの間に余白が入る -->
+      <div class="modal-body form-fields">
+        <div>
+          <label class="form-label" for="channel_name">チャンネル名</label>
+          <input
+            readonly
+            id="channel_name"
+            name="channel_name"
+            type="text"
+            placeholder="チャンネル名を入力してください"
+            value="{{channel.channel_name}}"
+            required
+          />
+          <p class="form-help">チャンネル名は編集できません</p>
         </div>
 
-        <!-- 編集ボタン -->
-        <div class="modal-footer">
-          <div class="modal-action">
-            <button class="base-button green-button">編集する</button>
-          </div>
+        <div>
+          <label class="form-label" for="description"
+            >チャンネル詳細(任意)</label
+          >
+          <textarea
+            id="description"
+            name="description"
+            rows="5"
+            placeholder="チャンネルの内容を入力してください"
+          >
+{{channel.description}}</textarea
+          >
         </div>
+      </div>
+
+      <!-- モーダルフッター -->
+      <div class="modal-footer">
+        <button class="base-button yellow">編集する</button>
+      </div>
     </form>
   </div>
 </div>
