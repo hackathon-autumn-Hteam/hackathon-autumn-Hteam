@@ -1,6 +1,10 @@
 import pymysql
 from util.DB import DB
 from flask import abort
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+jst = ZoneInfo("Asia/Tokyo")
 
 # 初期起動時にコネクションプールを作成し接続を確立
 db_pool = DB.init_db_pool()
@@ -199,14 +203,16 @@ class Message:
         conn = db_pool.get_conn()  # データベース接続プールからコネクションを取得
         try:
             with conn.cursor() as cur:  # カーソルオブジェクトを作成
+                now = datetime.now(jst)
                 # messagesテーブルにユーザーID,チャンネルID,メッセージ詳細を挿入
-                sql = "INSERT INTO messages(user_id, channel_id, message_text) VALUES(%s, %s, %s);"
+                sql = "INSERT INTO messages(user_id, channel_id, message_text, created_at) VALUES(%s, %s, %s, %s);"
                 cur.execute(
                     sql,
                     (
                         user_id,
                         channel_id,
                         message_text,
+                        now,
                     ),
                 )  # SQLを実行
                 conn.commit()

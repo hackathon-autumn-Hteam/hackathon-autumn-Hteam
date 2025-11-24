@@ -5,13 +5,6 @@
 チャットルーム | {{channel.channel_name}}
 {% endblock %}
 
-{% block css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/messages.css') }}"
-/>
-{% endblock %}
-
 <!-- prettier-ignore -->
 {% block body %}
 <div class="main-container">
@@ -91,8 +84,7 @@
         </div>
       </div>
       <button class="like-flower-count-button" disabled>
-        <ion-icon name="flower-outline"></ion-icon>
-        {{message.like_flower_count}}
+        🌷 {{message.like_flower_count}}
       </button>
     </div>
     {% else %}
@@ -107,8 +99,7 @@
         method="POST"
       >
         <button class="like-flower-count-button">
-          <ion-icon title="お花を送る" name="flower-outline"></ion-icon>
-          {{message.like_flower_count}}
+          🌷 {{message.like_flower_count}}
         </button>
       </form>
     </div>
