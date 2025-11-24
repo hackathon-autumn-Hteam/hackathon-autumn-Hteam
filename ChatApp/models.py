@@ -302,6 +302,7 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
+
     # ユーザーの集めたお花の数の集計
     @classmethod
     def count_flowers(cls, user_id):
@@ -317,6 +318,7 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
+
     # 都道府県情報の更新
     @classmethod
     def update(cls, user_id, prefecture_id):
@@ -331,6 +333,7 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
+
 
 class Prefecture:
     @classmethod
@@ -347,6 +350,7 @@ class Prefecture:
             abort(500)
         finally:
             db_pool.release(conn)
+
 
 # 追加機能「励ましのメッセージ」
 # ORDER BY RAND() 遅くなりがち（データが多い時注意）

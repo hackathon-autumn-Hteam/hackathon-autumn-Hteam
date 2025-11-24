@@ -66,19 +66,6 @@
   transform: translateY(-1px);
 }
 
-#create-channel-button {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background-color: var(--green);
-  color: black;
-  font-size: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .channels-box {
   list-style: none;
   display: grid;
@@ -137,7 +124,7 @@
 
 .pagination li:hover {
   cursor: pointer;
-  color: #ffb3c1;
+  color: #f6c1c1;
 }
 
 .pagination li.colored {
@@ -148,5 +135,5 @@
 #prev:hover,
 #next:hover {
   cursor: pointer;
-  color: #ffb3c1;
+  color: #f6c1c1;
 }
