@@ -1,14 +1,8 @@
-.app-title {
+#channels-header {
+  text-align: right;
   display: flex;
-  flex-direction: row;
-}
-
-.modal {
-  display: none;
-}
-
-.main-container {
-  margin-top: 40px;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .channel-info-area {
@@ -49,6 +43,14 @@
   transform: rotate(-60deg);
 } */
 
+#channels-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-medium);
+}
+
 .channel-title-area {
   margin-top: 24px;
   width: 100%;
@@ -78,14 +80,12 @@
 }
 
 .channels-box {
-  margin-top: 16px;
   list-style: none;
   display: grid;
   justify-items: center;
   align-items: center;
   gap: 20px;
   padding: 0;
-  margin-bottom: 32px;
 }
 
 .channels-box li {
@@ -95,37 +95,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  list-style: none;
+  background-color: var(--yellow);
+  border: 1px solid var(--yellow-border);
 }
 
 .channels-box li a {
-  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: black;
-}
-
-/* 1番目 */
-.channels-box li:nth-child(1) {
-  background-color: #f9e491;
-}
-
-/* 2番目 */
-.channels-box li:nth-child(2) {
-  background-color: #f9e491;
-}
-
-/* 3番目 */
-.channels-box li:nth-child(3) {
-  background-color: #f9e491;
-}
-
-/* 4番目 */
-.channels-box li:nth-child(4) {
-  background-color: #f9e491;
-}
-
-/* 5番目 */
-.channels-box li:nth-child(5) {
-  background-color: #f9e491;
 }
 
 .pagination-container {
@@ -144,6 +126,7 @@
   padding: 0;
   align-items: center;
 }
+
 .pagination li {
   display: flex;
   width: 30px;

@@ -7,10 +7,6 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/channels.css') }}"
 />
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/tabbar.css') }}"
-/>
 {% endblock %}
 
 <!-- prettier-ignore -->
@@ -21,7 +17,7 @@
     <h1>Rare Garden</h1>
   </div>
 
-  <!-- ＊＊追加機能：励ましのメッセージ　お花の本数表示 -->
+  <!-- 励ましのメッセージとお花の本数表示 -->
   {% if support_message %}
   <div class="channel-info-area" id="channel-info-area">
     <!-- 励ましのメッセージを表示する -->
@@ -41,20 +37,24 @@
   </div>
   {% endif %}
 
+  <!-- メニュー（ハンバーガー） -->
   <nav class="menu">
     <ul id="header-menu">
       <li><a href="/mypage">マイページ</a></li>
       <li><a href="/logout">ログアウト</a></li>
     </ul>
   </nav>
+
   <div id="hamburger" class="hamburger">
     <ion-icon name="person-circle-outline"></ion-icon>
   </div>
 
+  <!-- タイトルとチャンネル作成ボタン　-->
   <div class="channel-title-area">
     <h2 class="channel-title">チャンネル</h2>
 
     <button
+      title="チャンネルの作成"
       id="create-channel-button"
       class="icon-button add"
       aria-label="作成"
@@ -63,8 +63,22 @@
     </button>
   </div>
 
-  <!-- チャンネル一覧（このエリアをボディとする）　-->
-  <div class="channels-body">
+  <!-- チャンネルの一覧（このエリアをボディとする）　-->
+  <div id="channels-body" class="channels-body">
+    {% with messages = get_flashed_messages() %}
+    <!-- prettier-ignore -->
+    {% if messages %}
+    <div>
+      <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <!-- prettier-ignore -->
+    {% endwith %}
+
     <ul class="channels-box"></ul>
 
     <!-- ページネーションの表示 -->
@@ -102,7 +116,4 @@
   src="{{url_for('static',filename='js/pagination.js')}}"
   type="module"
 ></script>
-<script src="{{url_for('static',filename='js/tabbar.js')}}">
-  type="module"
-</script>
 {% endblock %}

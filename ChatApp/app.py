@@ -1,11 +1,20 @@
-from flask import Flask, request, session, redirect, url_for, render_template, flash
+from flask import (
+    Flask,
+    request,
+    session,
+    redirect,
+    url_for,
+    render_template,
+    flash,
+    abort,
+)
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import os
 import uuid
 import hashlib
 
-from models import User, Channel, Message, Prefecture, SupportMessage, Mypage
+from models import User, Channel, Message, Prefecture, Mypage, SupportMessage
 from util.assets import bundle_css_files
 
 jst = ZoneInfo("Asia/Tokyo")
@@ -107,6 +116,15 @@ def signup():
     session["support_message_hour"] = hour
 
     session["user_id"] = str(user_id)
+
+    # 追加機能：新規登録してログインした時間帯の励ましメッセージを決める・セッションに保存
+    hour = datetime.now(jst).hour
+
+    support_message = SupportMessage.get_random_by_hour(hour)
+    session["support_message"] = support_message
+
+    session["support_message_hour"] = hour
+
     return redirect(url_for("channels_view"))
 
 
@@ -180,7 +198,6 @@ def logout():
     return redirect(url_for("login_view"))
 
 
-# TODO(うっちーさん): チャンネル用の関数定義
 # チャンネル一覧ページの表示
 @app.route("/channels", methods=["GET"])
 def channels_view():
@@ -229,19 +246,19 @@ def create_channel():
 
     channel_name = request.form.get("channel_name")
     channel = Channel.find_by_channel_name(channel_name)
+
     if channel == None:
         description = request.form.get("description")
         Channel.create(user_id, channel_name, description)
-        return redirect(url_for("channels_view"))
     else:
-        error = "既に同じ名前のチャンネルが存在しています"  # error効いていない　薄い色になっている 今はformを閉じてしまう（不親切）
-        return redirect(url_for("channels_view"))
+        # NOTE: 既存の場合はチャンネル一覧ページにメッセージが表示されます。
+        flash("既に同じ名前のチャンネルが存在しています")
 
-    # もしdescをNOT NULLなら、ちゃんとこれも定義しないといけない
+    return redirect(url_for("channels_view"))
 
 
 # チャンネルの更新
-@app.route("/channels/<channel_id>", methods=["PUT"])
+@app.route("/channels/<channel_id>/update", methods=["POST"])
 def update_channel(channel_id):
     user_id = session.get("user_id")
     if user_id is None:
@@ -249,20 +266,17 @@ def update_channel(channel_id):
 
     channel = Channel.find_by_channel_id(channel_id)
 
-    if channel["user_id"] != user_id:
-        flash(
-            "チャンネルは作成者のみ更新が可能です"
-        )  # テンプレート側との調整　確認する（保留）
-    else:
+    # NOTE: HTML上でも制御しているので一致するときのみの判定に変更しました。
+    if channel["user_id"] == user_id:
         channel_name = request.form.get("channel_name")
         description = request.form.get("description")
-
         Channel.update(user_id, channel_name, description, channel_id)
-    return redirect(f"/channel/{channel_id}/messages")
+
+    return redirect(url_for("messages_view", channel_id=channel_id))
 
 
 # チャンネルの削除
-@app.route("/channels/<channel_id>", methods=["DELETE"])
+@app.route("/channels/<channel_id>/delete", methods=["POST"])
 def delete_channel(channel_id):
     user_id = session.get("user_id")
     if user_id is None:
@@ -270,13 +284,13 @@ def delete_channel(channel_id):
 
     channel = Channel.find_by_channel_id(channel_id)
 
-    if channel["user_id"] != user_id:
-        flash(
-            "チャンネルは作成者のみ削除が可能です"
-        )  # テンプレート側との調整　確認する（保留）
-    else:
+    # NOTE: HTML上でも制御しているので一致するときのみの判定に変更しました。
+    if channel["user_id"] == user_id:
         Channel.delete(channel_id)
-    return redirect("channels_view")
+        # NOTE: 削除が成功した時にチャンネル一覧ページにメッセージが表示されます。
+        flash(f"{channel['channel_name']}を削除しました")
+
+    return redirect(url_for("channels_view"))
 
 
 @app.route("/channels/<channel_id>/messages", methods=["GET"])
@@ -307,6 +321,10 @@ def messages_view(channel_id):
     channel = Channel.find_by_channel_id(channel_id)
     messages = Message.get_all(channel_id)
 
+    # チャンネルが存在しない場合は404を表示
+    if not channel:
+        abort(404)
+
     return render_template(
         "messages.html", user_id=user_id, channel=channel, messages=messages
     )
@@ -331,15 +349,14 @@ def create_message(channel_id):
 
     message_text = request.form.get("message_text")
 
+    # NOTE: HTML上でも制御しているのでエラーメッセージは削除しました。
     if message_text:
         Message.create(user_id, channel_id, message_text)
-    else:
-        flash("メッセージが空白です")
 
-    return redirect(f"/channels/{channel_id}/messages")
+    return redirect(url_for("messages_view", channel_id=channel_id))
 
 
-@app.route("/channels/<channel_id>/messages/<message_id>", methods=["PUT"])
+@app.route("/channels/<channel_id>/messages/<message_id>/update", methods=["POST"])
 def update_message(channel_id, message_id):
     """メッセージの編集
 
@@ -354,27 +371,21 @@ def update_message(channel_id, message_id):
         引数名 channel_id, 型 str : 選択したチャンネルID
         引数名 message_id, 型 str : 編集するメッセージID
     """
-
     user_id = session.get("user_id")
-    if user_id is None:
-        return redirect(url_for("login_view"))
+    message = Message.find_by_message_id(message_id)
 
-    message = Channel.find_by_message_id(message_id)
-
-    if message["user_id"] != user_id:
-        flash("メッセージは作成者のみ更新が可能です")
-    else:
+    # NOTE: HTML上でも制御しているので一致するときのみの判定に変更しました。
+    if message["user_id"] == user_id:
         message_text = request.form.get("message_text")
+        # NOTE: HTML上でも制御しているのでエラーメッセージは削除しました。
         if message_text:
             Message.update(message_id, message_text)
-        else:
-            flash("メッセージが空白です")
 
-    return redirect(f"/channels/{channel_id}/messages")
+    return redirect(url_for("messages_view", channel_id=channel_id))
 
 
 # メッセージの削除(追加機能)
-@app.route("/channels/<channel_id>/messages/<message_id>", methods=["DELETE"])
+@app.route("/channels/<channel_id>/messages/<message_id>/delete", methods=["POST"])
 def delete_message(channel_id, message_id):
     """メッセージの削除
 
@@ -388,20 +399,15 @@ def delete_message(channel_id, message_id):
         引数名 channel_id, 型 str : 選択したチャンネルID
         引数名 message_id, 型 str : 編集するメッセージID
     """
-
     user_id = session.get("user_id")
-    if user_id is None:
-        return redirect(url_for("login_view"))
+    message = Message.find_by_message_id(message_id)
 
-    message = Channel.find_by_message_id(message_id)
-
-    if message["user_id"] != user_id:
-        flash("メッセージは作成者のみが削除できます")
-    else:
+    # NOTE: HTML上でも制御しているので一致するときのみの判定に変更しました。
+    if message["user_id"] == user_id:
         if message_id:
             Message.delete(message_id)
 
-    return redirect(f"/channels/{channel_id}/messages")
+    return redirect(url_for("messages_view", channel_id=channel_id))
 
 
 @app.route("/channels/<channel_id>/messages/<message_id>/flowers", methods=["POST"])
@@ -417,7 +423,7 @@ def send_flower(channel_id, message_id):
             メッセージ一覧ページ(messages_view)へのリダイレクト。
     """
     Message.send_flower(message_id)
-    return redirect(f"/channels/{channel_id}/messages")
+    return redirect(url_for("messages_view", channel_id=channel_id))
 
 
 @app.route("/mypage")
@@ -426,19 +432,26 @@ def mypage_view():
 
     詳細説明
     1.ログイン状態を確認
-    2.ユーザー情報と都道府県のDBを取得
+    2.ユーザー情報とユーザーのお花の本数、都道府県のDBを取得
     3.テンプレートのユーザー情報を更新
 
     Returns:
-        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(ユーザーが集めたお花の本数)
     """
     user_id = session.get("user_id")
     if user_id is None:
         return redirect(url_for("login_view"))
     else:
         user = Mypage.get_all(user_id)
+        user_flowers_dict = Mypage.count_flowers(user_id)
+        if user_flowers_dict[0]["SUM(like_flower_count)"] == None:
+            user_flowers = 0
+        else:
+            user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
         prefectures = Prefecture.get_all()
-        return render_template("mypage.html", user=user, prefectures=prefectures)
+        return render_template(
+            "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
+        )
 
 
 @app.route("/users/<user_id>/prefecture", methods=["POST"])
@@ -455,7 +468,7 @@ def update_user_prefecture(user_id):
         user_id : ユーザーID
 
     Returns:
-        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト)
+        mypage.html, user(ユーザー情報), prefectures(都道府県のリスト), user_flowers(ユーザーが集めたお花の本数)
     """
     if user_id is None:
         return redirect(url_for("login_view"))
@@ -464,10 +477,28 @@ def update_user_prefecture(user_id):
         if prefecture_id:
             Mypage.update(user_id, prefecture_id)
             user = Mypage.get_all(user_id)
+            user_flowers_dict = Mypage.count_flowers(user_id)
+            user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
             prefectures = Prefecture.get_all()
-            return render_template("mypage.html", user=user, prefectures=prefectures)
+            flash("都道府県情報を更新しました")
+            return render_template(
+                "mypage.html",
+                user=user,
+                prefectures=prefectures,
+                user_flowers=user_flowers,
+            )
         else:
             flash("都道府県が空白です")
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("error/404.html"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template("error/500.html"), 500
 
 
 if __name__ == "__main__":

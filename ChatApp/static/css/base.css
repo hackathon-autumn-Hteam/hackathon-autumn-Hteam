@@ -9,23 +9,30 @@
 
 body {
   background-image: url("../img/background.png");
-  /* 背景画像の調節が必要 */
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  /*overflow: hidden;*/
 }
 
 /* アプリタイトル(RareGarden) */
 h1 {
   margin: 0;
-  white-space: nowrap;
-  font-family: "Itim", cursive;
-  font-weight: 400;
-  font-style: normal;
   font-size: 40px;
+  white-space: nowrap;
 }
 
 /* ページタイトル */
 h2 {
   margin: 0;
   white-space: nowrap;
+}
+
+/* モーダルタイトル */
+h3 {
+  margin: 0;
+  font-weight: normal;
 }
 
 /* フォーム */
@@ -35,7 +42,7 @@ input[type="email"],
 textarea,
 select {
   width: 100%; /* 親要素の幅に合わせる */
-  border: 1px solid #b9d8c2;
+  border: 1px solid var(--green-border);
   padding: 8px 20px;
   border-radius: var(--border-radius);
   resize: none;
@@ -47,9 +54,27 @@ input[type="text"]:focus,
 input[type="email"]:focus,
 textarea:focus,
 select:focus {
-  border-color: #a6d5a0;
-  box-shadow: 0 0 5px rgba(116, 198, 157, 0.4);
+  box-shadow: 0 0 5px rgba(74, 158, 117, 0.9);
   outline: none;
+}
+
+/* フォーム(readonly時) */
+input[type="password"]:read-only,
+input[type="text"]:read-only,
+input[type="email"]:read-only,
+textarea:read-only,
+select:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* フォーム(readonly時・フォーカス時) */
+input[type="password"]:read-only:focus,
+input[type="text"]:read-only:focus,
+input[type="email"]:read-only:focus,
+textarea:read-only:focus {
+  box-shadow: none;
 }
 
 /* ブラウザのオート入力でフォームが青くなるのを抑制 */
@@ -62,6 +87,11 @@ input:-webkit-autofill {
 /*-------------------------------------------
   クラス
   -------------------------------------------*/
+.app-title {
+  white-space: nowrap;
+  font-family: "Itim", cursive;
+  font-weight: 400;
+}
 
 .main-container {
   padding-top: 54px; /* アプリバー分の余白 */
@@ -69,8 +99,7 @@ input:-webkit-autofill {
   flex-direction: column;
   align-items: center;
   gap: var(--gap-medium);
-  margin: 0 20px;
-  margin-bottom: 20px;
+  margin: 20px;
   max-width: 1280px;
 }
 
@@ -89,7 +118,7 @@ input:-webkit-autofill {
   font-size: 16px;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-medium);
+  gap: var(--gap-small);
 }
 
 /* ラベル */
@@ -101,7 +130,7 @@ input:-webkit-autofill {
 
 /* ヘルプメッセージ */
 .form-help {
-  color: #0000;
+  color: var(--help-text);
   margin: 4px 12px;
   font-size: 14px;
 }
@@ -119,55 +148,56 @@ input:-webkit-autofill {
   height: 33px;
   font-size: 16px;
   padding: 0 24px;
+  cursor: pointer;
 }
 
 /* 緑のボタン */
-.green-button {
+.base-button.green {
   background-color: var(--green);
   border-color: var(--green-border);
 }
 
 /* 緑のボタン(ホバー時） */
-.green-button:hover {
+.base-button.green:hover {
   background-color: var(--green-light);
 }
 
 /* 緑のボタン（アクティブ時） */
-.green-button:active {
+.base-button.green:active {
   background-color: var(--green-dark);
   transform: scale(0.96);
 }
 
 /* ピンクのボタン */
-.pink-button {
+.base-button.pink {
   background-color: var(--red);
   border-color: var(--red-border);
 }
 
 /* ピンクのボタン(ホバー時） */
-.pink-button:hover {
+.base-button.pink:hover {
   background-color: var(--red-light);
 }
 
 /* ピンクのボタン(アクティブ時） */
-.pink-button:active {
+.base-button.pink:active {
   background-color: var(--red-dark);
   transform: scale(0.96);
 }
 
 /* 黄色いボタン */
-.yellow-button {
+.base-button.yellow {
   background-color: var(--yellow);
   border-color: var(--yellow-border);
 }
 
 /* 黄色いボタン(ホバー時) */
-.yellow-button:hover {
+.base-button.yellow:hover {
   background-color: var(--yellow-light);
 }
 
 /* 黄色いボタン(アクティブ時) */
-.yellow-button:active {
+.base-button.yellow:active {
   background-color: var(--yellow-dark);
   transform: scale(0.96);
 }
@@ -208,6 +238,7 @@ input:-webkit-autofill {
 .icon-button .update {
   border-color: var(--green-border);
   background-color: var(--green);
+  transform: scale(0.96);
 }
 
 /* 編集アイコンボタン(ホバー時) */
@@ -225,6 +256,7 @@ input:-webkit-autofill {
 .icon-button.delete {
   border-color: var(--red-border);
   background-color: var(--red);
+  transform: scale(0.96);
 }
 
 /* 削除アイコンボタン(ホバー時) */
@@ -236,4 +268,26 @@ input:-webkit-autofill {
 .icon-button.delete:active {
   background-color: var(--red-dark);
   transform: scale(0.96);
+}
+
+/* 閉じるアイコンボタン */
+.icon-button.close {
+  background-color: white;
+  border: none;
+}
+
+/* 閉じるアイコンボタン(ホバー時) */
+.icon-button.close:hover {
+  background-color: white;
+}
+
+/* 閉じるアイコンボタン(アクティブ時) */
+.icon-button.close:active {
+  background-color: white;
+  transform: scale(0.96);
+}
+
+/* 小さいアイコンボタン */
+.small-icon-button {
+  cursor: pointer;
 }
