@@ -207,9 +207,6 @@ def channels_view():
     # 前回のメッセージを決めたときの時間を取得する
     last_hour = session.get("support_message_hour")
 
-    # 前回のメッセージを決めたときの時間を取得する
-    last_hour = session.get("support_message_hour")
-
     # ログイン時と時間帯が変わっていたらchannels.viewに遷移したタイミングでメッセージを更新する
     if last_hour != current_hour:
         support_message = SupportMessage.get_random_by_hour(current_hour)
@@ -430,7 +427,10 @@ def mypage_view():
     else:
         user = Mypage.get_all(user_id)
         user_flowers_dict = Mypage.count_flowers(user_id)
-        user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
+        if user_flowers_dict[0]["SUM(like_flower_count)"]==None:
+            user_flowers=0
+        else:
+            user_flowers = (user_flowers_dict[0]["SUM(like_flower_count)"])
         prefectures = Prefecture.get_all()
         return render_template(
             "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
