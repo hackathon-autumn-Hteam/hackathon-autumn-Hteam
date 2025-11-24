@@ -23,6 +23,11 @@ h1 {
   white-space: nowrap;
 }
 
+h1 a {
+  text-decoration: none;
+  color: black;
+}
+
 /* ページタイトル */
 h2 {
   margin: 0;

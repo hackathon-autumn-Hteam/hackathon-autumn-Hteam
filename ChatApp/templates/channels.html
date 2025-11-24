@@ -12,18 +12,13 @@
 <!-- prettier-ignore -->
 {% block body %}
 <div class="main-container">
-  <!-- 左上の表示-->
-  <div class="app-title">
-    <h1>Rare Garden</h1>
-  </div>
-
   <!-- 励ましのメッセージとお花の本数表示 -->
   {% if support_message %}
   <div class="channel-info-area" id="channel-info-area">
     <!-- 励ましのメッセージを表示する -->
     <div class="support-message-bar" id="support-message-bar">
       <div class="support-message-bar-text">
-        <pre>\ {{ support_message }} /</pre>
+        <pre>＼ {{ support_message }} ／</pre>
       </div>
     </div>
 
@@ -36,18 +31,6 @@
     </div>
   </div>
   {% endif %}
-
-  <!-- メニュー（ハンバーガー） -->
-  <nav class="menu">
-    <ul id="header-menu">
-      <li><a href="/mypage">マイページ</a></li>
-      <li><a href="/logout">ログアウト</a></li>
-    </ul>
-  </nav>
-
-  <div id="hamburger" class="hamburger">
-    <ion-icon name="person-circle-outline"></ion-icon>
-  </div>
 
   <!-- タイトルとチャンネル作成ボタン　-->
   <div class="channel-title-area">
