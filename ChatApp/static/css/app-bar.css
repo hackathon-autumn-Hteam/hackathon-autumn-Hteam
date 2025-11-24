@@ -32,9 +32,9 @@ nav {
 /*スライドメニュー*/
 #header-menu {
   position: fixed; /* 画面に固定 */
-  top: 54px; /* app-barの下に表示 */
-  right: -100%; /* 初期状態では画面の外に隠れている */
-  width: 150px; /* メニューの横幅 */
+  top: -100%;
+  right: 0;
+  width: 150px;
   overflow: hidden;
   transition: 0.3s;
   list-style: none;
@@ -43,7 +43,7 @@ nav {
 
 /* スライドメニューを開く */
 #header-menu.open {
-  right: 0; /*右から出現s*/
+  top: 54px;
 }
 
 /* スライドメニューの項目 */
@@ -56,6 +56,10 @@ nav {
   text-align: center;
   padding-left: 20px;
   text-decoration: none;
+}
+
+#header-menu　li a:hover {
+  background-color: var(--yellow-light);
 }
 
 /* スライドメニューのアイコン */

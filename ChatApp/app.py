@@ -78,7 +78,7 @@ def signup():
 
     # 入力チェック
     if user_name == "":
-        flash("名前を入力してください")
+        flash("ユーザー名を入力してください")
         return redirect(url_for("signup_view"))
 
     if email == "":
@@ -476,22 +476,10 @@ def update_user_prefecture(user_id):
         prefecture_id = request.form.get("prefecture_id")
         if prefecture_id:
             Mypage.update(user_id, prefecture_id)
-            user = Mypage.get_all(user_id)
-            user_flowers_dict = Mypage.count_flowers(user_id)
-            if user_flowers_dict[0]["SUM(like_flower_count)"] == None:
-                user_flowers = 0
-            else:
-                user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
-            prefectures = Prefecture.get_all()
             flash("都道府県情報を更新しました")
-            return render_template(
-                "mypage.html",
-                user=user,
-                prefectures=prefectures,
-                user_flowers=user_flowers,
-            )
         else:
             flash("都道府県が空白です")
+        return redirect(url_for("mypage_view"))
 
 
 @app.errorhandler(404)
