@@ -1,14 +1,12 @@
 {% extends 'auth/base.html' %}
 
 <!-- prettier-ignore -->
-{% block title %}
-新規登録
-{% endblock %}
+{% block title %}新規登録{% endblock %}
 
 <!-- prettier-ignore -->
 {% block body %}
 <div class="auth-wrapper">
-  <h1 class="app-title">RareGarden</h1>
+  <h1 class="app-title"><a href="{{url_for('login_view')}}">RareGarden</a></h1>
   <div class="auth-form-container">
     <h2>新規登録</h2>
 
@@ -18,7 +16,7 @@
         <!-- prettier-ignore -->
         {% if messages %}
         <div>
-          <ul class="flashes">
+          <ul class="flashes error">
             {% for message in messages %}
             <li>{{ message }}</li>
             {% endfor %}

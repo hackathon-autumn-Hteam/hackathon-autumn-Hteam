@@ -23,6 +23,11 @@ h1 {
   white-space: nowrap;
 }
 
+h1 a {
+  text-decoration: none;
+  color: black;
+}
+
 /* ページタイトル */
 h2 {
   margin: 0;
@@ -104,12 +109,15 @@ input:-webkit-autofill {
 }
 
 .flashes {
-  color: red;
   list-style: none;
 }
 
 .flashes li {
   text-align: center;
+}
+
+.flashes.error {
+  color: red;
 }
 
 /* フォームの入力欄(ボタン以外) */

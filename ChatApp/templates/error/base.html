@@ -7,30 +7,17 @@
       RareGarden | {% block title %} <!-- ここにタイトルを記述 --> {% endblock
       %}
     </title>
-    <!-- フォント -->
+    <!-- アプリタイトルと励ましメッセージのフォント(2種類) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Itim&display=swap"
       rel="stylesheet"
     />
-    <!-- 完成後は以下のCSSのみ読み込む -->
+    <!-- 圧縮したCSSファイル -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='gen/bundled.css') }}"
-    />
-    <!-- 以下に開発時に全ファイルで読み込むCSSを記述 -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/base.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/variables.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/error.css') }}"
     />
   </head>
   <body>
