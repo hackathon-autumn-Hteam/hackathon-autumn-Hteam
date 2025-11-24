@@ -109,12 +109,15 @@ input:-webkit-autofill {
 }
 
 .flashes {
-  color: red;
   list-style: none;
 }
 
 .flashes li {
   text-align: center;
+}
+
+.flashes.error {
+  color: red;
 }
 
 /* フォームの入力欄(ボタン以外) */
