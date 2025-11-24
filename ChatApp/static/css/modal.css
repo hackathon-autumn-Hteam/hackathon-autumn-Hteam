@@ -10,7 +10,7 @@
 
 .modal-content {
   background-color: #b9d8c2;
-  /* opacity: 0.8; */
+  opacity: 0.8;
   border-radius: 20px;
   padding: 24px 28px;
   max-width: 400px;
@@ -98,28 +98,4 @@
 .base-button.yellow-button {
   border-color: var(--yellow-border);
   background-color: var(--yellow);
-}
-
-.green-button:hover {
-  background-color: var(--green-light);
-}
-.green-button:active {
-  background-color: var(--green-dark);
-  transform: scale(0.96);
-}
-
-.pink-button:hover {
-  background-color: var(--red-light);
-}
-.pink-button:active {
-  background-color: var(--red-dark);
-  transform: scale(0.96);
-}
-
-.yellow-button:hover {
-  background-color: var(--yellow-light);
-}
-.yellow-button:active {
-  background-color: var(--yellow-dark);
-  transform: scale(0.96);
 }
