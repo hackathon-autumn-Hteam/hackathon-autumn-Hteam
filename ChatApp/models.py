@@ -258,6 +258,32 @@ class Message:
         finally:
             db_pool.release(conn)
 
+    # # 追加機能　アプリ全体でのお花の本数を集計
+    @classmethod
+    def count_all_flowers(cls):
+        conn = db_pool.get_conn()
+        try:
+            with conn.cursor() as cur:
+                sql = "SELECT SUM(like_flower_count) FROM messages"
+                cur.execute(sql)
+                result = cur.fetchall()
+
+                if not result:
+                    return 0
+
+                total_flowers = result[0]["SUM(like_flower_count)"]
+
+                if total_flowers is None:
+                    return 0
+
+                return int(total_flowers)
+
+        except pymysql.Error as e:
+            print(f"全体のお花の数を取得できませんでした: {e}")
+            abort(500)
+        finally:
+            db_pool.release(conn)
+
 
 class Mypage:
     # マイページの表示と更新
@@ -276,6 +302,7 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
+
     # ユーザーの集めたお花の数の集計
     @classmethod
     def count_flowers(cls, user_id):
@@ -291,6 +318,7 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
+
     # 都道府県情報の更新
     @classmethod
     def update(cls, user_id, prefecture_id):
@@ -305,6 +333,7 @@ class Mypage:
             abort(500)
         finally:
             db_pool.release(conn)
+
 
 class Prefecture:
     @classmethod
@@ -321,6 +350,7 @@ class Prefecture:
             abort(500)
         finally:
             db_pool.release(conn)
+
 
 # 追加機能「励ましのメッセージ」
 # ORDER BY RAND() 遅くなりがち（データが多い時注意）

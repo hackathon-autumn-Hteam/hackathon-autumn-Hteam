@@ -12,20 +12,59 @@
 <!-- prettier-ignore -->
 {% block body %}
 <div class="main-container">
-  <!-- ＊＊追加機能：励ましのメッセージ -->
+  <!-- 左上の表示-->
+  <div class="app-title">
+    <h1>Rare Garden</h1>
+  </div>
+
+  <!-- 励ましのメッセージとお花の本数表示 -->
   {% if support_message %}
-  <div class="support-message-bar" id="support-message-bar">
-    <div class="support-message-bar-text">{{ support_message }}</div>
+  <div class="channel-info-area" id="channel-info-area">
+    <!-- 励ましのメッセージを表示する -->
+    <div class="support-message-bar" id="support-message-bar">
+      <div class="support-message-bar-text">
+        <pre>\ {{ support_message }} /</pre>
+      </div>
+    </div>
+
+    <!-- 花の本数を表示する -->
+    <div class="flower-counter">
+      <span class="flower-icon">🌷</span>
+      <span class="flower-count">
+        {{ total_flowers }} 本のお花が咲いています
+      </span>
+    </div>
   </div>
   {% endif %}
 
-  <!-- チャンネル作成のボタン（このエリアをヘッダーとする）　-->
-  <div id="channels-header">
-    <button id="create-channel-button" type="button">チャンネル作成</button>
+  <!-- メニュー（ハンバーガー） -->
+  <nav class="menu">
+    <ul id="header-menu">
+      <li><a href="/mypage">マイページ</a></li>
+      <li><a href="/logout">ログアウト</a></li>
+    </ul>
+  </nav>
+
+  <div id="hamburger" class="hamburger">
+    <ion-icon name="person-circle-outline"></ion-icon>
   </div>
-  <!-- チャンネル一覧（このエリアをボディとする）　-->
-  <div id="channels-body">
-    <h2>チャンネル一覧</h2>
+
+  <!-- タイトルとチャンネル作成ボタン　-->
+  <div class="channel-title-area">
+    <h2 class="channel-title">チャンネル</h2>
+
+    <button
+      title="チャンネルの作成"
+      id="create-channel-button"
+      class="icon-button add"
+      aria-label="作成"
+    >
+      <ion-icon name="add-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- チャンネルの一覧（このエリアをボディとする）　-->
+  <div id="channels-body" class="channels-body">
     {% with messages = get_flashed_messages() %}
     <!-- prettier-ignore -->
     {% if messages %}
@@ -41,6 +80,7 @@
     {% endwith %}
 
     <ul class="channels-box"></ul>
+
     <!-- ページネーションの表示 -->
     <div class="pagination-container">
       <p id="prev">

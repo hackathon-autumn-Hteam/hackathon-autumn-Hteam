@@ -217,6 +217,23 @@ input:-webkit-autofill {
   cursor: pointer;
 }
 
+/* 作成アイコンボタン */
+.icon-button.add {
+  border-color: var(--green-border);
+  background-color: var(--green);
+}
+
+/* 作成アイコンボタン(ホバー時) */
+.icon-button.add:hover {
+  background-color: var(--green-light);
+}
+
+/* 作成アイコンボタン(アクティブ時) */
+.icon-button.add:active {
+  background-color: var(--green-dark);
+  transform: scale(0.96);
+}
+
 /* 編集アイコンボタン */
 .icon-button.update {
   border-color: var(--green-border);
