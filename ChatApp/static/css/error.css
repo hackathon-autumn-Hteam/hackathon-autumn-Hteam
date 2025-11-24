@@ -1,0 +1,24 @@
+#error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-large);
+  min-height: 100vh;
+  max-width: 1280px;
+}
+
+#error-title {
+  font-size: 60px;
+  font-weight: bold;
+  white-space: nowrap;
+  font-family: "Itim", cursive;
+  font-weight: 400;
+}
+
+#error-description {
+  font-size: 24px;
+  white-space: nowrap;
+  font-family: "Itim", cursive;
+  font-weight: 400;
+}

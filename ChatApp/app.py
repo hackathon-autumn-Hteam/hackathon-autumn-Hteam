@@ -1,4 +1,13 @@
-from flask import Flask, request, session, redirect, url_for, render_template, flash
+from flask import (
+    Flask,
+    request,
+    session,
+    redirect,
+    url_for,
+    render_template,
+    flash,
+    abort,
+)
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import os
@@ -207,9 +216,6 @@ def channels_view():
     # 前回のメッセージを決めたときの時間を取得する
     last_hour = session.get("support_message_hour")
 
-    # 前回のメッセージを決めたときの時間を取得する
-    last_hour = session.get("support_message_hour")
-
     # ログイン時と時間帯が変わっていたらchannels.viewに遷移したタイミングでメッセージを更新する
     if last_hour != current_hour:
         support_message = SupportMessage.get_random_by_hour(current_hour)
@@ -310,6 +316,10 @@ def messages_view(channel_id):
 
     channel = Channel.find_by_channel_id(channel_id)
     messages = Message.get_all(channel_id)
+
+    # チャンネルが存在しない場合は404を表示
+    if not channel:
+        abort(404)
 
     return render_template(
         "messages.html", user_id=user_id, channel=channel, messages=messages
