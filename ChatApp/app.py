@@ -440,7 +440,10 @@ def mypage_view():
     else:
         user = Mypage.get_all(user_id)
         user_flowers_dict = Mypage.count_flowers(user_id)
-        user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
+        if user_flowers_dict[0]["SUM(like_flower_count)"]==None:
+            user_flowers=0
+        else:
+            user_flowers = int(user_flowers_dict[0]["SUM(like_flower_count)"])
         prefectures = Prefecture.get_all()
         return render_template(
             "mypage.html", user=user, prefectures=prefectures, user_flowers=user_flowers
