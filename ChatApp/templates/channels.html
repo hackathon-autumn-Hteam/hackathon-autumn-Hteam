@@ -2,12 +2,7 @@
 {% extends 'base.html' %}
 
 <!--手順2：ブラウザのタブ名の指定(URL設計参照) -->
-{% block title %} チャンネル一覧 {% endblock %}{% block css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/channels.css') }}"
-/>
-{% endblock %}
+{% block title %}チャンネル一覧{% endblock %}
 
 <!-- prettier-ignore -->
 {% block body %}

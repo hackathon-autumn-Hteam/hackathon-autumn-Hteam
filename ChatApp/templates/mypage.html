@@ -1,10 +1,10 @@
-{% extends 'base.html' %} {% block title %} マイページ {% endblock %} {% block
-css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/mypage.css') }}"
-/>
-{% endblock %} {% block body %}
+{% extends 'base.html' %}
+
+<!-- prettier-ignore -->
+{% block title %}マイページ{% endblock %}
+
+<!-- prettier-ignore -->
+{% block body %}
 <section class="mypage">
   <div class="mypage-info">
     <h2>マイページ</h2>
@@ -59,10 +59,4 @@ css %}
   </div>
   {% endif %} {% endwith %}
 </section>
-{% endblock %}
-
-<!-- prettier-ignore -->
-{% block script %}
-<!-- チャンネルの編集用のモーダルを制御するスクリプトを読み込む -->
-
 {% endblock %}
