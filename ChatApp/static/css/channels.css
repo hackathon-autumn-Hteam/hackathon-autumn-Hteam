@@ -73,6 +73,63 @@
   border-bottom: 4px double #000;
 } */
 
+/* 装飾5：下から吹き出し */
+/* .support-message-bar-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+}
+.support-message-bar-text::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  transform: rotate(60deg);
+  box-sizing: border-box;
+  background-color: #333333;
+}
+.support-message-bar-text::after {
+  content: "";
+  width: 30px;
+  height: 1px;
+  transform: rotate(-60deg);
+  box-sizing: border-box;
+  background-color: #333333;
+} */
+
+/* 装飾6： 四角形の装飾 */
+/* .support-message-bar-text {
+  position: relative;
+  padding: 0.4em 0 0.35em 1.5em;
+  border-bottom: 2px solid #f9e491;
+}
+
+/* .support-message-bar-text::before {
+  position: absolute;
+  top: -2px;
+  left: 0.4em;
+  transform: rotate(55deg);
+  height: 11px;
+  width: 12px;
+  border-radius: 3px;
+  background: #f9e491;
+  content: "";
+}
+
+.support-message-bar-text::after {
+  position: absolute;
+  transform: rotate(15deg);
+  top: 0.55em;
+  left: 0.1em;
+  height: 9px;
+  width: 9px;
+  transform: rotate(15deg);
+  border-radius: 3px;
+  background: #f9e491;
+  content: "";
+} */
+
 .support-message-bar-text {
   font-family: "M PLUS Rounded 1c", sans-serif;
   font-style: normal;
