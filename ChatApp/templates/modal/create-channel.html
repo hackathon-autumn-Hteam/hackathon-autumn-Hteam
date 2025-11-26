@@ -1,0 +1,50 @@
+<div id="create-channel-modal" class="modal">
+  <div class="modal-content">
+    <!-- モーダルヘッダー -->
+    <div class="modal-header">
+      <h3>チャンネルの作成</h3>
+      <button
+        title="閉じる"
+        id="create-channel-modal-close-button"
+        class="icon-button close"
+        aria-label="閉じる"
+      >
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+
+    <form action="{{ url_for('create_channel') }}" method="POST">
+      <!-- モーダルボディ -->
+      <div class="modal-body form-fields">
+        <div>
+          <label class="form-label" for="channel_name">チャンネル名</label>
+          <input
+            id="channel_name"
+            name="channel_name"
+            type="text"
+            placeholder="チャンネル名を入力してください"
+            required
+          />
+          <p class="form-help">チャンネル名は後から変更できません</p>
+        </div>
+
+        <div>
+          <label class="form-label" for="description"
+            >チャンネル詳細（任意）</label
+          >
+          <textarea
+            id="description"
+            name="description"
+            rows="5"
+            placeholder="チャンネルの内容を入力してください"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- モーダルフッター -->
+      <div class="modal-footer">
+        <button class="base-button yellow">作成する</button>
+      </div>
+    </form>
+  </div>
+</div>

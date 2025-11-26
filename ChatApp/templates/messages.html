@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+<!-- prettier-ignore -->
+{% block title %}
+チャットルーム | {{channel.channel_name}}
+{% endblock %}
+
+<!-- prettier-ignore -->
+{% block body %}
+<div class="main-container">
+  <div class="message-header">
+    <div class="channel-name">
+      <h2>{{channel.channel_name}}</h2>
+      {% if user_id == channel.user_id %}
+      <div class="channel-actions">
+        <button
+          title="チャンネルの編集"
+          id="update-channel-button"
+          class="icon-button update"
+          aria-label="編集"
+        >
+          <ion-icon name="create"></ion-icon>
+        </button>
+        <button
+          title="チャンネルの削除"
+          id="delete-channel-button"
+          class="icon-button delete"
+          aria-label="削除"
+        >
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </div>
+      {% endif %}
+    </div>
+    {% if channel.description != "" %}
+    <p class="channel-description">{{channel.description}}</p>
+    {% endif %}
+  </div>
+
+  <!-- メッセージの編集用のモーダルを取り込む -->
+  {% include 'modal/update-message.html' %}
+
+  <!-- メッセージの削除用のモーダルを取り込む -->
+  {% include 'modal/delete-message.html' %}
+
+  <!-- チャンネルの編集用のモーダルを取り込む -->
+  {% include 'modal/update-channel.html' %}
+
+  <!-- チャンネルの削除用のモーダルを取り込む -->
+  {% include 'modal/delete-channel.html' %}
+
+  <!-- メッセージの一覧 -->
+  <div class="message-area">
+    <!-- prettier-ignore -->
+    {% if messages|length > 0 %}
+    <!-- prettier-ignore -->
+    {% for message in messages %}
+    <!-- prettier-ignore -->
+    {% if message.user_id|string == user_id|string %}
+    <div class="my-messages">
+      <span class="created_at">
+        {{ message.created_at.strftime('%y-%m-%d %H:%M') }}
+      </span>
+      <div class="message-box box-right">
+        <p>{{ message.message_text | replace('\n', '<br />') | safe }}</p>
+        <div class="message-actions">
+          <button
+            title="メッセージの編集"
+            class="update-message-button small-icon-button"
+            data-message-id="{{ message.message_id }}"
+            data-message-text="{{ message.message_text }}"
+            data-channel-id="{{ channel.channel_id }}"
+          >
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button
+            title="メッセージの削除"
+            class="delete-message-button small-icon-button"
+            data-message-id="{{ message.message_id }}"
+            data-channel-id="{{ channel.channel_id }}"
+          >
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </div>
+      </div>
+      <button class="like-flower-count-button" disabled>
+        🌷 {{message.like_flower_count}}
+      </button>
+    </div>
+    {% else %}
+    <div class="other-messages">
+      <span class="user-name">
+        {{ message.user_name }}@{{message.prefecture_name}}　{{
+        message.created_at.strftime('%y-%m-%d %H:%M') }}
+      </span>
+      <div class="message-box box-left">{{ message.message_text }}</div>
+      <form
+        action="{{ url_for('send_flower', channel_id=channel.channel_id, message_id=message.message_id) }}"
+        method="POST"
+      >
+        <button class="like-flower-count-button">
+          🌷 {{message.like_flower_count}}
+        </button>
+      </form>
+    </div>
+    {% endif %}
+    <!-- prettier-ignore -->
+    {% endfor %}
+    <!-- prettier-ignore -->
+    {% else %}
+    <p>まだメッセージがありません</p>
+    {% endif %}
+  </div>
+
+  <form
+    action="{{ url_for('create_message', channel_id=channel.channel_id) }}"
+    method="POST"
+    class="create-message-form"
+  >
+    <textarea
+      id="message_text"
+      name="message_text"
+      rows="3"
+      placeholder="メッセージを入力してください"
+      required
+    ></textarea>
+    <button class="base-button yellow">送信</button>
+  </form>
+</div>
+{% endblock %}
+
+<!-- prettier-ignore -->
+{% block script %}
+<script
+  src="{{url_for('static',filename='js/channels/update-channel.js')}}"
+  type="text/javascript"
+></script>
+<script
+  src="{{url_for('static',filename='js/channels/delete-channel.js')}}"
+  type="text/javascript"
+></script>
+<script
+  src="{{url_for('static',filename='js/messages/update-message.js')}}"
+  type="text/javascript"
+></script>
+<script
+  src="{{url_for('static',filename='js/messages/delete-message.js')}}"
+  type="text/javascript"
+></script>
+<script
+  src="{{url_for('static',filename='js/scroll-message.js')}}"
+  type="text/javascript"
+></script>
+{% endblock %}

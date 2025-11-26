@@ -1,0 +1,62 @@
+{% extends 'auth/base.html' %}
+
+<!-- prettier-ignore -->
+{% block title %}ユーザーログイン{% endblock %}
+
+<!-- prettier-ignore -->
+{% block body %}
+<div class="auth-wrapper">
+  <h1 class="app-title"><a href="{{url_for('login_view')}}">RareGarden</a></h1>
+  <div class="auth-form-container">
+    <h2>ユーザーログイン</h2>
+
+    <form class="auth-form" method="post">
+      <div class="form-fields">
+        {% with messages = get_flashed_messages() %}
+        <!-- prettier-ignore -->
+        {% if messages %}
+        <div>
+          <ul class="flashes error">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        <!-- prettier-ignore -->
+        {% endwith %}
+
+        <div>
+          <label class="form-label" for="email">メールアドレス</label>
+          <input
+            type="text"
+            placeholder="メールアドレスを入力してください"
+            name="email"
+            id="email"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="form-label" for="password">パスワード</label>
+          <input
+            type="password"
+            placeholder="パスワードを入力してください"
+            name="password"
+            id="password"
+            required
+          />
+        </div>
+      </div>
+      <button class="base-button yellow">ログイン</button>
+    </form>
+
+    <button
+      class="base-button yellow"
+      onclick="location.href='{{ url_for('signup_view') }}'"
+    >
+      登録はこちら
+    </button>
+  </div>
+</div>
+{% endblock %}

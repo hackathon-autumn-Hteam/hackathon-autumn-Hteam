@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      RareGarden | {% block title %} <!-- ここにタイトルを記述 --> {% endblock
+      %}
+    </title>
+    <!-- アプリタイトルと励ましメッセージのフォント(2種類) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Itim&family=M+PLUS+Rounded+1c&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 圧縮したCSSファイル -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='gen/bundled.css') }}"
+    />
+  </head>
+  <body>
+    {% block body %}
+    <!-- ここにボディを記述 -->
+    {% endblock %}
+
+    <!-- prettier-ignore -->
+    {% block script %}
+    <!--ここにJavaScriptを記述 -->
+    {% endblock %}
+
+    <!-- Ioniconsを使用するための設定 -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

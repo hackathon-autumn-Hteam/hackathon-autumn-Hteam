@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      RareGarden | {% block title %} <!-- ここにタイトルを記述 --> {% endblock
+      %}
+    </title>
+    <!-- アプリタイトルと励ましメッセージのフォント(2種類) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Itim&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 圧縮したCSSファイル -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='gen/bundled.css') }}"
+    />
+  </head>
+  <body>
+    <div id="error-content">
+      <p id="error-title">{% block page_title %}{% endblock %}</p>
+      <p id="error-description">{% block page_description %}{% endblock %}</p>
+      <button
+        class="base-button yellow"
+        onclick="location.href='{{ url_for('index') }}'"
+      >
+        ホームに戻る
+      </button>
+    </div>
+  </body>
+</html>

@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 
 /ChatApp/static/gen/*
+.DS_Store

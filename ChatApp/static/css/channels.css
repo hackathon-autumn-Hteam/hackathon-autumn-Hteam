@@ -1,0 +1,240 @@
+#channels-header {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.channel-info-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.support-message-bar {
+  text-align: center;
+}
+
+/* 装飾1：アンダーライン */
+/* .support-message-bar-text {
+  text-decoration-color: #f5db73;
+  text-decoration-line: underline;
+  text-decoration-thickness: 8px;
+  text-underline-offset: -5px;
+} */
+
+/* 装飾2：斜線 */
+/* .support-message-bar-text {
+  position: relative;
+  padding: 1.5rem 1rem;
+}
+
+.support-message-bar-text:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  content: "";
+  background-image: -webkit-repeating-linear-gradient(
+    135deg,
+    #000,
+    #000 1px,
+    transparent 2px,
+    transparent 5px
+  );
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #000,
+    #000 1px,
+    transparent 2px,
+    transparent 5px
+  );
+  background-size: 7px 7px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+} */
+
+/* 装飾3：上下線 */
+.support-message-bar-text {
+  margin-top: 20px;
+  padding: 1rem 2rem;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+/* 装飾4：上下二重線 */
+/* .support-message-bar-text {
+  margin-top: 20px;
+  padding: 1rem 2rem;
+  border-top: 4px double #000;
+  border-bottom: 4px double #000;
+} */
+
+/* 装飾5：下から吹き出し */
+/* .support-message-bar-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+}
+.support-message-bar-text::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  transform: rotate(60deg);
+  box-sizing: border-box;
+  background-color: #333333;
+}
+.support-message-bar-text::after {
+  content: "";
+  width: 30px;
+  height: 1px;
+  transform: rotate(-60deg);
+  box-sizing: border-box;
+  background-color: #333333;
+} */
+
+/* 装飾6： 四角形の装飾 */
+/* .support-message-bar-text {
+  position: relative;
+  padding: 0.4em 0 0.35em 1.5em;
+  border-bottom: 2px solid #f9e491;
+}
+
+/* .support-message-bar-text::before {
+  position: absolute;
+  top: -2px;
+  left: 0.4em;
+  transform: rotate(55deg);
+  height: 11px;
+  width: 12px;
+  border-radius: 3px;
+  background: #f9e491;
+  content: "";
+}
+
+.support-message-bar-text::after {
+  position: absolute;
+  transform: rotate(15deg);
+  top: 0.55em;
+  left: 0.1em;
+  height: 9px;
+  width: 9px;
+  transform: rotate(15deg);
+  border-radius: 3px;
+  background: #f9e491;
+  content: "";
+} */
+
+.support-message-bar-text {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.flower-count {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+
+#channels-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-medium);
+  margin-top: 40px;
+}
+
+.channel-title-area {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-small);
+}
+
+.channel-title {
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.channels-box {
+  list-style: none;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 20px;
+  padding: 0;
+}
+
+.channels-box li {
+  width: 300px;
+  height: 60px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  background-color: var(--yellow);
+  border: 1px solid var(--yellow-border);
+}
+
+.channels-box li a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+}
+
+.pagination-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+  font-size: 14px;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0;
+  align-items: center;
+}
+
+.pagination li {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination li:hover {
+  cursor: pointer;
+  color: #f6c1c1;
+}
+
+.pagination li.colored {
+  font-weight: 700;
+  transition: all 0.5s;
+}
+
+#prev:hover,
+#next:hover {
+  cursor: pointer;
+  color: #f6c1c1;
+}

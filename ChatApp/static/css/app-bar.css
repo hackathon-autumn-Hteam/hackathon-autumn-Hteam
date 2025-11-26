@@ -1,0 +1,76 @@
+#app-bar {
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  width: 100%;
+  height: 54px;
+  background-color: var(--green);
+  box-shadow: 0px 1px 10px 0px gray;
+  z-index: 1000;
+}
+
+#app-bar .app-title {
+  font-size: 24px;
+}
+
+#app-bar .app-title a {
+  text-decoration: none;
+  color: black;
+}
+
+nav {
+  position: fixed;
+  top: 24px;
+  width: 100%;
+  z-index: 500;
+}
+
+/*スライドメニュー*/
+#header-menu {
+  position: fixed; /* 画面に固定 */
+  top: -100%;
+  right: 0;
+  width: 150px;
+  overflow: hidden;
+  transition: 0.5s;
+  list-style: none;
+  background-color: var(--yellow);
+  font-size: 1.8em;
+}
+
+/* スライドメニューを開く */
+#header-menu.open {
+  top: 54px;
+}
+
+/* スライドメニューの項目 */
+#header-menu　li a {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  color: #464646;
+  display: block;
+  text-align: center;
+  padding-left: 20px;
+  text-decoration: none;
+}
+
+#header-menu　li a:hover {
+  background-color: var(--yellow-light);
+}
+
+/* スライドメニューのアイコン */
+.hamburger {
+  position: absolute;
+  top: 5px;
+  right: 32px;
+  cursor: pointer;
+  width: 32px;
+  height: 24px;
+  z-index: 10;
+  font-size: 2.5em;
+}
