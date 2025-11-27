@@ -82,6 +82,7 @@
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
+  white-space: nowrap;
 }
 .support-message-bar-text::before {
   content: "";
