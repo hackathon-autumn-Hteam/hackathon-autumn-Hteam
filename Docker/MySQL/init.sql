@@ -4,29 +4,22 @@ DROP USER 'testuser';
 
 CREATE USER 'testuser' IDENTIFIED BY 'testuser';
 CREATE DATABASE chatapp;
-USE chatapp;
+USE chatapp
 GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser';
 
-CREATE TABLE prefectures (
-    prefecture_id INT AUTO_INCREMENT PRIMARY KEY,
-    prefecture_name VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE users (
-    user_id VARCHAR(255) PRIMARY KEY,
-    user_name VARCHAR(255) NOT NULL,
+    uid VARCHAR(255) PRIMARY KEY,
+    user_name VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    prefecture_id INT NOT NULL,
-    FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id) ON DELETE RESTRICT
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE channels (
-    channel_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id VARCHAR(255) NOT NULL,
-    channel_name VARCHAR(255) UNIQUE NOT NULL,
-    description VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    uid VARCHAR(255) NOT NULL,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    abstract VARCHAR(255),
+    FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE
 );
 
 CREATE TABLE messages (
