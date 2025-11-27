@@ -4,6 +4,7 @@ const createChannelButton = document.getElementById("create-channel-button");
 const closeButton = document.getElementById(
   "create-channel-modal-close-button"
 );
+const createChannelInfo = document.getElementById("create-channel-form");
 
 // チャンネル作成ボタンが押された時にモーダルを表示する
 createChannelButton.addEventListener("click", () => {
@@ -13,11 +14,17 @@ createChannelButton.addEventListener("click", () => {
 // モーダル内のXボタンが押されたときにモーダルを閉じる
 closeButton.addEventListener("click", () => {
   createChannelModal.style.display = "none";
+  if (createChannelInfo) {
+    createChannelInfo.reset();
+  }
 });
 
 // 画面のどこかが押された時にモーダルを閉じる
 addEventListener("click", (e) => {
   if (e.target === createChannelModal) {
     createChannelModal.style.display = "none";
+    if (createChannelInfo) {
+      createChannelInfo.reset();
+    }
   }
 });
